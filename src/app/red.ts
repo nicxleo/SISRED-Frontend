@@ -16,4 +16,5 @@ export class Red {
   horasEstimadas: number;
   proyectoConectate: ProyectoConectate| undefined;
   historialEstados: HistorialEstados[] | undefined;
+  fase: string;
 }

@@ -1,1 +1,1 @@
-export const ESTADOS : string[] = ['Preproducción', 'Producción', 'Postproducción']
+export const ESTADOS : string[] = ['En proceso', 'Terminado', 'Cancelado']

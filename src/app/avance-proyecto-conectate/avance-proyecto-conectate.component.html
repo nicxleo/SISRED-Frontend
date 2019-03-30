@@ -1,5 +1,5 @@
 <div *ngIf="proyecto">
-  <h2 style="text-align:center">Avance de Proyecto Conecta-TE - {{proyecto.nombreCorto}}</h2>
+  <h2 style="text-align:center">Avance de Proyecto Conecta-TE - {{proyecto.nombre}}</h2>
   <div class="info-proyecto-c">
     <span><b>Nombre Proyecto Conecta-TE:</b> {{proyecto.nombre}}</span>
     <span><b>Responsable:</b> el responsable</span>
@@ -7,7 +7,7 @@
   </div>
 
   <h3>Avance Proyecto</h3>
-  <span>10%</span>
+  <span>{{avance}}%</span>
 
   <h3>Horas Estimadas</h3>
   <span>{{horasEstimadas}}</span>
@@ -16,9 +16,26 @@
   <span>{{horasTrabajadas}}</span>
 
   <h3>REDs por Fase</h3>
-  <p *ngFor="let n of estadosRed; let i = index"><b>{{estados[i]}}:</b> {{n}}</p>
+  <p *ngFor="let n of fasesReds; let i = index"><b>{{fases[i]}}:</b> {{n}}</p>
+  
+  <h3>REDs terminados a tiempo</h3>
+  <p *ngFor="let n of estadosReds; let i = index"><b>{{estados2[i]}}:</b> {{n}}</p>
 
-  <h3>Porcentaje de REDs completados</h3>
+  <h3>REDs producidos anualmente</h3>
+    <table>
+    <tr>
+      <th></th>
+      <th *ngFor="let ria of redsIniciadosAnual; let i = index">{{i+yearInicio}}</th>
+    </tr>
+    <tr>
+      <td>Iniciados</td>
+      <td *ngFor="let ria of redsIniciadosAnual">{{ria}}</td>
+    </tr>
+    <tr>
+      <td>Terminados</td>
+      <td *ngFor="let rta of redsTerminadosAnual">{{rta}}</td>
+    </tr>
+  </table>
 
   <h3>Personas en el proyecto</h3>
   <table>
@@ -29,6 +46,26 @@
     <tr *ngFor="let rol of roles; let i = index">
       <td>{{rol}}</td>
       <td *ngFor="let p of personas">{{p.roles[i]}}</td>
+    </tr>
+  </table>
+
+  <h3>Lista de Recursos Educativos Digitales (REDs) del Proyecto Conecta-TE</h3>
+  <table>
+    <tr>
+      <th>Nombre Red</th>
+      <th>Fecha Inicio</th>
+      <th>Fecha Cierre</th>
+      <th>Fase Actual</th>
+      <th>Num. Productores</th>
+      <th>Acciones</th>
+    </tr>
+    <tr *ngFor="let red of reds">
+      <td>{{red.nombre}}</td>
+      <td>{{red.fechaInicio | date}}</td>
+      <td>{{red.fechaCierre | date}}</td>
+      <td>{{red.fase}}</td>
+      <td>ni idea</td>
+      <td><button type="button" class="btn btn-block btn-primary fa fa-search">ver detalle</button></td>
     </tr>
   </table>
 </div>

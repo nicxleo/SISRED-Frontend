@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { RolAsignado } from '../rolAsignado';
 import { Usuario } from '../usuario';
 import { Red } from '../red';
-import { ASIGNACIONES } from '../mock-asignaciones';
+import { AsignacionService } from '../asignacion.service';
 
 @Component({
   selector: 'app-reds-por-persona',
@@ -11,9 +11,10 @@ import { ASIGNACIONES } from '../mock-asignaciones';
 })
 export class RedsPorPersonaComponent implements OnInit {
 
-  asignaciones: RolAsignado[] = ASIGNACIONES
+  asignaciones: RolAsignado[] = [];
   asignFiltradas: RolAsignado[] = []
   usuarios: Usuario[] = []
+  valor: string;
 
   initUsuarios() {
     for(let asign of this.asignaciones) {
@@ -25,13 +26,22 @@ export class RedsPorPersonaComponent implements OnInit {
   }
 
   onChangeUsuario(id: string) {
+    this.valor = id;
     this.asignFiltradas = this.asignaciones.filter(asign => asign.usuario.numeroIdentificacion === id)
   }
 
-  constructor() { }
+  getAsignaciones(): void {
+    this.asignacionService.getAsignaciones()
+      .subscribe(asignaciones => {
+        this.asignaciones = asignaciones;
+        this.initUsuarios();
+      });
+  }
+
+  constructor(private asignacionService: AsignacionService) { }
 
   ngOnInit() {
-    this.initUsuarios();
+    this.getAsignaciones();
   }
 
 }

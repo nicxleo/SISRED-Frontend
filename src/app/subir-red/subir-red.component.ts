@@ -1,6 +1,8 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
-import { DatePipe } from '@angular/common';
-import {FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {Component, ElementRef, ViewChild} from '@angular/core';
+import {DatePipe} from '@angular/common';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {SubirRedService} from './subir-red.service';
+import {HttpClient} from '@angular/common/http';
 
 @Component({
   selector: 'app-subir-red',
@@ -8,23 +10,27 @@ import {FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./subir-red.component.css']
 })
 export class SubirREDComponent {
-
+  vLstProyectosRED: ProyectoRED[];
+  vLstRecurso: Recurso[];
+  vLstRED: RED[];
   form: FormGroup;
 
   @ViewChild('fileInput') fileInput: ElementRef;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, public subirRedService: SubirRedService, private http: HttpClient) {
     this.createForm();
   }
 
   createForm() {
     this.form = this.fb.group({
       comments: ['', Validators.required],
-      REDFile: null
+      REDFile: null,
+      RED: null,
     });
   }
 
   onFileChange(event) {
+    console.log(event);
     if (event.target.files.length > 0) {
       const file = event.target.files[0];
       this.form.get('REDFile').setValue(file);
@@ -40,13 +46,41 @@ export class SubirREDComponent {
 
   onSubmit() {
     const formModel = this.prepareSave();
-    // http post API URL goes here instead of the timer...
-    //this.http.post('apiUrl', formModel)
+    const file = formModel.get('REDFile');
+    const red = new RED();
+    const recurso = new Recurso();
+    recurso.nombre = file.name;
+    recurso.archivo = file;
+    recurso.descripcion = formModel.get('comments');
+    recurso.thumbnail = '';
+    recurso.fechaCreacion = null;
+    recurso.fechaUltimaModificacion = file.lastModifiedDate;
+    recurso.tipo = file.type;
+    red.recurso = recurso;
+
+    formModel.append('RED', red);
+
+    this.addRED(formModel);
+
     setTimeout(() => {
-      console.log(formModel.get('comments'));
-      console.log(formModel.get('REDFile'));
-      alert('done!');
+      alert('Archivo enviado!');
     }, 1000);
+  }
+
+  getProyectosRED() {
+    this.subirRedService.getProyectosRED().subscribe(response => this.vLstProyectosRED = response);
+  }
+
+  getRecurso() {
+    this.subirRedService.getRecurso().subscribe(response => this.vLstRecurso = response);
+  }
+
+  getRED() {
+    this.subirRedService.getRED().subscribe(response => this.vLstRED = response);
+  }
+
+  addRED(pObject: FormData) {
+    this.subirRedService.addRED(pObject);
   }
 }
 
@@ -79,4 +113,5 @@ export class RED {
   solicitante: string;
   horasEstimadas: bigint;
   horasTrabajadas: bigint;
+  recurso: Recurso;
 }
