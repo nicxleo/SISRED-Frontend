@@ -32,10 +32,11 @@ export class RedsPorPersonaComponent implements OnInit {
 
   getAsignaciones(): void {
     this.asignacionService.getAsignaciones()
-      .subscribe(asignaciones => {
+      .then(asignaciones => {
         this.asignaciones = asignaciones;
         this.initUsuarios();
-      });
+      })
+      .catch(err => console.log(err));
   }
 
   constructor(private asignacionService: AsignacionService) { }
