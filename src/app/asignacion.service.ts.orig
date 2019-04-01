@@ -31,7 +31,11 @@ export class AsignacionService {
         let asignacion1 = new RolAsignado();
         console.log('a');
         asignacion1.fechaInicio = dataItem.fecha_inicio;
+<<<<<<< HEAD
+        asignacion1.fechaFin = dataItem.fecha_fin === null ? '' : fecha_fin;
+=======
         asignacion1.fechaFin = dataItem.fecha_fin === null ? '' : dataItem.fecha_fin;
+>>>>>>> origin/Equipo2Sprint1
         asignacion1.rol = dataItem.rol.nombre;
         let red = new Red();
         red.codigo = dataItem.red.codigo;
