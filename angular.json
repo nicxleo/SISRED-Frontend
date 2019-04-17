@@ -25,7 +25,16 @@
             "styles": [
               "src/styles.css"
             ],
-            "scripts": [],
+            "scripts": [
+              "src/assets/AdminLTE/bower_components/jquery/dist/jquery.min.js",  
+              "src/assets/AdminLTE/bower_components/bootstrap/dist/js/bootstrap.min.js", 
+              "src/assets/AdminLTE/bower_components/fastclick/lib/fastclick.js", 
+              "src/assets/AdminLTE/dist/js/adminlte.min.js",
+              "src/assets/AdminLTE/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js",
+              "src/assets/js/DatePicker.js",
+              "src/assets/js/DropboxScript.js",
+              "src/assets/js/Init.js"
+            ],
             "es5BrowserSupport": true
           },
           "configurations": {

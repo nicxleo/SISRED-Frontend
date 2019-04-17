@@ -1,0 +1,98 @@
+<p>
+<ngb-alert *ngIf="successMessage" type="success" (close)="successMessage = null">{{ successMessage }}</ngb-alert>
+</p>
+
+<div class="details-container content-wrapper">
+  <form [formGroup]="detailResourceForm">
+    <div class="row border bg-primary">
+      <div class="col-sm">
+        <h3>Recurso: {{ resourceDetailsoModel?.name }}</h3>
+      </div>
+    </div>
+    <div class="row border align-items-center">
+      <div class="col-sm">
+        <div class="text-center">
+          <img [src]="resourceDetailsoModel?.thumbnail" width="100" height="100" />
+        </div>
+      </div>
+    </div>
+    <div class="row" *ngIf="showInputText">
+      <div class="col-sm-6 border">Nombre</div>
+      <div class="col-sm-6 border">
+        <input formControlName="name" [(ngModel)]="resourceDetailsoModel.name" type="text" id="inputName"
+          placeholder="Nombre" />
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-6 border">Tipo</div>
+      <div class="col-sm-6 border">
+        {{ resourceDetailsoModel?.type }}
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-6 border">Autor</div>
+      <div class="col-sm-6 border">
+        {{ resourceDetailsoModel?.author }}
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-6 border">Fecha creacion</div>
+      <div class="col-sm-6 border">
+        {{ resourceDetailsoModel?.creationDate | date: "dd-MM-yyyy" }}
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-6 border">Responsable</div>
+      <div class="col-sm-6 border">
+        {{ resourceDetailsoModel?.lastUserModification }}
+      </div>
+    </div>
+
+
+    <div class="row">
+      <div class="col-sm-6 border">Fecha actualizacion</div>
+      <div class="col-sm-6 border">
+        {{ resourceDetailsoModel?.updateDate | date: "dd-MM-yyyy" }}
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-6 border">Descripcion</div>
+      <div *ngIf="!showInputText" class="col-sm-6 border">
+        {{ resourceDetailsoModel?.description }}
+      </div>
+      <div *ngIf="showInputText" class="col-sm-6 border">
+        <textarea rows="4" cols="38" formControlName="description" [(ngModel)]="resourceDetailsoModel.description"
+          type="text" id="inputDescription" placeholder="Description">
+        </textarea>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-6 border">Metadata</div>
+      <div class="col-sm-6 border">
+        <div class="btn-group btn-space" role="group" *ngFor="let metadata of resourceDetailsoModel?.metadata">
+          <button type="button" class="btn btn-outline-primary">
+            {{ metadata.tag }}
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="row border">
+      <button *ngIf="!showInputText" type="button" (click)="edit()" class="btn btn-primary btn-lg btn-block">
+        Modificar
+      </button>
+
+      <button *ngIf="showInputText" type="button" (click)="updateResource()" class="btn btn-primary btn-lg btn-block"
+        [disabled]="!detailResourceForm.valid">
+        Actualizar
+      </button>
+      <button *ngIf="showInputText" type="button" (click)="cancelEdit()" class="btn btn-secondary btn-lg btn-block">
+        Cancelar
+      </button>
+    </div>
+  </form>
+</div>

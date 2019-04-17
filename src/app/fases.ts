@@ -1,1 +1,0 @@
-export const FASES: string[] = ['Pre-producción', 'Producción', 'Pos-producción']
