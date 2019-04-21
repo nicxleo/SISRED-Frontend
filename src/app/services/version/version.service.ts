@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { Dropbox } from 'dropbox';
 import fetch from 'isomorphic-fetch';
 import { environment } from './../../../environments/environment';
+import { map } from 'rxjs/operators';
 
 
 @Injectable({
@@ -12,6 +13,7 @@ import { environment } from './../../../environments/environment';
 })
 export class VersionService {
   API_URL = environment.apiUrl + 'reds/{id}/versiones/';
+  MARCAR_VERSION_URL = environment.apiUrl + 'versiones/{id}/marcar';
   private versiones: Array<Version> = [];
 
   constructor(private httpClient: HttpClient) { }
@@ -43,5 +45,10 @@ export class VersionService {
     let dbx = new Dropbox({ accessToken: ACCESS_TOKEN, fetch });
     
     return dbx.filesGetTemporaryLink({path: ruta});
+  }
+
+  markAsFinal(versionNumero: number): Observable<Version> {
+    const apiUrlMarcar = this.MARCAR_VERSION_URL.replace('{id}', versionNumero.toString());
+    return this.httpClient.post<Version>(apiUrlMarcar, "");
   }
 }
