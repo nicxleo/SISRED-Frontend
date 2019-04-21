@@ -26,6 +26,7 @@ export class VersionService {
       this.httpClient.get(apiUrlFinal).subscribe((data: any) => {
         data.context.forEach(dataItem => {
           const version = new Version();
+          version.id = dataItem.id;
           version.numero = dataItem.numero;
           version.fechaCreacion = dataItem.fecha_creacion;
           version.creadoPor = dataItem.creado_por.usuario.username;
