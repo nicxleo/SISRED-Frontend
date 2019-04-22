@@ -32,19 +32,27 @@ export class VersionService {
           version.creadoPor = dataItem.creado_por.usuario.username;
           version.esFinal = dataItem.es_final;
           version.imagen = dataItem.imagen;
-          version.url = ''
+          version.url = '';
           this.versiones.push(version);
         });
-        resolve(this.versiones)
+        // Ordena la lista de versiones por fecha de manera descendiente
+        let versionesSorted: Array<Version>;
+        versionesSorted = this.versiones.slice(0);
+        versionesSorted.sort((leftSide, rightSide): number => {
+          const leftSideDate = new Date(leftSide.fechaCreacion);
+          const rightSideDate = new Date(rightSide.fechaCreacion);
+          if (leftSideDate < rightSideDate) { return 1; }
+          if (leftSideDate > rightSideDate) { return -1; }
+          return 0;
+        });
+        resolve(versionesSorted);
       });
     });
-    
   }
 
   getImagenVersion(ruta: string): Promise<any> {
-    let ACCESS_TOKEN = 'FOsYIGqxyoAAAAAAAAAACo5sRYD5XCAOZy15c341h99QLcgRWBeiWQfRgnCOt0Gq';
-    let dbx = new Dropbox({ accessToken: ACCESS_TOKEN, fetch });
-    
+    const ACCESS_TOKEN = 'FOsYIGqxyoAAAAAAAAAACo5sRYD5XCAOZy15c341h99QLcgRWBeiWQfRgnCOt0Gq';
+    const dbx = new Dropbox({ accessToken: ACCESS_TOKEN, fetch });
     return dbx.filesGetTemporaryLink({path: ruta});
   }
 
