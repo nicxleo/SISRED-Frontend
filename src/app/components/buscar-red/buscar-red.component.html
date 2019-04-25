@@ -1,0 +1,107 @@
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <h1>
+      Buscar REDs
+    </h1>
+    <ol class="breadcrumb">
+      <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>        
+      <li class="active">Buscar REDs</li>
+    </ol>
+  </section>
+
+  <!-- Main content -->
+  <section class="content">
+    <div class="row">
+      <!-- left column -->
+      <div class="col-md-12">
+        <!-- general form elements -->
+        <div class="box box-primary">            
+          <!-- form start -->
+          <form role="form" [formGroup]="buscarRedForm">
+            <div class="box">
+                <div class="box-header with-border">
+                  <h3 class="box-title">Complete los filtros de búsqueda</h3>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+
+                  <div class="form-group">
+                    <label for="fechaInicio">fecha inicio</label>
+                    <div class="input-group date" (click)="d1.open()">
+                      <input type="text" class="form-control" placeholder="yyyy-mm-dd" ngbDatepicker #d1="ngbDatepicker" formControlName="fechaInicio">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="fechaCierre">fecha cierre</label>
+                    <div class="input-group" (click)="d2.open()">
+                      <input type="text" class="form-control" placeholder="yyyy-mm-dd" ngbDatepicker #d2="ngbDatepicker" formControlName="fechaCierre">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="palabra">texto</label>
+                    <input type="text" class="form-control" placeholder="texto" formControlName="palabra">
+                  </div>
+                </div>
+                <!-- /.box-body -->            
+              </div>
+              <!-- /.box -->
+
+            <div class="box-footer">
+              <button type="submit" class="btn btn-default" (click)="buscarRed()">Buscar</button>            
+            </div>
+            <!-- /.box-footer -->
+          </form>
+
+          <div class="box">
+            <div class="box-header">
+              <h3 class="box-title">Resultados de la búsqueda</h3>
+            </div>
+            <div class="box-body">
+              <div *ngIf="reds.length !== 0">
+                <table class="table" >
+                  <thead>
+                    <tr>
+                      <th scope="col">Nombre del RED</th>
+                      <th scope="col">Descripción</th>
+                      <th scope="col">Fecha de inicio</th>
+                      <th scope="col">Fecha de cierre</th>
+                      <th scope="col">Tipo</th>
+                      <th scope="col">Detalle</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let red of redsSinRepetir.slice((pagina-1)*paginaSize, pagina*paginaSize)">
+                      <td>{{red.nombre}}</td>
+                      <td>{{red.descripcion}}</td>
+                      <td>{{red.fechaInicio}}</td>
+                      <td>{{red.fechaCierre}}</td>
+                      <td>{{red.tipo}}</td>
+                      <td>
+                        <button type="button" class="btn btn-primary" [routerLink]="['/red/' + red.id + '/detalle']">
+                          Ver detalle
+                        </button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+                <ngb-pagination class="d-flex justify-content-center" *ngIf="reds.length > paginaSize" [collectionSize]="redsSinRepetir.length" [(page)]="pagina" [maxSize]="5" [pageSize]="paginaSize" [rotate]="true" [boundaryLinks]="true"></ngb-pagination>
+              </div>
+              <span *ngIf="reds.length === 0">Sin Resultados</span>
+            </div>
+          </div>
+        </div>
+        <!-- /.box -->        
+      </div>
+      <!--/.col (left) -->
+      <!-- /.row -->
+    </div>
+    <!-- /.row -->
+  </section>
+  <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+<ngx-spinner bdOpacity = 0.9bd Color = "rgba(34,31,31,0)" size = "medium" color = "#000000" type = "ball-spin" fullScreen = "true">
+  <p style="color: white"> Cargando... </p>
+</ngx-spinner>

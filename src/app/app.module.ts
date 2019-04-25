@@ -3,7 +3,7 @@ import { NgModule } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { HttpModule } from '@angular/http';
 import { BrowserModule } from "@angular/platform-browser";
-import { NgbAlertModule, NgbPaginationModule } from "@ng-bootstrap/ng-bootstrap";
+import { NgbAlertModule, NgbPaginationModule, NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { NgSpinKitModule } from "ng-spin-kit";
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
@@ -28,6 +28,7 @@ import { HeaderComponent } from './components/dashboard/header/header.component'
 import { SideBarComponent } from './components/dashboard/side-bar/side-bar.component';
 import { FooterComponent } from './components/dashboard/footer/footer.component';
 import { TabPanesComponent } from './components/dashboard/tab-panes/tab-panes.component';
+import { BuscarRedComponent } from './components/buscar-red/buscar-red.component';
 
 
 @NgModule({
@@ -51,7 +52,8 @@ import { TabPanesComponent } from './components/dashboard/tab-panes/tab-panes.co
     HeaderComponent,
     SideBarComponent,
     FooterComponent,
-    TabPanesComponent    
+    TabPanesComponent,
+    BuscarRedComponent    
   ],
   imports: [
     AppRoutingModule,
@@ -64,6 +66,7 @@ import { TabPanesComponent } from './components/dashboard/tab-panes/tab-panes.co
     NgSpinKitModule,
     NgbAlertModule,
     NgbPaginationModule,
+    NgbModule,
     HttpModule,
     NgxSpinnerModule
   ],
