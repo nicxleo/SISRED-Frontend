@@ -100,6 +100,7 @@ export class DetalleREDComponent implements OnInit {
   }
 
   getImagenesVersiones(): void {
+    console.log(this.versiones);
     this.versiones.forEach(version => {
       this.versionesService.getImagenVersion(version.imagen)
         .then(response => {

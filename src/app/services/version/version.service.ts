@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
-import { Version } from './version.model';
+import { HttpHeaders } from '@angular/common/http';
+import { CrearVersionModel, Version } from './version.model';
+import { Recurso } from '../recurso/recurso.model';
 import { HttpClient } from '@angular/common/http';
 import { Dropbox } from 'dropbox';
 import fetch from 'isomorphic-fetch';
 import { environment } from './../../../environments/environment';
-import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 
 @Injectable({
@@ -13,7 +14,10 @@ import { map } from 'rxjs/operators';
 })
 export class VersionService {
   API_URL = environment.apiUrl + 'reds/{id}/versiones/';
+  API_URL_CREAR = environment.apiUrl + 'versiones/';
+  ACCESS_TOKEN = 'FOsYIGqxyoAAAAAAAAAACo5sRYD5XCAOZy15c341h99QLcgRWBeiWQfRgnCOt0Gq';
   MARCAR_VERSION_URL = environment.apiUrl + 'versiones/{id}/marcar';
+
   private versiones: Array<Version> = [];
 
   constructor(private httpClient: HttpClient) { }
@@ -51,13 +55,52 @@ export class VersionService {
   }
 
   getImagenVersion(ruta: string): Promise<any> {
-    const ACCESS_TOKEN = 'FOsYIGqxyoAAAAAAAAAACo5sRYD5XCAOZy15c341h99QLcgRWBeiWQfRgnCOt0Gq';
-    const dbx = new Dropbox({ accessToken: ACCESS_TOKEN, fetch });
+    const dbx = new Dropbox({ accessToken: this.ACCESS_TOKEN, fetch });
     return dbx.filesGetTemporaryLink({path: ruta});
+  }
+
+  crearVersionRed(model: CrearVersionModel, idRed: number): Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        Authorization: 'my-auth-token'
+      })
+    };
+    return this.httpClient.post<CrearVersionModel>(this.API_URL_CREAR, model, httpOptions);
+  }
+
+  crearVersionDropbox(idRed: number, consecutivo: number, recursos: Array<Recurso>, thumbnail: File) {
+    const dbx = new Dropbox({ accessToken: this.ACCESS_TOKEN });
+    const pathToVersion = '/Reds/' + idRed + '/Versiones/' + consecutivo;
+
+    this.createFolderVersionDropbox(dbx, pathToVersion);
+    this.copyFiles(dbx, pathToVersion, idRed, recursos);
+    this.uploadThumbnail(dbx, thumbnail, pathToVersion);
+  }
+
+  createFolderVersionDropbox(dbx: Dropbox, pathToVersion: string) {
+    dbx.filesCreateFolderV2({path: pathToVersion, autorename: false});
+  }
+
+  uploadThumbnail(dbx: Dropbox, thumbnail: File, pathToVersion: string) {
+    const fullPath = pathToVersion + '/' + thumbnail.name;
+    dbx.filesUpload({contents: thumbnail.slice(), path: fullPath});
+  }
+
+  copyFiles(dbx: Dropbox, pathToVersion: string, idRed: number, recursos: Array<Recurso>) {
+    const filesRelocationPath = [];
+    for (const recurso of recursos) {
+      const pathName = 'Reds/' + idRed + '/Recursos/';
+      const fullPathRecursoRed = recurso.archivo;
+      const relativePathRecursoRed = recurso.archivo.substring(pathName.length, recurso.archivo.length);
+      const versionPath = pathToVersion + relativePathRecursoRed;
+      filesRelocationPath.push({from_path: fullPathRecursoRed, to_path: versionPath});
+    }
+    dbx.filesCopyBatchV2({entries: filesRelocationPath, autorename: false});
   }
 
   markAsFinal(versionNumero: number): Observable<Version> {
     const apiUrlMarcar = this.MARCAR_VERSION_URL.replace('{id}', versionNumero.toString());
-    return this.httpClient.post<Version>(apiUrlMarcar, "");
+    return this.httpClient.post<Version>(apiUrlMarcar, '');
   }
 }
