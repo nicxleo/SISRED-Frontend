@@ -14,7 +14,7 @@ declare function setup(): any;
 export class BuscarRedComponent implements OnInit {
 
   public buscarRedForm: FormGroup;
-  userId: number = 4;
+  userId: number = 5;
   reds: Red[] = [];
   redsSinRepetir: Red[] = [];
   pagina: number = 1;

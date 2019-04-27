@@ -1,6 +1,6 @@
-import { HttpClientModule } from "@angular/common/http";
-import { NgModule } from "@angular/core";
-import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { HttpClientModule } from '@angular/common/http';
+import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { BrowserModule } from "@angular/platform-browser";
 import { NgbAlertModule, NgbPaginationModule, NgbModule } from "@ng-bootstrap/ng-bootstrap";
@@ -30,6 +30,7 @@ import { FooterComponent } from './components/dashboard/footer/footer.component'
 import { TabPanesComponent } from './components/dashboard/tab-panes/tab-panes.component';
 import { RedCrearVersionComponent } from './components/red-crear-version/red-crear-version.component';
 import { BuscarRedComponent } from './components/buscar-red/buscar-red.component';
+import { VerVersionRedComponent } from './components/ver-version-red/ver-version-red.component';
 
 
 @NgModule({
@@ -54,6 +55,7 @@ import { BuscarRedComponent } from './components/buscar-red/buscar-red.component
     SideBarComponent,
     FooterComponent,
     TabPanesComponent,
+    VerVersionRedComponent,
     RedCrearVersionComponent,
     BuscarRedComponent
   ],

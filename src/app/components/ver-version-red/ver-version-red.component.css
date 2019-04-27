@@ -1,0 +1,24 @@
+.right {
+  text-align: right;
+}
+
+.center {
+  text-align: center;
+}
+
+.italic {
+  font-style: italic;
+}
+
+.info {
+  font-size: 15px;
+}
+
+.img-config {
+  border: black 1px solid;
+  height: 100%
+}
+
+.img-height {
+  height: 400px
+}

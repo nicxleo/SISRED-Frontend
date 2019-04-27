@@ -9,6 +9,9 @@ export class Version {
   imagen: string;
   url: string;
   esFinal: boolean;
+  nombreRed: string;
+  nombreConectate: string;
+  archivos: string;
 }
 
 export class CrearVersionModel {
