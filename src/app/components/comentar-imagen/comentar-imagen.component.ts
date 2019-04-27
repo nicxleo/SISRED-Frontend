@@ -96,6 +96,7 @@ export class ComentarImagenComponent implements OnInit {
 
     this.mostrarCaja = true;
     this.drag = false;
+    this.seleccionado = undefined;
   }
 
   ngOnInit() {
