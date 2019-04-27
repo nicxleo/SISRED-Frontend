@@ -6,7 +6,6 @@ import {Observable, of} from 'rxjs';
 import {Recurso} from './recurso.model';
 import { Dropbox } from 'dropbox';
 import fetch from 'isomorphic-fetch';
-import { promise } from 'protractor';
 
 @Injectable({
   providedIn: 'root'
@@ -52,6 +51,7 @@ export class VerVersionRedService {
           vObjeto.thumbnail = item.thumbnail;
           vObjeto.descripcion = item.descripcion;
           vObjeto.archivo = item.archivo;
+          vObjeto.id = item.id;
           vLstRecurso.push(vObjeto);
         });
         resolve(vLstRecurso)

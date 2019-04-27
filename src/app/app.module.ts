@@ -5,6 +5,7 @@ import { HttpModule } from '@angular/http';
 import { BrowserModule } from "@angular/platform-browser";
 import { NgbAlertModule, NgbPaginationModule, NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { NgSpinKitModule } from "ng-spin-kit";
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { AddRedComponent } from "./components/add-red/add-red.component";
@@ -28,6 +29,7 @@ import { HeaderComponent } from './components/dashboard/header/header.component'
 import { SideBarComponent } from './components/dashboard/side-bar/side-bar.component';
 import { FooterComponent } from './components/dashboard/footer/footer.component';
 import { TabPanesComponent } from './components/dashboard/tab-panes/tab-panes.component';
+import { ComentarImagenComponent } from './components/comentar-imagen/comentar-imagen.component';
 import { RedCrearVersionComponent } from './components/red-crear-version/red-crear-version.component';
 import { BuscarRedComponent } from './components/buscar-red/buscar-red.component';
 import { VerVersionRedComponent } from './components/ver-version-red/ver-version-red.component';
@@ -55,6 +57,7 @@ import { VerVersionRedComponent } from './components/ver-version-red/ver-version
     SideBarComponent,
     FooterComponent,
     TabPanesComponent,
+    ComentarImagenComponent,
     VerVersionRedComponent,
     RedCrearVersionComponent,
     BuscarRedComponent
@@ -72,7 +75,8 @@ import { VerVersionRedComponent } from './components/ver-version-red/ver-version
     NgbPaginationModule,
     NgbModule,
     HttpModule,
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    CKEditorModule
   ],
   providers: [AgregarRecursoClientService, ResourceDetailsRestClientService],
   bootstrap: [AppComponent]

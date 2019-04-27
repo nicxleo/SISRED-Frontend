@@ -5,4 +5,6 @@ export class Recurso {
   fechaCreacion: string;
   descripcion: string;
   archivo: string;
+  id: string;
+  url: string;
 }

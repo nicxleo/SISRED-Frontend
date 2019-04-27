@@ -49,7 +49,7 @@
                       <td>{{recurso.nombre}}</td>
                       <td>{{getExtencion(recurso.archivo)}}</td>
                       <td class="text-center">
-                        <button type="button" class="btn btn-primary">Comentar</button>
+                        <button type="button" class="btn btn-primary" routerLink="archivo/{{recurso.id}}/comentar">Comentar</button>
                       </td>
                       <td class="text-center">
                         <a id="linkRecurso{{i}}">Descargar</a>

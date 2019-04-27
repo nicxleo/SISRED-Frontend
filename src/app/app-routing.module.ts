@@ -15,6 +15,7 @@ import { RedsRelacionadosComponent } from './components/reds-relacionados/reds-r
 import { VerAvanceRedComponent } from './components/ver-avance-red/ver-avance-red.component';
 import {VerVersionRedComponent} from './components/ver-version-red/ver-version-red.component';
 import { VersionRedRevisionComponent } from './components/version-red-revision/version-red-revision.component';
+import { ComentarImagenComponent } from './components/comentar-imagen/comentar-imagen.component';
 import { RedCrearVersionComponent } from './components/red-crear-version/red-crear-version.component';
 import { BuscarRedComponent } from './components/buscar-red/buscar-red.component';
 
@@ -30,6 +31,7 @@ const routes: Routes = [
     component: RedsRelacionadosComponent
   },
   { path: 'reds/:idUsuario', component: RedAsignadosComponent },
+  { path: 'red/version/:idVersion/archivo/:idRecurso/comentar', component: ComentarImagenComponent },
   { path: 'buscarRed', component: BuscarRedComponent },
   {
     path: 'red/:idRed/version/:version',

@@ -34,8 +34,6 @@ export class VerVersionRedComponent implements OnInit {
     this.verVersionRedService.getVersion(this.idVersion)
     .then(vVersion =>{
       this.objVersion = vVersion;
-      console.log('prueba 2');
-      console.log(vVersion);
       this.getImagenesVersiones();
       this.initDescargarZip();
     })
@@ -48,8 +46,6 @@ export class VerVersionRedComponent implements OnInit {
     this.verVersionRedService.getRecursosVersion(this.idVersion)
       .then(vLstRecurso => {
         this.objRecursosVersion = vLstRecurso;
-        console.log('aver');
-        console.log(vLstRecurso);
         this.initDescartaRecursos();
       });
   }
@@ -59,8 +55,6 @@ export class VerVersionRedComponent implements OnInit {
    
   getImagenesVersiones(): void {
     if (this.objVersion){
-      console.log('prueba');
-      console.log(this.objVersion);
       this.verVersionRedService.getImagenVersion(this.objVersion.imagen)
         .then(response => {
           this.objVersion.url = response.link;
@@ -85,10 +79,8 @@ export class VerVersionRedComponent implements OnInit {
         linkDescarga.setAttribute('href', urlDescarga);
         linkDescarga.setAttribute('download', `version${this.objVersion.numero}.zip`)
         this.mensajeLink = 'Descargar archivos de la versión';
-        console.log('yesss');
       })
       .catch(err => {
-        console.log('noooo');
         console.log(err);
       });
   }
@@ -101,7 +93,6 @@ export class VerVersionRedComponent implements OnInit {
           let linkDescarga = document.getElementById(`linkRecurso${i}`);
           linkDescarga.setAttribute('href', urlDescarga);
           linkDescarga.setAttribute('download', recurso.archivo.substr(recurso.archivo.lastIndexOf('/')+1))
-          console.log('bien uno');
         });
     })
   } 

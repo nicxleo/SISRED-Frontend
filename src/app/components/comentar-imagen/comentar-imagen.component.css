@@ -1,0 +1,8 @@
+.comentario:hover {
+    background-color: #f2f2f2;
+    cursor: pointer;
+}
+
+.selected {
+    background-color: #e8f4fd;
+}

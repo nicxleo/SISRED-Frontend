@@ -1,0 +1,58 @@
+<!-- Content Wrapper. Contains page content -->
+<div class="marginH content-wrapper">
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <h1>
+      Comentar archivo de versión
+    </h1>
+    <ol class="breadcrumb">
+      <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+      <li>REDs</li>
+      <li>Versiones</li>
+      <li class="active">Comentar archivo</li>
+    </ol>
+  </section>
+
+  <!-- Main content -->
+  <section class="content">
+    <div class="row">
+      <!-- left column -->
+      <div class="col-md-12">
+        <!-- general form elements -->
+
+        <div class="box box-primary">
+          <div class="box">
+
+            <div class="box-body">
+                <canvas #myCanvas width="400" height="400" 
+                style="background:lightgray;" 
+                (mousedown)="mdEvent($event)" 
+                (mouseup)="muEvent($event)" 
+                (mousemove)="mmEvent($event)">
+                </canvas>
+                <div *ngIf="mostrarCaja">
+                  <ckeditor [editor]="Editor" (change)="onChangeComentario($event)"></ckeditor>
+                  <button class="btn btn-default" (click)="initCanvas()">Cancelar</button>
+                  <button class="btn btn-primary" (click)="publicarComentario()">Comentar</button>
+                </div>
+                <div *ngFor="let coment of comentarios.reverse()" (click)="seleccionarComentario(coment)" class="box comentario" [class.selected]="coment===seleccionado">
+                  <div class="box-header with-border row">
+                    <div class="col-sm-6 info text-bold">{{coment.usuario}}</div>
+                    <div class="col-sm-6 info right">{{coment.fechaCreacion}}</div>
+                  </div>
+                  <div class="box-body" [innerHTML]="coment.contenido"></div>
+                </div>
+            </div>
+            <!-- /.box-body -->
+          </div>
+          <!-- /.box -->
+        </div>
+        <!-- /.box primary-->
+      </div>
+      <!--/.col (left) -->
+    </div>
+    <!-- /.row -->
+  </section>
+  <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
