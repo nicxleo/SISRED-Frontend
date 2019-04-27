@@ -31,7 +31,7 @@ export class RedAsignadosComponent implements OnInit {
   }
 
   getREDsAsignados(): void {
-    if(this.idUsuario == null) this.idUsuario = 4;
+    if(this.idUsuario == null) this.idUsuario = 5;
     this.redAsignadosService.getREDs(this.idUsuario).subscribe(redsAsignado => this.redsAsignados = redsAsignado);
   }
 
