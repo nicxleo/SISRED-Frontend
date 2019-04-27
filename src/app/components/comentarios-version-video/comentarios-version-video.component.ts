@@ -2,6 +2,7 @@ import {Component, OnInit, AfterViewInit} from '@angular/core';
 import {AnnotationComments} from '@contently/videojs-annotation-comments';
 import {CommentsVersionVideoService} from '../../services/recurso/comments-version-video.service';
 import {ActivatedRoute} from '@angular/router';
+import { ChangeDetectorRef } from '@angular/core';
 
 declare let videojs: any;
 declare function setup(): any;
@@ -19,7 +20,7 @@ export class ComentariosVersionVideoComponent implements OnInit, AfterViewInit {
   idVersion = 0;
   idRecurso = 1;
   pluginOptions: any;
-  annotations: any;
+  annotations: any[];
   mostrar = true;
   playerOptions = {controlBar: {volumePanel: {inline: false}}};
   player: any;
@@ -28,7 +29,8 @@ export class ComentariosVersionVideoComponent implements OnInit, AfterViewInit {
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private commentsVersionVideoService: CommentsVersionVideoService
+    private commentsVersionVideoService: CommentsVersionVideoService,
+    private cdRef: ChangeDetectorRef
   ) {
     this.idVersion = this.activatedRoute.snapshot.params.idVersion;
     this.idRecurso = this.activatedRoute.snapshot.params.idRecurso;
@@ -43,6 +45,11 @@ export class ComentariosVersionVideoComponent implements OnInit, AfterViewInit {
     this.addPluginVideo();
   }
 
+  ngAfterViewChecked() {
+    //console.log( "! changement de la date du composant !" );
+    this.cdRef.detectChanges();
+  }
+
   getUrlRecursoVideo(): void {
     console.log('URL FIRST');
     this.commentsVersionVideoService.getUrlRecursoVideo(this.idRecurso).subscribe(url => (this.respuestaVideo = url));
@@ -50,7 +57,7 @@ export class ComentariosVersionVideoComponent implements OnInit, AfterViewInit {
 
   addPluginVideo(): void {
     console.log('ADD FIRST');
-    this.commentsVersionVideoService.getCommentsVersionVideo(this.idRecurso).subscribe(comments => (this.annotations = comments));
+    this.consultarComentarios();
 
     this.pluginOptions = {
       annotationsObjects: this.annotations,
@@ -88,7 +95,16 @@ export class ComentariosVersionVideoComponent implements OnInit, AfterViewInit {
       console.log('Persistiendo Comentarios->');
       console.log(event.detail);
       this.commentsVersionVideoService.addVideoComments(this.idVersion, this.idRecurso, event.detail);
+      setTimeout(() => {
+                this.consultarComentarios();
+            }, 1500);
+      this.cdRef.detectChanges();
     });
+
+  }
+
+  consultarComentarios(): void {
+    this.commentsVersionVideoService.getCommentsVersionVideo(this.idRecurso).subscribe(comments => (this.annotations = comments));
   }
 
 }
