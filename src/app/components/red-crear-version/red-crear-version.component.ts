@@ -42,7 +42,6 @@ export class RedCrearVersionComponent implements OnInit {
   // Metodo ejecutado al darle enviar desde la vista
   onSubmit(form: NgForm) {
     this.model.redId = this.idRed;
-    this.model.descripcion = form.value.descripcion;
     this.model.recursosSeleccionados = this.recursosSeleccionados;
     this.model.archivos = '/Reds/' + this.idRed + '/Versiones/' + this.model.consecutivo + '/';
     this.model.imagen = this.model.archivos + this.thumbnail.name;

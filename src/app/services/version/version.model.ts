@@ -20,7 +20,6 @@ export class CrearVersionModel {
   consecutivo: number;
   creado_por: string;
   fechaCreacion: string;
-  descripcion: string;
   imagen: string;
   archivos: string;
   recursosSeleccionados: Array<Recurso>;

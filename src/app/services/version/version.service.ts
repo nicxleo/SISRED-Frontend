@@ -43,10 +43,8 @@ export class VersionService {
         let versionesSorted: Array<Version>;
         versionesSorted = this.versiones.slice(0);
         versionesSorted.sort((leftSide, rightSide): number => {
-          const leftSideDate = new Date(leftSide.fechaCreacion);
-          const rightSideDate = new Date(rightSide.fechaCreacion);
-          if (leftSideDate < rightSideDate) { return 1; }
-          if (leftSideDate > rightSideDate) { return -1; }
+          if (leftSide.numero < rightSide.numero) { return 1; }
+          if (leftSide.numero > rightSide.numero) { return -1; }
           return 0;
         });
         resolve(versionesSorted);
@@ -88,12 +86,14 @@ export class VersionService {
   }
 
   copyFiles(dbx: Dropbox, pathToVersion: string, idRed: number, recursos: Array<Recurso>) {
+    let fullPathRecursoRed;
+    let recursoName
+    let versionPath;
     const filesRelocationPath = [];
     for (const recurso of recursos) {
-      const pathName = 'Reds/' + idRed + '/Recursos/';
-      const fullPathRecursoRed = recurso.archivo;
-      const relativePathRecursoRed = recurso.archivo.substring(pathName.length, recurso.archivo.length);
-      const versionPath = pathToVersion + relativePathRecursoRed;
+      fullPathRecursoRed = recurso.archivo;
+      recursoName = fullPathRecursoRed.substring(fullPathRecursoRed.lastIndexOf('/'), fullPathRecursoRed.length);
+      versionPath = pathToVersion + recursoName;
       filesRelocationPath.push({from_path: fullPathRecursoRed, to_path: versionPath});
     }
     dbx.filesCopyBatchV2({entries: filesRelocationPath, autorename: false});
