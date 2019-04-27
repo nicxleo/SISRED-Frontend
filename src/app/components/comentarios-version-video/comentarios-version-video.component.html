@@ -13,10 +13,12 @@
 
   <div id="video_wrap">
     <div>
+    <!--<div *ngFor="let pathVideo of respuestaVideo">-->
       <video id='my-video' class='video-js' controls preload='auto' width='720' height='405' data-setup='{}'>
-        <source src='https://www.dropbox.com/s/df9eg5pifn7ny9g/%233.%20Scrum%20en%206%20minutos%20-%20Metodolog%C3%ADas%20%C3%81giles.mp4?raw=1' type='video/mp4'>
+        <!--<source src={{pathVideo.url}} type='video/mp4'>-->
+        <source src="https://www.dropbox.com/s/df9eg5pifn7ny9g/%233.%20Scrum%20en%206%20minutos%20-%20Metodolog%C3%ADas%20%C3%81giles.mp4?raw=1" type='video/mp4'>
       </video>
-    </div>
+    <!--</div>-->
 
 
     <div class="row bootstrap snippets">
