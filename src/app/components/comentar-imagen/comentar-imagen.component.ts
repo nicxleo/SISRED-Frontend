@@ -16,7 +16,7 @@ export class ComentarImagenComponent implements OnInit {
 
   public Editor = ClassicEditor;
 
-  usuarioId: number = 5;
+  usuarioId: number = 2;
 
   startX: number;
   startY: number;
