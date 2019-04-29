@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { RedVersionService } from 'src/app/services/red/red-version-service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-version-red-revision',
@@ -12,10 +13,10 @@ export class VersionRedRevisionComponent implements OnInit {
   reds: any[];
   closeResult: string;
   @Input() name;
-  constructor(private redVersionService: RedVersionService,private modalService: NgbModal) { }
+  constructor(private route: ActivatedRoute,private redVersionService: RedVersionService,private modalService: NgbModal) { }
 
   ngOnInit() {
-    this.idRed="S0001";
+    this.idRed = this.route.snapshot.params['idRed'];
   }
   habilitarRed(){
     this.redVersionService.setREDs(this.idRed)
