@@ -12,7 +12,7 @@ import { AutenticacionService } from '../autenticacion/autenticacion.service';
 export class RedAsignadosService {
   API_URL: string = environment.apiUrl + 'reds/asignados/';
 
-  private reds: Array<RedAsignado> = [];
+  public reds: Array<RedAsignado> = [];
 
   constructor(
     private httpClient: HttpClient,
@@ -48,7 +48,6 @@ export class RedAsignadosService {
           this.reds.push(red);
         });
       });
-    console.log(this.reds);
     return of(this.reds);
   }
 }

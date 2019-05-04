@@ -11,7 +11,7 @@ import {RedAsignado} from "../../services/red/RedAsignado";
 })
 export class RedsAsignadosRevisionComponent implements OnInit {
 
-  reds_asignados: RedAsignado[] = null;
+  reds: RedAsignado[] = null;
   idUsuario: number;
 
  constructor(private activatedRoute: ActivatedRoute,
@@ -27,7 +27,7 @@ export class RedsAsignadosRevisionComponent implements OnInit {
 
   getREDsAsignados(): void {
     if(this.idUsuario == null) this.idUsuario = 1;
-    this.redAsignadosService.getREDs(this.idUsuario).subscribe(redsAsignado => this.reds_asignados = redsAsignado);
+    this.redAsignadosService.getREDs(this.idUsuario).subscribe(redsAsignado => this.reds = redsAsignado);
   }
 
 
