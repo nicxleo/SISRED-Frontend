@@ -4,6 +4,9 @@ import {Location} from "@angular/common";
 import {RedAsignadosService} from "../../services/red/red-asignados.service";
 import {RedAsignado} from "../../services/red/RedAsignado";
 
+declare function setup(): any;
+declare function setupTable(): any;
+
 @Component({
   selector: 'app-reds-asignados-revision',
   templateUrl: './reds-asignados-revision.component.html',
@@ -21,13 +24,14 @@ export class RedsAsignadosRevisionComponent implements OnInit {
   }
 
   ngOnInit() {
+    setup();  
     this.idUsuario = this.activatedRoute.snapshot.params.idUsuario; //TODO Temporal.
     this.getREDsAsignados();
   }
 
   getREDsAsignados(): void {
     if(this.idUsuario == null) this.idUsuario = 1;
-    this.redAsignadosService.getREDs(this.idUsuario).subscribe(redsAsignado => this.reds = redsAsignado);
+    this.redAsignadosService.getREDs(this.idUsuario).subscribe(redsAsignado => this.reds = redsAsignado, error=>console.log("error: "+error), ()=>setTimeout(function() { setupTable() }, 1000));
   }
 
 

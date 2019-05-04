@@ -40,6 +40,7 @@
               "src/assets/js/DropboxScript.js",
               "src/assets/js/Init.js",
               "src/assets/js/SearchTable.js",
+              "src/assets/js/RedRevisionTables.js",
               "src/assets/video.js/dist/video.min.js",
               "src/assets/js/videojs-annotation-comments.js"
 
