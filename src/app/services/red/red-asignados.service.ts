@@ -37,7 +37,14 @@ export class RedAsignadosService {
           const red = new RedAsignado();
           red.id = dataItem.idRed;
           red.nombre = dataItem.nombreRed;
-          red.rol = dataItem.rol;
+          red.descripcion = dataItem.descripcion;
+          red.tipo = dataItem.tipo;
+          red.solicitante = dataItem.solicitante;
+          red.fecha_inicio = dataItem.fecha_inicio;
+          red.fecha_cierre = dataItem.fecha_cierre;
+          red.porcentaje = dataItem.porcentaje;
+          red.horas_estimadas = dataItem.horas_estimadas;
+          red.listo_revision = dataItem.listo_revision;
           this.reds.push(red);
         });
       });

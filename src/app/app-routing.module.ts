@@ -133,7 +133,7 @@ const routes: Routes = [
     component: RedCrearVersionComponent,
     canActivate: [AutenticacionGuard]
   },
-  { path: 'reds/asignados/:idUser',
+  { path: 'reds/asignados/:idUsuario',
     component: RedsAsignadosRevisionComponent,
     canActivate: [AutenticacionGuard]
   },
