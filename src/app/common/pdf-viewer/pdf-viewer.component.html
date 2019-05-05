@@ -18,7 +18,7 @@
 
     <div #pdfContainer class="container-pdf__right-side" (mousemove)="mouseEvent($event)"
         (mousedown)="mouseEvent($event)" (mouseup)="mouseEvent($event)">
-        <pdf-viewer src=" https://agiles-grupo1-sisred.herokuapp.com/assets/files/pdf-test.pdf"
+        <pdf-viewer src="https://agiles-grupo1-sisred-back.herokuapp.com/assets/files/pdf-test.pdf"
             [stick-to-page]="true" [render-text]="true" (page-rendered)="pageRendered($event)" style="display: block;">
         </pdf-viewer>
 

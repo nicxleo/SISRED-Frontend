@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'https://grupo1-sisred.herokuapp.com/api/'
+  apiUrl: 'https://agiles-grupo1-sisred-back.herokuapp.com/api/'
 };
 
 /*

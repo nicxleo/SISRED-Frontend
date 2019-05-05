@@ -88,4 +88,3 @@ import { RedComentarPdfComponent } from './components/red-comentar-pdf/red-comen
 })
 export class AppModule { }
 
-platformBrowserDynamic().bootstrapModule(AppModule);
