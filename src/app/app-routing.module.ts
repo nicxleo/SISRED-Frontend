@@ -24,6 +24,7 @@ import { LoginComponent } from './components/login/login.component';
 import { AutenticacionGuard } from './guards/autenticacion/autenticacion.guard';
 import { NoAutenticadoGuard } from './guards/no-autenticado/no-autenticado.guard';
 import { BuscarRecursoComponent } from './components/buscar-recurso/buscar-recurso.component';
+import { RedComentarPdfComponent } from './components/red-comentar-pdf/red-comentar-pdf.component';
 
 const routes: Routes = [
   {
@@ -116,6 +117,10 @@ const routes: Routes = [
     path: 'reds/:idRed/avance',
     component: VerAvanceRedComponent,
     canActivate: [AutenticacionGuard]
+  },
+  {
+    path: 'reds/:id/comentar',
+    component: RedComentarPdfComponent
   },
   {
     path: 'red/version/:idVersion',

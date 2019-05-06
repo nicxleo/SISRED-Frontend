@@ -40,6 +40,9 @@ import { BuscarRecursoComponent } from './components/buscar-recurso/buscar-recur
 import { HabilitarUsuarioComponent } from './components/HabilitarUsuario/Habilitar-Usuario.component';
 import { HabilitarUsuarioClientService } from './services/HabilitarUsuario/habilita-usuario-client.service';
 import { VersionRedRevisionComponent } from './components/version-red-revision/version-red-revision.component';
+import { RedComentarPdfComponent } from './components/red-comentar-pdf/red-comentar-pdf.component';
+import { ClickOutsideDirectiveDirective } from './common/pdf-viewer/click-outside-directive.directive';
+import { PdfViewerComponent } from './common/pdf-viewer/pdf-viewer.component';
 
 
 @NgModule({
@@ -72,7 +75,10 @@ import { VersionRedRevisionComponent } from './components/version-red-revision/v
     HabilitarUsuarioComponent,        
     HabilitarUsuarioComponent,
     TabPanesComponent,
-    BuscarRecursoComponent
+    BuscarRecursoComponent,
+    ClickOutsideDirectiveDirective,
+    RedComentarPdfComponent,
+    PdfViewerComponent
   ],
   imports: [
     AppRoutingModule,
@@ -86,6 +92,7 @@ import { VersionRedRevisionComponent } from './components/version-red-revision/v
     NgbModule,
     HttpModule,
     NgxSpinnerModule,
+    PdfViewerModule,
     CKEditorModule
   ],
   providers: [AgregarRecursoClientService, ResourceDetailsRestClientService, VersionRedRevisionService, HabilitarUsuarioClientService],
@@ -93,4 +100,3 @@ import { VersionRedRevisionComponent } from './components/version-red-revision/v
 })
 export class AppModule {}
 
-platformBrowserDynamic().bootstrapModule(AppModule);
