@@ -42,12 +42,7 @@ export class CommentsVersionVideoService {
   addVideoComments(idVersion: number, idRecurso: number, commentsDetail: object) {
     const tokenSisred = this.autenticacionService.obtenerToken();
 
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      Authorization: 'Token ' + tokenSisred
-    });
-
-    this.httpClient.post(this.API_URL + idVersion + '/' + idRecurso, headers,  commentsDetail).subscribe((data: any) => {
+    this.httpClient.post(this.API_URL + idVersion + '/' + idRecurso,  commentsDetail).subscribe((data: any) => {
 
     });
   }
@@ -68,6 +63,11 @@ export class CommentsVersionVideoService {
       }
     });
     return of(this.recursoVideo);
+  }
+
+  // Metodo que invoca al servicio que cierra comentario
+  cerrarComentarioVideo(idComentario: string, comentarioCierre: string) {
+
   }
 
 }

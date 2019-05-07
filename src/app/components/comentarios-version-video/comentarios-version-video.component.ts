@@ -5,6 +5,9 @@ import {CommentsVersionVideoService} from '../../services/recurso/comments-versi
 import {ActivatedRoute} from '@angular/router';
 import { ChangeDetectorRef } from '@angular/core';
 import {Location} from '@angular/common';
+import {AutenticacionService} from '../../services/autenticacion/autenticacion.service';
+import {DatosUsuario} from '../../models/datos-usuario';
+import { ChangeEvent } from '@ckeditor/ckeditor5-angular/ckeditor.component';
 
 declare let $: any;
 declare let videojs: any;
@@ -30,6 +33,8 @@ export class ComentariosVersionVideoComponent implements OnInit, AfterViewInit {
   respuestaVideo: any;
   heading: string;
   mensaje: string;
+  idComentarioCerrar: string;
+  contenidoComentarioCerrar: string;
 
   @ViewChild('modalComentario') modal: ElementRef;
   constructor(
@@ -37,6 +42,7 @@ export class ComentariosVersionVideoComponent implements OnInit, AfterViewInit {
     private commentsVersionVideoService: CommentsVersionVideoService,
     private cdRef: ChangeDetectorRef,
     private location: Location,
+    private autenticacionService: AutenticacionService
   ) {
     this.idVersion = this.activatedRoute.snapshot.params.idVersion;
     this.idRecurso = this.activatedRoute.snapshot.params.idRecurso;
@@ -80,12 +86,14 @@ export class ComentariosVersionVideoComponent implements OnInit, AfterViewInit {
   addPluginVideo(): void {
     this.consultarComentarios();
 
+    const userData: DatosUsuario = this.autenticacionService.obtenerDatosUsuario();
+
     this.pluginOptions = {
       annotationsObjects: this.annotations,
       bindArrowKeys: true,
       meta: {
-        user_id: 2,
-        user_name: 'John Smith'
+        user_id: userData.idConectate, //TODO es el único ID que se tiene
+        user_name: userData.email
       },
       showControls: true,
       showCommentList: true,
@@ -127,7 +135,8 @@ export class ComentariosVersionVideoComponent implements OnInit, AfterViewInit {
 
 
   // Metodo para cerrar un comentario
-  cerrarCommentarioModal(): void {
+  cerrarCommentarioModal(idComentario: string): void {
+    this.idComentarioCerrar = idComentario;
     this.heading = 'Cerrar Comentario';
      /*this.body = '¿Desea cambiar de fase a ' + this.fases[this.detalle.fase.idConectate].nombre + '?';
     this.mensajeAdvertencia = this.seleccionarTexto(this.detalle.fase.idConectate.toString());*/
@@ -143,7 +152,13 @@ export class ComentariosVersionVideoComponent implements OnInit, AfterViewInit {
 
   // Metodo para cerrar un comentario
   cerrarCommentario(): void {
-    // this.commentsVersionVideoService.closeVideoComments(this.idVersion, this.idRecurso, event.detail);
+    console.log( "Cerrar comentario: " +this.idComentarioCerrar );
+    console.log( "Contenido comentario cierre: " +this.contenidoComentarioCerrar );
+    this.commentsVersionVideoService.cerrarComentarioVideo(this.idComentarioCerrar, this.contenidoComentarioCerrar);
+  }
+
+  public onChangeComentario( { editor }: ChangeEvent ) {
+        this.contenidoComentarioCerrar = editor.getData();
   }
 
 
