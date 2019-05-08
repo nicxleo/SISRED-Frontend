@@ -22,6 +22,7 @@ export class RedCrearVersionComponent implements OnInit {
   thumbnail: File;
   model: CrearVersionModel;
   idRed: number;
+
   constructor(private route: ActivatedRoute, private detalleRedService: DetalleRedService,
               private versionesService: VersionService, private recursosService: RecursoService, private location: Location) { }
 

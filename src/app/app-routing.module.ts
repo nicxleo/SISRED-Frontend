@@ -24,6 +24,7 @@ import { LoginComponent } from './components/login/login.component';
 import { AutenticacionGuard } from './guards/autenticacion/autenticacion.guard';
 import { NoAutenticadoGuard } from './guards/no-autenticado/no-autenticado.guard';
 import { BuscarRecursoComponent } from './components/buscar-recurso/buscar-recurso.component';
+import {RedDescargarRedComponent} from "./components/red-descargar-red/red-descargar-red.component";
 
 const routes: Routes = [
   {
@@ -132,9 +133,14 @@ const routes: Routes = [
     component: RedCrearVersionComponent,
     canActivate: [AutenticacionGuard]
   },
-  { path: '**', 
-    component: NotFoundComponent, 
-    canActivate: [AutenticacionGuard] 
+  {
+    path: 'descargarred/:idRed',
+    component: RedDescargarRedComponent,
+    canActivate: [AutenticacionGuard]
+  },
+  { path: '**',
+    component: NotFoundComponent,
+    canActivate: [AutenticacionGuard]
   }
 ];
 
