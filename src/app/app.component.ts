@@ -1,8 +1,8 @@
-import { DOCUMENT } from '@angular/common';
-import { Component, Inject, Renderer2 } from '@angular/core';
-import { Meta } from '@angular/platform-browser';
-import { AutenticacionService } from './services/autenticacion/autenticacion.service';
-import { DatosUsuario } from './models/datos-usuario';
+import {DOCUMENT} from '@angular/common';
+import {Component, Inject, Renderer2} from '@angular/core';
+import {Meta} from '@angular/platform-browser';
+import {AutenticacionService} from './services/autenticacion/autenticacion.service';
+import {DatosUsuario} from './models/datos-usuario';
 
 @Component({
   selector: 'app-root',
@@ -32,8 +32,8 @@ export class AppComponent {
 
     meta.addTags(
       [
-        { charset: 'utf-8' },
-        { httpEquiv: 'X-UA-Compatible', content: 'IE=edge' },
+        {charset: 'utf-8'},
+        {httpEquiv: 'X-UA-Compatible', content: 'IE=edge'},
         {
           content:
             'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no',
@@ -43,5 +43,6 @@ export class AppComponent {
       true
     );
   }
+
   title = 'SISRED-Frontend';
 }
