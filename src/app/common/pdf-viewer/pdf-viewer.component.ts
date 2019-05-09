@@ -44,9 +44,10 @@ export class PdfViewerComponent implements OnInit {
 					x1: 136.6875,
 					y1: 842,
 					x2: 780.6875,
-					y2: 989
+					y2: 989,
 				},
 				comment: 'Comentario de ejemplo, Comentario de ejemplo, Comentario de ejemplo, Comentario de ejemplo, Comentario de ejemplo, Comentario de ejemplo, Comentario de ejemplo, Comentario de ejemplo, Comentario de ejemplo, Comentario de ejemplo',
+				commentsChildren:[],
 				isDelete: false
 			}
 		];
@@ -179,16 +180,26 @@ export class PdfViewerComponent implements OnInit {
 	}
 
 	save() {
+		console.log(this.rect);
 		this.areaInfo.push({
 			rectangleId: this.element.id,
 			pageNumber: this.dataPageNumber,
 			rect: this.rect,
 			isDelete: false,
-			comment: this.comment
+			comment: this.comment,
+			commentsChildren:[]
 		});
 		this.showPopup = false;
     this.rect = { x1: 0, y1: 0, x2: 0, y2: 0, width: 0, height: 0 };
-    this.comment="";
+		this.comment="";
+		
+	}
+
+	addComment(){
+		console.log("add comment");
+		this.areaInfo[0].commentsChildren.push(this.comment);
+		this.comment = "";
+		console.log(this.areaInfo[0].commentsChildren);
 	}
 
 	cancel(event) {
@@ -196,12 +207,6 @@ export class PdfViewerComponent implements OnInit {
 		$('#' + rectId).remove();
 		this.showPopup = false;
 		this.rect = { x1: 0, y1: 0, x2: 0, y2: 0, width: 0, height: 0 };
-	}
-
-	delete(list: AreaInfo) {
-		document.getElementById(list.rectangleId).remove();
-		this.areaInfo.find((f) => f.rectangleId === list.rectangleId).isDelete = true;
-		this.areaInfo = this.areaInfo.filter((f) => f.isDelete === false);
 	}
 
 	listRectangleId: string = '';
@@ -241,4 +246,5 @@ interface AreaInfo {
 	rect: Rectangle;
 	isDelete?: boolean;
 	comment: string;
+	commentsChildren:any[]
 }

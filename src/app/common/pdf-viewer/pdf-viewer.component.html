@@ -4,11 +4,18 @@
         <div class="list">
             <div class="list-row" *ngFor="let list of areaInfo; let i = index"
                 (click)="moveTo(list); $event.stopPropagation();">
-                <div class="delete-btn">
-                    <i class="fas fa-close" (click)="delete(list); $event.stopPropagation();"></i>
-                </div>
                 <div class="title">Comentario {{i + 1}}:</div>
             <div>{{list.comment}}</div> 
+            <div>
+                <textarea rows="4" cols="80" [(ngModel)]="comment" placeholder="Ingrese su comentario..."></textarea>
+                <br>
+                <button type="button" class="btn btn-primary" (click)="addComment()">Comentar</button>
+            </div>
+
+            <div class="list-row" *ngFor="let comment of list.commentsChildren; let i = index">
+                {{comment}}
+            </div>
+
                 <div class="page-number">
                     Pagina {{list?.pageNumber}}
                 </div>

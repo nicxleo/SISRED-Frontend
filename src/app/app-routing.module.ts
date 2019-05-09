@@ -35,7 +35,6 @@ const routes: Routes = [
   {
     path: 'buscarRed',
     component: BuscarRedComponent,
-    canActivate: [AutenticacionGuard]
   },
   { path: 'test', 
     component: RedAsignadosComponent,
@@ -55,7 +54,6 @@ const routes: Routes = [
   },
   { path: 'asignaciones', 
     component: RedsPorPersonaComponent,
-    canActivate: [AutenticacionGuard]  
   },
   { path: 'red/version/:idVersion/recurso/:idRecurso/comentarios', 
     component: ComentariosVersionVideoComponent,
@@ -63,7 +61,6 @@ const routes: Routes = [
   },
   { path: 'habilitarusuario', 
     component: HabilitarUsuarioComponent,
-    canActivate: [AutenticacionGuard] 
   },
         
   { path: '', component: LoginComponent, 
@@ -106,12 +103,10 @@ const routes: Routes = [
   {
     path: 'red/:idRed/recursos/:id',
     component: DetalleRecursoComponent,
-    canActivate: [AutenticacionGuard]
   },
   {
     path: 'getRecurso/:id',
     component: DetalleRecursoComponent,
-    canActivate: [AutenticacionGuard]
   },
   {
     path: 'reds/:idRed/avance',

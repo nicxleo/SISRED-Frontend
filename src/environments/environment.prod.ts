@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'http://localhost:8000/api/'
+  apiUrl: 'https://agiles-grupo1-sisred-back.herokuapp.com/api/'
 };
