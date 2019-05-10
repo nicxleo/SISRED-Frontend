@@ -114,7 +114,7 @@ const routes: Routes = [
     canActivate: [AutenticacionGuard]
   },
   {
-    path: 'reds/:id/comentar',
+    path: 'reds/:id/comentar-pdf',
     component: RedComentarPdfComponent
   },
   {

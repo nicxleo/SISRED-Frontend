@@ -14,9 +14,9 @@ export class ComentarRestClientService {
     private httpClient: HttpClient
   ) { }
 
-  getComentariosByIdRed(idRed: number): Observable<DetalleRed> {
+  getComentariosByIdRed(idRed: string): Observable<DetalleRed> {
 		let params = new HttpParams();
-		params = params.append('id', idRed.toString());
+		params = params.append('id', idRed);
 		this.httpClient.get(this.API_URL, { params }).subscribe((data: any) => {
       this.comentario = {
         rutaPdf : data.rutaPdf,
