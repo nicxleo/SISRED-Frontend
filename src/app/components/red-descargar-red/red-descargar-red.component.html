@@ -84,23 +84,22 @@
                   </td>
                 </tr>
                 <tr class="thead-light text-center">
-                  <th scope="col">Seleccionar</th>
                   <th scope="col">Nombre</th>
                   <th scope="col">Fecha Modificación</th>
                   <th scope="col">Descripción</th>
+                  <th scope="col">Descargar</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr *ngFor="let recurso of recursosExistentes">
-                  <td class="text-center"><input id="checkbox_{{recurso.nombre}}" type="checkbox" name="checkbox_{{recurso.nombre}}" value="{{recurso.nombre}}" (click)="onSelectRecurso(recurso.nombre)"></td>
                   <td>{{recurso.nombre}}</td>
                   <td>{{recurso.fechaUltimaModificacion}}</td>
                   <td>{{recurso.descripcion}}</td>
+                  <button class="pull-right" type="button" (click)="descargarRecursoRed(recurso.id)" class="btn btn-primary"><i class="fas fa-arrow-down"></i>&nbsp;Descargar</button>
                 </tr>
                 </tbody>
               </table>
               <div class="pull-right" style="margin: 1em; margin-right: 0em;">
-                <button style="margin-right: 1em;" type="button" (click)="descargarRecursosSeleccionados()" class="btn btn-primary"><i class="fas fa-arrow-down"></i>&nbsp;Descargar Recursos Seleccionados</button>
                 <button type="button" (click)="descargarRecursosTodo()" class="btn btn-primary"><i class="fas fa-arrow-circle-down"></i>&nbsp;Descargar Todos los Recursos</button>
               </div>
               <!-- /.dynamic data table -->
@@ -123,3 +122,6 @@
   <!-- /.content -->
 </div>
 <!-- /.content-wrapper -->
+<ngx-spinner bdOpacity = 0.9bd Color = "rgba(34,31,31,0)" size = "medium" color = "#000000" type = "ball-spin" fullScreen = "true">
+  <p style="color: white"> Cargando... </p>
+</ngx-spinner>

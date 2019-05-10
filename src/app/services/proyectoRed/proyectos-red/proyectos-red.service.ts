@@ -41,6 +41,7 @@ export class ProyectosRedService {
           pro.typeFile = dataItem.typeFile;
           pro.createdDate = dataItem.createdDate;
           pro.description = dataItem.description;
+          pro.carpeta = dataItem.carpeta;
 
           this.proyectosRed.push(pro);
         });

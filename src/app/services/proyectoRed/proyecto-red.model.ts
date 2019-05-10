@@ -6,4 +6,5 @@ export class ProyectoRed {
   createdDate: string;
   description: string;
   name: string;
+  carpeta: string;
 }

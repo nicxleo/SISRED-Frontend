@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import {DetalleRedService} from '../../services/red/detalle-red/detalle-red.service';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {Recurso} from '../../services/recurso/recurso.model';
 import {DetalleRed} from '../../services/red/detalle-red/detalle-red.model';
 import {RecursoService} from '../../services/recurso/recurso.service';
 import {ProyectoRed} from '../../services/proyectoRed/proyecto-red.model';
 import {ProyectosRedService} from '../../services/proyectoRed/proyectos-red/proyectos-red.service';
+import {DescargarRedService} from '../../services/red/descargar-red/descargar-red.service';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-red-descargar-red',
@@ -17,10 +19,11 @@ export class RedDescargarRedComponent implements OnInit {
   detalle: DetalleRed;
   proyectos: ProyectoRed[];
   recursosExistentes: Recurso[];
-  recursosSeleccionados: Recurso[];
 
   constructor(private route: ActivatedRoute, private detalleRedService: DetalleRedService,
-              private proyectosRedService: ProyectosRedService, private recursosService: RecursoService) { }
+              private proyectosRedService: ProyectosRedService, private recursosService: RecursoService,
+              private descargarRedService: DescargarRedService, private router: Router,
+              private spinner: NgxSpinnerService) { }
 
   ngOnInit() {
     this.idRed = this.route.snapshot.params.idRed;
@@ -51,31 +54,53 @@ export class RedDescargarRedComponent implements OnInit {
       });
   }
 
-  // Método para guardar la información de los recursos seleccionados
-  onSelectRecurso(nombre: string): void {
-    const seleccionado = document.getElementById('checkbox_' + nombre) as HTMLInputElement;
-    const isChecked = seleccionado.checked;
-    const index = this.recursosSeleccionados.findIndex(r => r.nombre === nombre);
-    if (isChecked && index === -1) {
-      const sel = this.recursosExistentes.find(r => r.nombre === nombre);
-      this.recursosSeleccionados.push(sel);
-    }
-    if (!isChecked && index >= 0) {
-      this.recursosSeleccionados.splice(index, 1);
-    }
-  }
-
   descargarProyectoRED(idProyectoRed: number): void {
-    alert(idProyectoRed);
-    //TODO
+    this.spinner.show();
+    const proyecto = this.proyectos.find(x => x.id === idProyectoRed);
+    this.descargarRedService.descargarProyectoRED(proyecto)
+      .then(response => {
+        this.prepareFileForDownload(response, 'Red_' + this.idRed + '_Proyecto_' + idProyectoRed + '.zip');
+      })
+      .catch(err => {
+        console.log(err);
+        this.spinner.hide();
+      });
   }
 
-  descargarRecursosSeleccionados(): void {
-    //TODO
+  descargarRecursoRed(idRecurso: number): void {
+    this.spinner.show();
+    const recurso = this.recursosExistentes.find(x => x.id === idRecurso);
+    this.descargarRedService.descargarRecurso(recurso)
+      .then(response => {
+        const nombreRecurso = recurso.nombre + recurso.archivo.substring(recurso.archivo.lastIndexOf('.'), recurso.archivo.length);
+        this.prepareFileForDownload(response, nombreRecurso);
+      })
+      .catch(err => {
+        console.log(err);
+        this.spinner.hide();
+      });
   }
 
   descargarRecursosTodo(): void {
-    //TODO
+    this.spinner.show();
+    this.descargarRedService.descargarRecursosTodo(this.recursosExistentes)
+      .then(response => {
+        this.prepareFileForDownload(response, 'RecursosRed_' + this.idRed + '.zip');
+      })
+      .catch(err => {
+        console.log(err);
+        this.spinner.hide();
+      });
+  }
+
+  prepareFileForDownload(response: any, name: string) {
+    const blob = new Blob([response.fileBlob], { type: response.fileBlob.type });
+    const blobURL = window.URL.createObjectURL(blob);
+    const anchor = document.createElement('a');
+    anchor.download = name;
+    anchor.href = blobURL;
+    this.spinner.hide();
+    anchor.click();
   }
 
 }
