@@ -8,6 +8,7 @@ import {ProyectoRed} from '../../services/proyectoRed/proyecto-red.model';
 import {ProyectosRedService} from '../../services/proyectoRed/proyectos-red/proyectos-red.service';
 import {DescargarRedService} from '../../services/red/descargar-red/descargar-red.service';
 import { NgxSpinnerService } from 'ngx-spinner';
+import {Location} from "@angular/common";
 
 @Component({
   selector: 'app-red-descargar-red',
@@ -23,7 +24,7 @@ export class RedDescargarRedComponent implements OnInit {
   constructor(private route: ActivatedRoute, private detalleRedService: DetalleRedService,
               private proyectosRedService: ProyectosRedService, private recursosService: RecursoService,
               private descargarRedService: DescargarRedService, private router: Router,
-              private spinner: NgxSpinnerService) { }
+              private spinner: NgxSpinnerService, private location: Location) { }
 
   ngOnInit() {
     this.idRed = this.route.snapshot.params.idRed;
@@ -42,7 +43,7 @@ export class RedDescargarRedComponent implements OnInit {
   // Metodo que obtiene los proyectos RED
   getProyectosRed(): void {
     this.proyectosRedService
-      .getProyectosRed(this.idRed)
+      .getProyectosRedFull(this.idRed)
       .subscribe(proyectos => (this.proyectos = proyectos));
   }
 
@@ -101,6 +102,11 @@ export class RedDescargarRedComponent implements OnInit {
     anchor.href = blobURL;
     this.spinner.hide();
     anchor.click();
+  }
+  // Metodo que regresa a la pantella anterior
+  goBack(): void {
+    this.location.back();
+    console.log(this.location);
   }
 
 }

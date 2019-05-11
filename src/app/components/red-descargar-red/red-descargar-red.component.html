@@ -55,18 +55,18 @@
                     </td>
                   </tr>
                   <tr class="thead-light text-center">
-                    <th scope="col">Autor</th>
-                    <th scope="col">Tipo archivo</th>
-                    <th scope="col">Fecha creación</th>
-                    <th scope="col">Descripción</th>
-                    <th scope="col">Descargar</th>
+                    <th scope="col" width="20%">Nombre</th>
+                    <th scope="col" width="20%">Autor</th>
+                    <th scope="col" width="20%">Tipo archivo</th>
+                    <th scope="col" width="20%">Descripción</th>
+                    <th scope="col" width="20%">Descargar</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr *ngFor="let proyecto of proyectos">
+                    <td>{{proyecto.name}}</td>
                     <td>{{proyecto.autor}}</td>
                     <td>{{proyecto.typeFile}}</td>
-                    <td>{{proyecto.createdDate}}</td>
                     <td>{{proyecto.description}}</td>
                     <td>
                       <button type="button" (click)="descargarProyectoRED(proyecto.id)" class="btn btn-primary"><i class="fas fa-download"></i>&nbsp;Descargar</button>
@@ -84,16 +84,18 @@
                   </td>
                 </tr>
                 <tr class="thead-light text-center">
-                  <th scope="col">Nombre</th>
-                  <th scope="col">Fecha Modificación</th>
-                  <th scope="col">Descripción</th>
-                  <th scope="col">Descargar</th>
+                  <th scope="col" width="20%">Nombre</th>
+                  <th scope="col" width="20%">Fecha Modificación</th>
+                  <th scope="col" width="20%">Tipo</th>
+                  <th scope="col" width="20%">Descripción</th>
+                  <th scope="col" width="20%">Descargar</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr *ngFor="let recurso of recursosExistentes">
                   <td>{{recurso.nombre}}</td>
                   <td>{{recurso.fechaUltimaModificacion}}</td>
+                  <td>{{recurso.tipo}}</td>
                   <td>{{recurso.descripcion}}</td>
                   <button class="pull-right" type="button" (click)="descargarRecursoRed(recurso.id)" class="btn btn-primary"><i class="fas fa-arrow-down"></i>&nbsp;Descargar</button>
                 </tr>
