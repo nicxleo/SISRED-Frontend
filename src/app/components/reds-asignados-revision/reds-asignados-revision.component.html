@@ -82,10 +82,7 @@
                   <th>Descripción</th>
                   <th>Tipo</th>
                   <th>Solicitante</th>
-                  <th>Fecha de inicio</th>
-                  <th>Fecha de cierre</th>
-                  <th>Porcentaje de avance</th>
-                  <th>Horas estimadas</th>
+                  <th>Versión para revisar</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -94,10 +91,7 @@
                         <td *ngIf="r.listo_revision">{{r.descripcion}}</td>
                         <td *ngIf="r.listo_revision">{{r.tipo}}</td>
                         <td *ngIf="r.listo_revision">{{r.solicitante}}</td>
-                        <td *ngIf="r.listo_revision">{{r.fecha_inicio}}</td>
-                        <td *ngIf="r.listo_revision">{{r.fecha_cierre}}</td>
-                        <td *ngIf="r.listo_revision">{{r.porcentaje}}</td>
-                        <td *ngIf="r.listo_revision">{{r.horas_estimadas}}</td>
+                        <td *ngIf="r.listo_revision"><a href="#">{{r.version_revision}}</a></td>
                     </tr>
                 </tbody>
                 <tfoot>
@@ -106,10 +100,7 @@
                   <th>Descripción</th>
                   <th>Tipo</th>
                   <th>Solicitante</th>
-                  <th>Fecha de inicio</th>
-                  <th>Fecha de cierre</th>
-                  <th>Porcentaje de avance</th>
-                  <th>Horas estimadas</th>
+                  <th>Versión para revisar</th>                  
                 </tr>
                 </tfoot>
               </table>
