@@ -9,5 +9,6 @@ export class RedAsignado {
     porcentaje : String;
     horas_estimadas : String;
     listo_revision : boolean;
-    version_revision : String = "prueba";
+    version_numero : String = "1";
+    version_id : String = "12";    
 }

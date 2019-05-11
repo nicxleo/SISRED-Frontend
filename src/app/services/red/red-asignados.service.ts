@@ -45,6 +45,8 @@ export class RedAsignadosService {
           red.porcentaje = dataItem.porcentaje;
           red.horas_estimadas = dataItem.horas_estimadas;
           red.listo_revision = dataItem.listo_revision;
+          red.version_numero = dataItem.version_numero;
+          red.version_id = dataItem.version_id;
           this.reds.push(red);
         });
       });
