@@ -91,10 +91,16 @@
                         <td *ngIf="r.listo_revision">{{r.descripcion}}</td>
                         <td *ngIf="r.listo_revision">{{r.tipo}}</td>
                         <td *ngIf="r.listo_revision">{{r.solicitante}}</td>
-                        <td *ngIf="r.listo_revision"><a                           
-                          [routerLink]="['/red/' + r.id + '/version/'+ r.version_id]"
-                          routerLinkActive="router-link-active">
-                          {{r.version_numero}}</a></td>
+                        <td *ngIf="r.listo_revision">
+                          <div *ngIf="r.version_id else no_versions">
+                            <a
+                              [routerLink]="['/red/' + r.id + '/version/'+ r.version_id]"
+                              routerLinkActive="router-link-active">
+                              {{r.version_numero}}
+                            </a>    
+                          </div>                        
+                          <ng-template #no_versions>Sin versiones</ng-template>
+                        </td>
                     </tr>
                 </tbody>
                 <tfoot>

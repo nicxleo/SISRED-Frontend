@@ -47,6 +47,7 @@ export class RedAsignadosService {
           red.listo_revision = dataItem.listo_revision;
           red.version_numero = dataItem.version_numero;
           red.version_id = dataItem.version_id;
+          console.log(red.version_id)
           this.reds.push(red);
         });
       });
