@@ -2,17 +2,17 @@
 
   <header class="main-header">
     <!-- Logo -->
-    <a href="assets/AdminLTE/index2.html" class="logo">
+    <a href="/" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>A</b>LT</span>
       <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b>Admin</b>LTE</span>
+      <span class="logo-lg">Sis<b>RED</b> - Uniandes</span>
     </a>
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top">
       <!-- Sidebar toggle button-->
       <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
-        <span class="sr-only">Toggle navigation</span>z
+        <span class="sr-only">Toggle navigation</span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -82,29 +82,24 @@
       </div>      
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu" data-widget="tree">
-        <li class="header">MAIN NAVIGATION</li>
+        <li class="header">Menú</li>
         <li class="treeview active">
           <a href="#">
-            <i class="fa fa-dashboard"></i> <span>Proyecto RED</span>
+            <i class="fa fa-dashboard"></i> <span>REDs</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="assets/AdminLTE/index.html"><i class="fa fa-circle-o"></i> Agregar proyecto RED</a></li>             
+            <li><a routerLink="/red/asignados/4"><i class="fa fa-circle-o"></i> Ver REDs asignados</a></li>
           </ul>
-        </li>
-        <li class="treeview active">
-          <a href="#">
-            <i class="fa fa-dashboard"></i> <span>RED</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li><a href="app/detalle-red/detalle-red.component.html"><i class="fa fa-circle-o"></i> Detalle RED</a></li>
-            <li><a href="assets/AdminLTE/index.html"><i class="fa fa-circle-o"></i> Asignados RED</a></li>
+           <ul class="treeview-menu">
+            <li><a routerLink="red/5/comentario/agregar"><i class="fa fa-circle-o"></i> Agregar comentario </a></li>
           </ul>
+           <ul class="treeview-menu">
+            <li><a routerLink="get_comentarios/1"><i class="fa fa-circle-o"></i> Listar comentarios </a></li>
+          </ul>
+
         </li>
       </ul>
     </section>

@@ -1,28 +1,34 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
 import { AppComponent } from './app.component';
-import { AddRedComponent } from './add-red/add-red.component';
+import { AddCommentsComponent } from './components/add-comments/add-comments.component';
+import { AddRedComponent } from './components/add-red/add-red.component';
 import { AppRoutingModule } from './app-routing.module';
-import { LoadAssignationInfoComponent } from './load-assignation-info/load-assignation-info.component';
-import { RedAsignadosComponent } from './red/asignaciones/red-asignados.component';
-import { DetalleREDComponent } from './detalle-red/detalle-red.component';
+import { RedAsignadosComponent } from './components/red/asignaciones/red-asignados.component';
+import { DetalleREDComponent } from './components/detalle-red/detalle-red.component';
+import { ProyectosRedComponent } from './components/proyectos-red/proyectos-red.component';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
+import { ListCommentsComponent } from './components/list-comments/list-comments.component';
 @NgModule({
   declarations: [
     AppComponent,
     AddRedComponent,
-    LoadAssignationInfoComponent,
+    AddCommentsComponent,
     RedAsignadosComponent,
-    DetalleREDComponent
+    DetalleREDComponent,
+    ProyectosRedComponent,
+    AddCommentsComponent,
+    ListCommentsComponent
+
   ],
   imports: [
     AppRoutingModule,
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
+    CKEditorModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

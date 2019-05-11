@@ -16,14 +16,15 @@ export class MetadataService {
     private httpClient: HttpClient
   ) { }
 
+  // Metodo que invoca al servicio que obtiene la metadata del RED
   getMetadata(idRed: number): Observable<Metadata[]> {
     let params = new HttpParams();
-    params = params.append('red_id', idRed.toString());
+    params = params.append('RED', idRed.toString());
     this.metadata = [];
     this.httpClient.get(this.API_URL, {params} ).subscribe((data: Array<any>) => {
       data.forEach(dataItem => {
         const meta = new Metadata();
-        meta.tag = dataItem.fields.tag;
+        meta.tag = dataItem.tag;
         this.metadata.push(meta);
       });
     });

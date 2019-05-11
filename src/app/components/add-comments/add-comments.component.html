@@ -1,0 +1,85 @@
+<script src="https://cdn.ckeditor.com/4.5.11/full/ckeditor.js"></script>
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <h1>
+      Agregar comentario al recurso
+    </h1>
+    <ol class="breadcrumb">
+      <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+      <li class="active">Agregar comentario al recurso</li>
+    </ol>
+  </section>
+
+  <!-- Main content -->
+  <section class="content">
+    <div class="row">
+      <!-- left column -->
+      <div class="col-md-12">
+        <!-- general form elements -->
+        <div class="box box-primary">
+          <!-- form start -->
+          <form role="form" [formGroup]="addCommentsForm">
+            <div class="box">
+                <div class="box-header with-border">
+                  <h3 class="box-title">Ingrese el comentario</h3>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                  <table class="table table-bordered">
+                    <tr>
+
+                      <td>Contenido</td>
+                      <td>
+<ckeditor [editor]="Editor" data="<p>Hello, world!</p>" formControlName="contenido" ></ckeditor>
+
+
+                      </td>
+                    </tr>
+                    <tr>
+                        <td>Recurso</td>
+                        <td>
+                            <input type="text" class="form-control" formControlName="recurso_id">
+                        </td>
+                    </tr>
+                    <tr>
+                      <td>Usuario</td>
+                      <td>
+                          <input type="text" class="form-control" formControlName="usuario_id">
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Versión</td>
+                      <td>
+                          <input type="text" class="form-control" formControlName="version_id">
+                      </td>
+                    </tr>
+
+                  </table>
+                </div>
+                <!-- /.box-body -->
+              </div>
+              <!-- /.box -->
+
+            <div class="box-footer">
+              <button type="button" (click)="goBack()" class="btn btn-default spaceDer">Cancelar</button>
+              <button type="submit" class="btn btn-info" (click)="addComments()">addComments</button>
+            </div>
+            <!-- /.box-footer -->
+          </form>
+        </div>
+        <!-- /.box -->
+      </div>
+      <!--/.col (left) -->
+      <!-- /.row -->
+      <div class="spinner-border" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+    </div>
+    <!-- /.row -->
+  </section>
+  <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+

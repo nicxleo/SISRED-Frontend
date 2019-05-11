@@ -31,7 +31,9 @@
               "src/assets/AdminLTE/bower_components/fastclick/lib/fastclick.js", 
               "src/assets/AdminLTE/dist/js/adminlte.min.js",
               "src/assets/AdminLTE/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js",
-              "src/assets/js/FireDatePicker.js"
+              "src/assets/js/DatePicker.js",
+              "src/assets/js/DropboxScript.js",
+              "src/assets/js/Init.js"
             ],
             "es5BrowserSupport": true
           },
