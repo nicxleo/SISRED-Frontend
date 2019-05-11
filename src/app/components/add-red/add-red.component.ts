@@ -2,7 +2,11 @@ import { Component, OnInit, Injectable } from '@angular/core';
 import { AddRedService } from '../../services/proyectoRed/add-red/add-red.service';
 import { FormControl, FormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+<<<<<<< HEAD
 
+=======
+import { Dropbox } from 'dropbox';
+>>>>>>> fd069d7c5bf39610fde3c9a906be4f6bb5f8c63a
 import {ActivatedRoute} from '@angular/router';
 import { Location } from '@angular/common'
 
@@ -55,17 +59,29 @@ export class AddRedComponent implements OnInit {
   //Método para subir un archivo individual
   uploadFile() {
     var ACCESS_TOKEN = 'I0Ng9kItu5AAAAAAAAAAHR16cYlxD2zh7tyDcSjg7cRFs0brDmSS088zp6kwqIEx';
+<<<<<<< HEAD
     //var dbx = new Dropbox({ accessToken: ACCESS_TOKEN });
     var fileInput = (<HTMLInputElement> document.getElementById('filetest'));
     var file = fileInput.files[0];
     /*dbx.filesUpload({path: '/' + file.name, contents: file}).then(function(response) {
+=======
+    var dbx = new Dropbox({ accessToken: ACCESS_TOKEN });
+    var fileInput = (<HTMLInputElement> document.getElementById('filetest'));
+    var file = fileInput.files[0];
+    dbx.filesUpload({path: '/' + file.name, contents: file})
+      .then(function(response) {
+>>>>>>> fd069d7c5bf39610fde3c9a906be4f6bb5f8c63a
         var results = document.getElementById('results');
         results.appendChild(document.createTextNode('File uploaded!'));
         console.log(response);
       })
       .catch(function(error) {
         console.error(error);
+<<<<<<< HEAD
       });*/
+=======
+      });
+>>>>>>> fd069d7c5bf39610fde3c9a906be4f6bb5f8c63a
     return false;
   }
 
@@ -86,7 +102,11 @@ export class AddRedComponent implements OnInit {
   //Método recursivo que recibe un array de archivos y los envía a una cuenta de dropbox referenciada por ACCESS_TOKEN
   public uploadFiles(files: Array<File>, paths: Array<String>) {
     var ACCESS_TOKEN = 'I0Ng9kItu5AAAAAAAAAAHR16cYlxD2zh7tyDcSjg7cRFs0brDmSS088zp6kwqIEx';
+<<<<<<< HEAD
    // var dbx = new Dropbox({ accessToken: ACCESS_TOKEN });
+=======
+    var dbx = new Dropbox({ accessToken: ACCESS_TOKEN });
+>>>>>>> fd069d7c5bf39610fde3c9a906be4f6bb5f8c63a
     var newFiles: Array<File> = files.slice(0, files.length - 1);
     var newPaths: Array<String> = paths.slice(0, files.length - 1);
 
@@ -96,8 +116,13 @@ export class AddRedComponent implements OnInit {
         newFiles.push()
       }
 
+<<<<<<< HEAD
      /* if (files[files.length - 1].name != '.DS_Store') {
         //dbx.filesUpload({path: '/'+ paths[files.length - 1], contents: files[files.length - 1]})
+=======
+      if (files[files.length - 1].name != '.DS_Store') {
+        dbx.filesUpload({path: '/'+ paths[files.length - 1], contents: files[files.length - 1]})
+>>>>>>> fd069d7c5bf39610fde3c9a906be4f6bb5f8c63a
         .then(function(response) {
             console.log(response);
             if (files.length - 1 > 0) {
@@ -115,7 +140,11 @@ export class AddRedComponent implements OnInit {
         if (files.length - 1 > 0) {
           return this.uploadFiles(newFiles, newPaths);   
         }
+<<<<<<< HEAD
       }*/
+=======
+      }
+>>>>>>> fd069d7c5bf39610fde3c9a906be4f6bb5f8c63a
       
     }
 

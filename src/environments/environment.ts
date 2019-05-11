@@ -3,8 +3,13 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
+<<<<<<< HEAD
   production: true,
   apiUrl: 'http://localhost:8000/api/'
+=======
+  production: false,
+  apiUrl: 'https://sisred-g3-backend.herokuapp.com/api/'
+>>>>>>> fd069d7c5bf39610fde3c9a906be4f6bb5f8c63a
 
 };
 

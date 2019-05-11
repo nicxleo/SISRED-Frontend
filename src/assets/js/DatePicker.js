@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 require('./datepicker.less')
 
 
@@ -1070,3 +1071,21 @@ function remove() {
 }
 
 module.exports = datepicker
+=======
+$(function () {  
+      //Date picker
+      $('#datepicker').datepicker({
+        autoclose: true
+      })
+      .datepicker("setDate",'now')
+});
+
+$(function () {  
+      //Date picker disabled
+      $('#datepickerdisabled').datepicker({
+        autoclose: true
+      })
+      .datepicker("setDate",'now')
+      .prop('disabled', true);
+})
+>>>>>>> fd069d7c5bf39610fde3c9a906be4f6bb5f8c63a
