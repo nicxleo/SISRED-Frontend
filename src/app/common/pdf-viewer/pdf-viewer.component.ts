@@ -1,6 +1,8 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild, Input, OnChanges, SimpleChanges } from '@angular/core';
 import * as $ from 'jquery';
 import * as Popper from 'popper.js/dist/umd/popper.js';
+import { ComentarioPdfModel } from 'src/app/services/comentario/comentario-pdf.model';
+import { ComentarioHijoPdfModel } from 'src/app/services/comentario/comentario-pdf-hijo.model';
 
 @Component({
 	selector: 'app-pdf-viewer',
@@ -8,11 +10,44 @@ import * as Popper from 'popper.js/dist/umd/popper.js';
 	styleUrls: [ './pdf-viewer.component.scss' ]
 })
 export class PdfViewerComponent implements OnInit {
-	pdfSrc: string;
+	@Input()
+	comentariosPdf: ComentarioPdfModel[];
+
+	public rutaArchivo:string;
+	
+	@Input()
+	test;
+
+	areaInfo: AreaInfo[] = [];
+
 
 	@ViewChild('pdfContainer') private pdfContainer: ElementRef;
 
-	ngOnInit() {}
+	ngOnInit() {
+		setTimeout(() => { 
+			this.comentariosPdf.forEach(data=>{
+				this.areaInfo.push({
+					rectangleId: data.id,
+					pageNumber: 1,
+					rect: {
+						height: Number(data.height),
+						width: Number(data.width),
+						x1: Number(data.coordenadas.x1),
+						y1: Number(data.coordenadas.y1),
+						x2: Number(data.coordenadas.x2),
+						y2: Number(data.coordenadas.y2),
+					},
+					comment: data.contenido,
+					commentsChildren:data.comentariosHijos,
+					isDelete: false
+				})
+				console.log(this.areaInfo);
+				this.rutaArchivo = this.comentariosPdf[0].rutaArchivo;
+
+			})
+		 }, 2000);
+	}
+
 
 	title = 'ng-pdf-highlighter';
 	comment: string;
@@ -31,26 +66,8 @@ export class PdfViewerComponent implements OnInit {
 	element = null;
 	dataPageNumber: number;
 
-	areaInfo: AreaInfo[] = [];
 
 	constructor() {
-		this.areaInfo = [
-			{
-				rectangleId: 'rectangle-1',
-				pageNumber: 1,
-				rect: {
-					height: 134,
-					width: 644,
-					x1: 136.6875,
-					y1: 842,
-					x2: 780.6875,
-					y2: 989,
-				},
-				comment: 'Comentario de ejemplo, Comentario de ejemplo, Comentario de ejemplo, Comentario de ejemplo, Comentario de ejemplo, Comentario de ejemplo, Comentario de ejemplo, Comentario de ejemplo, Comentario de ejemplo, Comentario de ejemplo',
-				commentsChildren:[],
-				isDelete: false
-			}
-		];
 	}
 
 	mouseEvent(event) {
@@ -197,7 +214,7 @@ export class PdfViewerComponent implements OnInit {
 
 	addComment(){
 		console.log("add comment");
-		this.areaInfo[0].commentsChildren.push(this.comment);
+
 		this.comment = "";
 		console.log(this.areaInfo[0].commentsChildren);
 	}
@@ -246,5 +263,5 @@ interface AreaInfo {
 	rect: Rectangle;
 	isDelete?: boolean;
 	comment: string;
-	commentsChildren:any[]
+	commentsChildren:ComentarioHijoPdfModel[]
 }

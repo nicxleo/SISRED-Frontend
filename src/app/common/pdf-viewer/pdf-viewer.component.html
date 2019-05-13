@@ -7,28 +7,23 @@
                 <div class="title">Comentario {{i + 1}}:</div>
             <div>{{list.comment}}</div> 
             <div>
-                <textarea rows="4" cols="80" [(ngModel)]="comment" placeholder="Ingrese su comentario..."></textarea>
+                <textarea rows="4" cols="80" [(ngModel)]="list.commentsChildren.contenido" placeholder="Ingrese su comentario..."></textarea>
                 <br>
                 <button type="button" class="btn btn-primary" (click)="addComment()">Comentar</button>
             </div>
 
             <div class="list-row" *ngFor="let comment of list.commentsChildren; let i = index">
-                {{comment}}
+                {{comment.contenido}}
             </div>
-
-                <div class="page-number">
-                    Pagina {{list?.pageNumber}}
-                </div>
             </div>
         </div>
     </div>
 
     <div #pdfContainer class="container-pdf__right-side" (mousemove)="mouseEvent($event)"
         (mousedown)="mouseEvent($event)" (mouseup)="mouseEvent($event)">
-        <pdf-viewer src="http://localhost:4200/assets/files/pdf-test.pdf"
+        <pdf-viewer [src]="rutaArchivo"
             [stick-to-page]="true" [render-text]="true" (page-rendered)="pageRendered($event)" style="display: block;">
         </pdf-viewer>
-
     </div>
 
 
