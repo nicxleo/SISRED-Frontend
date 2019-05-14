@@ -17,4 +17,5 @@ export class Red {
   proyectoConectate: ProyectoConectate| undefined;
   historialEstados: HistorialEstados[] | undefined;
   fase: string;
+  asignado: boolean;
 }
