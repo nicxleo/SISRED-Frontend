@@ -43,7 +43,8 @@
                                      <small class="text-muted">{{comment.meta.datetime}}</small>
                                   </span>
                           <strong class="text-success">{{comment.meta.user_name}}</strong>
-                          <p>{{comment.body}}</p>
+                          <p [innerHTML]="comment.body">{{comment.body}}</p>
+
                           <p>
                             <small class="text-muted">Segundo inicial: {{multi.range.start}} - Segundo final: {{multi.range.end}}</small>
                             <span class="text-muted pull-right">
@@ -60,7 +61,7 @@
                                      <small class="text-muted">{{comment.meta.datetime}}</small>
                                   </span>
                               <strong class="text-success">{{comment.meta.user_name}}</strong>
-                              <p>{{comment.body}}</p>
+                              <p [innerHTML]="comment.body">{{comment.body}}</p>
                               <p>
                                 <small class="text-muted">Segundo inicial: {{multi.range.start}} - Segundo final: {{multi.range.end}}</small>
                               </p>
