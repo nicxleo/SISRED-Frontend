@@ -1,0 +1,54 @@
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <h1>
+      Avance Proyecto Conectate
+    </h1>
+  </section>
+
+  <!-- Main content -->
+  <section class="content">
+    <div class="row">
+      <!-- left column -->
+      <div class="col-md-12">
+        <!-- general form elements -->
+        <div class="box box-primary">
+          <div class="box">
+            <!-- table Proyectos del RED -->
+              <table class="table table-hover table-bordered table-margin">
+                <thead>
+                  <tr>
+                    <td colspan="4">
+                      <h3 class="text-center">REDs cerrados</h3>
+                    </td>
+                  </tr>
+                  <tr class="thead-light text-center">
+                    <th scope="col">Id RED</th>
+                    <th scope="col">Nombre
+                    <th scope="col">Fecha inicio</th>
+                    <th scope="col">Fase cierre</th>
+                    <th scope="col" style="width: 10%;">Asignados</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let red of reds">
+                    <td>{{red.id}}</td>
+                    <td>{{red.nombre}}</td>
+                    <td>{{red.fechaInicio}}</td>
+                    <td>{{red.fechaCierre}}</td>
+                    <td class="text-center"><a [routerLink]="" (click)="selectRed(red, historicoAsignadosRedModal)"><i class="fa fa-user-o fa-lg"></i></a></td>
+                  </tr>
+                </tbody>
+              </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<div bsModal #historicoAsignadosRedModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="historicoAsignadosRedModal">
+  <app-historico-asignados-red [red]="selectedRed" (closeModal)="closeModal($event)"></app-historico-asignados-red>
+</div>

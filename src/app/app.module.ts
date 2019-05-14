@@ -1,5 +1,6 @@
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
+import { ModalModule } from 'ngx-bootstrap/modal';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
@@ -40,6 +41,8 @@ import { BuscarRecursoComponent } from './components/buscar-recurso/buscar-recur
 import { HabilitarUsuarioComponent } from './components/HabilitarUsuario/Habilitar-Usuario.component';
 import { HabilitarUsuarioClientService } from './services/HabilitarUsuario/habilita-usuario-client.service';
 import { VersionRedRevisionComponent } from './components/version-red-revision/version-red-revision.component';
+import { HistoricoAsignadosRedComponent } from './components/historico-asignados-red/historico-asignados-red.component';
+import { AvanceProyectoComponent } from './components/avance-proyecto/avance-proyecto.component';
 
 
 @NgModule({
@@ -72,7 +75,9 @@ import { VersionRedRevisionComponent } from './components/version-red-revision/v
     HabilitarUsuarioComponent,        
     HabilitarUsuarioComponent,
     TabPanesComponent,
-    BuscarRecursoComponent
+    BuscarRecursoComponent,
+    HistoricoAsignadosRedComponent,
+    AvanceProyectoComponent
   ],
   imports: [
     AppRoutingModule,
@@ -86,7 +91,8 @@ import { VersionRedRevisionComponent } from './components/version-red-revision/v
     NgbModule,
     HttpModule,
     NgxSpinnerModule,
-    CKEditorModule
+    CKEditorModule,
+    ModalModule.forRoot()
   ],
   providers: [AgregarRecursoClientService, ResourceDetailsRestClientService, VersionRedRevisionService, HabilitarUsuarioClientService],
   bootstrap: [AppComponent]

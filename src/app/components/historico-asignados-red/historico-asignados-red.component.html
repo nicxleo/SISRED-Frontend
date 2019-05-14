@@ -1,0 +1,21 @@
+<div *ngIf="red" class="modal-dialog modal-sm">
+  <div class="modal-content">
+    <div class="modal-header" id="mediaHeader">
+      <h4 class="modal-title pull-left" id="mediaTitle">Asignados</h4>
+      <button type="button" class="close pull-right" (click)="close()" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+
+    <div class="modal-body" id="mediaBody">
+      <ul class="list-group border border-dark shadow rounded mt-2 mb-4">
+        <li *ngIf="asignados.length === 0" class="list-group-item text-center">
+          <h5>No hay asignados.</h5>
+        </li>
+        <li *ngFor="let asignado of asignados" class="list-group-item">
+          <p>{{asignado.name}}</p>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
