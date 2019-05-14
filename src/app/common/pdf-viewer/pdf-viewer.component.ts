@@ -235,8 +235,17 @@ export class PdfViewerComponent implements OnInit {
 
   addComment(posicionPadre: number) {
     this.comentarioHijo.emit({
-      idComentarioPadre: this.comentariosPdf[posicionPadre].id,
+      idComentarioPadre: this.comentariosPdf[posicionPadre].coordenadas.id,
       comentario: this.areaInfo[posicionPadre].text
+    });
+    this.areaInfo[posicionPadre].commentsChildren.push({
+      id: "",
+      contenido: this.areaInfo[posicionPadre].text,
+      text: "",
+      fechaCreacion: new Date(),
+      version: "",
+      idUsuario: "1",
+      esCierre: false
     });
     this.areaInfo[posicionPadre].text = "";
   }
