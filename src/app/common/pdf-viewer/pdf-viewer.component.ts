@@ -1,267 +1,293 @@
-import { Component, ElementRef, OnInit, ViewChild, Input, OnChanges, SimpleChanges } from '@angular/core';
-import * as $ from 'jquery';
-import * as Popper from 'popper.js/dist/umd/popper.js';
-import { ComentarioPdfModel } from 'src/app/services/comentario/comentario-pdf.model';
-import { ComentarioHijoPdfModel } from 'src/app/services/comentario/comentario-pdf-hijo.model';
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  ViewChild
+} from "@angular/core";
+import * as $ from "jquery";
+import * as Popper from "popper.js/dist/umd/popper.js";
+import { ComentarioHijoPdfModel } from "src/app/services/comentario/comentario-pdf-hijo.model";
+import { ComentarioPdfModel } from "src/app/services/comentario/comentario-pdf.model";
 
 @Component({
-	selector: 'app-pdf-viewer',
-	templateUrl: './pdf-viewer.component.html',
-	styleUrls: [ './pdf-viewer.component.scss' ]
+  selector: "app-pdf-viewer",
+  templateUrl: "./pdf-viewer.component.html",
+  styleUrls: ["./pdf-viewer.component.scss"]
 })
 export class PdfViewerComponent implements OnInit {
-	@Input()
-	comentariosPdf: ComentarioPdfModel[];
+  @Input()
+  comentariosPdf: ComentarioPdfModel[];
 
-	public rutaArchivo:string;
-	
-	@Input()
-	test;
+  @Output()
+  comentarioPadre = new EventEmitter<Object>();
 
-	areaInfo: AreaInfo[] = [];
+  @Output()
+  comentarioHijo = new EventEmitter<Object>();
 
+  public rutaArchivo: string;
 
-	@ViewChild('pdfContainer') private pdfContainer: ElementRef;
+  public textComentarioHijo: string;
 
-	ngOnInit() {
-		setTimeout(() => { 
-			this.comentariosPdf.forEach(data=>{
-				this.areaInfo.push({
-					rectangleId: data.id,
-					pageNumber: 1,
-					rect: {
-						height: Number(data.height),
-						width: Number(data.width),
-						x1: Number(data.coordenadas.x1),
-						y1: Number(data.coordenadas.y1),
-						x2: Number(data.coordenadas.x2),
-						y2: Number(data.coordenadas.y2),
-					},
-					comment: data.contenido,
-					commentsChildren:data.comentariosHijos,
-					isDelete: false
-				})
-				console.log(this.areaInfo);
-				this.rutaArchivo = this.comentariosPdf[0].rutaArchivo;
+  areaInfo: AreaInfo[] = [];
 
-			})
-		 }, 2000);
-	}
+  @ViewChild("pdfContainer") private pdfContainer: ElementRef;
 
+  ngOnInit() {
+    var x = 1;
+    setTimeout(() => {
+      this.comentariosPdf.forEach(data => {
+        console.log(data);
+        this.areaInfo.push({
+          rectangleId: "rectangle-" + x,
+          pageNumber: 1,
+          rect: {
+            x1: Number(data.coordenadas.x1),
+            y1: Number(data.coordenadas.y1),
+            x2: Number(data.coordenadas.x2),
+            y2: Number(data.coordenadas.y2),
+            width: Number(data.width),
+            height: Number(data.height)
+          },
+          comment: data.contenido,
+          commentsChildren: data.comentariosHijos,
+          isDelete: false
+        });
+        console.log(this.areaInfo);
+        x++;
+        this.rutaArchivo = this.comentariosPdf[0].rutaArchivo;
+      });
+    }, 2000);
+  }
 
-	title = 'ng-pdf-highlighter';
-	comment: string;
+  title = "ng-pdf-highlighter";
+  comment: string;
 
-	rect: Rectangle = { x1: 0, y1: 0, x2: 0, y2: 0, width: 0, height: 0 };
-	lastMousePosition: Position = { x: 0, y: 0 };
-	canvasPosition: Position = { x: 0, y: 0 };
-	mousePosition: Position = { x: 0, y: 0 };
-	mouseDownFlag: boolean = false;
+  rect: Rectangle = { x1: 0, y1: 0, x2: 0, y2: 0, width: 0, height: 0 };
+  lastMousePosition: Position = { x: 0, y: 0 };
+  canvasPosition: Position = { x: 0, y: 0 };
+  mousePosition: Position = { x: 0, y: 0 };
+  mouseDownFlag: boolean = false;
 
-	pagePosition: Position = { x: 0, y: 0 };
+  pagePosition: Position = { x: 0, y: 0 };
 
-	cnv;
-	pdfBody;
-	ctx;
-	element = null;
-	dataPageNumber: number;
+  cnv;
+  pdfBody;
+  ctx;
+  element = null;
+  dataPageNumber: number;
 
+  constructor() {}
 
-	constructor() {
-	}
+  mouseEvent(event) {
+    if (!this.showPopup) {
+      if (event.type === "mousemove") {
+        this.mousePosition = {
+          x: event.clientX - this.pagePosition.x,
+          y: event.clientY - this.pagePosition.y
+        };
 
-	mouseEvent(event) {
-		if (!this.showPopup) {
-			if (event.type === 'mousemove') {
-				this.mousePosition = {
-					x: event.clientX - this.pagePosition.x,
-					y: event.clientY - this.pagePosition.y
-				};
+        if (this.mouseDownFlag) {
+          let width = this.mousePosition.x - this.lastMousePosition.x;
+          let height = this.mousePosition.y - this.lastMousePosition.y;
+          this.rect = {
+            x1: this.lastMousePosition.x,
+            y1: this.lastMousePosition.y,
+            x2: this.mousePosition.x,
+            y2: this.mousePosition.y,
+            width: width,
+            height: height
+          };
 
-				if (this.mouseDownFlag) {
-					let width = this.mousePosition.x - this.lastMousePosition.x;
-					let height = this.mousePosition.y - this.lastMousePosition.y;
-					this.rect = {
-						x1: this.lastMousePosition.x,
-						y1: this.lastMousePosition.y,
-						x2: this.mousePosition.x,
-						y2: this.mousePosition.y,
-						width: width,
-						height: height
-					};
+          if (this.element != null) {
+            this.element.style.width = width + "px";
+            this.element.style.height = height + "px";
+            if (this.rect.width > 0 && this.rect.height > 0) {
+              document
+                .getElementsByClassName("to-draw-rectangle")
+                [this.dataPageNumber - 1].appendChild(this.element);
+            }
+          }
+        }
+      }
 
-					if (this.element != null) {
-						this.element.style.width = width + 'px';
-						this.element.style.height = height + 'px';
-						if (this.rect.width > 0 && this.rect.height > 0) {
-							document
-								.getElementsByClassName('to-draw-rectangle')
-								[this.dataPageNumber - 1].appendChild(this.element);
-						}
-					}
-				}
-			}
+      if (event.type === "mousedown") {
+        this.mouseDownFlag = true;
 
-			if (event.type === 'mousedown') {
-				this.mouseDownFlag = true;
+        let eventPath = event.path.find(p => p.className == "page");
+        if (typeof eventPath !== "undefined") {
+          this.dataPageNumber = parseInt(
+            eventPath.getAttribute("data-page-number")
+          ); // get id of page
 
-				let eventPath = event.path.find((p) => p.className == 'page');
-				if (typeof eventPath !== 'undefined') {
-					this.dataPageNumber = parseInt(eventPath.getAttribute('data-page-number')); // get id of page
+          let toDrawRectangle = document.getElementsByClassName(
+            "to-draw-rectangle"
+          );
+          let pageOffset = toDrawRectangle[
+            this.dataPageNumber - 1
+          ].getBoundingClientRect();
+          this.pagePosition = {
+            x: pageOffset.left,
+            y: pageOffset.top
+          };
 
-					let toDrawRectangle = document.getElementsByClassName('to-draw-rectangle');
-					let pageOffset = toDrawRectangle[this.dataPageNumber - 1].getBoundingClientRect();
-					this.pagePosition = {
-						x: pageOffset.left,
-						y: pageOffset.top
-					};
+          this.lastMousePosition = {
+            x: event.clientX - this.pagePosition.x,
+            y: event.clientY - this.pagePosition.y
+          };
 
-					this.lastMousePosition = {
-						x: event.clientX - this.pagePosition.x,
-						y: event.clientY - this.pagePosition.y
-					};
+          let rectId = document.getElementsByClassName("rectangle").length + 1;
 
-					let rectId = document.getElementsByClassName('rectangle').length + 1;
+          this.element = document.createElement("div");
+          this.element.className = "rectangle";
+          this.element.id = "rectangle-" + rectId;
+          this.element.style.position = "absolute";
+          this.element.style.border = "2px solid #0084FF";
+          this.element.style.borderRadius = "3px";
+          this.element.style.left = this.lastMousePosition.x + "px";
+          this.element.style.top = this.lastMousePosition.y + "px";
+        }
+      }
 
-					this.element = document.createElement('div');
-					this.element.className = 'rectangle';
-					this.element.id = 'rectangle-' + rectId;
-					this.element.style.position = 'absolute';
-					this.element.style.border = '2px solid #0084FF';
-					this.element.style.borderRadius = '3px';
-					this.element.style.left = this.lastMousePosition.x + 'px';
-					this.element.style.top = this.lastMousePosition.y + 'px';
-				}
-			}
+      if (event.type === "mouseup") {
+        this.mouseDownFlag = false;
+        if (this.rect.height > 0 && this.rect.width > 0) {
+          let popper = document.querySelector(".js-popper");
+          new Popper(this.element, popper, {
+            placement: "top-end"
+          });
+          this.showPopup = true;
+        }
+      }
+    }
+  }
 
-			if (event.type === 'mouseup') {
-				this.mouseDownFlag = false;
-				if (this.rect.height > 0 && this.rect.width > 0) {
-					let popper = document.querySelector('.js-popper');
-					new Popper(this.element, popper, {
-						placement: 'top-end'
-					});
-					this.showPopup = true;
-				}
-			}
-		}
-	}
+  pageRendereds(e) {
+    console.log("(page-rendered)", e.source.div);
+    console.log(e.composedPath[0].page);
+  }
+  // added new div when pages rendered
+  indexOfPage: number = 1;
+  pageRendered(event) {
+    let elem = document.createElement("div");
+    elem.className = "to-draw-rectangle";
+    elem.style.position = "absolute";
+    elem.style.left = 0 + "px";
+    elem.style.top = 0 + "px";
+    elem.style.right = 0 + "px";
+    elem.style.bottom = 0 + "px";
+    elem.style.cursor = "crosshair";
+    // elem.style.background = 'red';
+    // elem.style.opacity = '0.4';
+    event.source.div.appendChild(elem);
 
-	pageRendereds(e) {
-		console.log('(page-rendered)', e.source.div);
-		console.log(e.composedPath[0].page);
-	}
-	// added new div when pages rendered
-	indexOfPage: number = 1;
-	pageRendered(event) {
-		let elem = document.createElement('div');
-		elem.className = 'to-draw-rectangle';
-		elem.style.position = 'absolute';
-		elem.style.left = 0 + 'px';
-		elem.style.top = 0 + 'px';
-		elem.style.right = 0 + 'px';
-		elem.style.bottom = 0 + 'px';
-		elem.style.cursor = 'crosshair';
-		// elem.style.background = 'red';
-		// elem.style.opacity = '0.4';
-		event.source.div.appendChild(elem);
+    $(".textLayer").addClass("disable-textLayer");
 
-		$('.textLayer').addClass('disable-textLayer');
+    let rectElem = this.areaInfo.find(f => f.pageNumber === this.indexOfPage);
+    if (typeof rectElem !== "undefined") {
+      let rectId = document.getElementsByClassName("rectangle").length + 1;
+      let rect = document.createElement("div");
+      rect.className = "rectangle";
+      rect.id = "rectangle-" + rectId;
+      rect.style.position = "absolute";
+      rect.style.border = "2px solid #0084FF";
+      rect.style.borderRadius = "3px";
+      rect.style.left = rectElem.rect.x1 + "px";
+      rect.style.top = rectElem.rect.y1 + "px";
+      rect.style.width = rectElem.rect.width + "px";
+      rect.style.height = rectElem.rect.height + "px";
+      //get to-draw-rectangle div and add rectangle
+      event.source.div.children[2].appendChild(rect);
+    }
+    this.indexOfPage++;
+  }
 
-		let rectElem = this.areaInfo.find((f) => f.pageNumber === this.indexOfPage);
-		if (typeof rectElem !== 'undefined') {
-			let rectId = document.getElementsByClassName('rectangle').length + 1;
-			let rect = document.createElement('div');
-			rect.className = 'rectangle';
-			rect.id = 'rectangle-' + rectId;
-			rect.style.position = 'absolute';
-			rect.style.border = '2px solid #0084FF';
-			rect.style.borderRadius = '3px';
-			rect.style.left = rectElem.rect.x1 + 'px';
-			rect.style.top = rectElem.rect.y1 + 'px';
-			rect.style.width = rectElem.rect.width + 'px';
-			rect.style.height = rectElem.rect.height + 'px';
-			//get to-draw-rectangle div and add rectangle
-			event.source.div.children[2].appendChild(rect);
-		}
-		this.indexOfPage++;
-	}
+  showPopup: boolean = false;
+  getStyle() {
+    if (this.showPopup) {
+      return "block";
+    } else {
+      return "none";
+    }
+  }
 
-	showPopup: boolean = false;
-	getStyle() {
-		if (this.showPopup) {
-			return 'block';
-		} else {
-			return 'none';
-		}
-	}
-
-	save() {
-		console.log(this.rect);
-		this.areaInfo.push({
-			rectangleId: this.element.id,
-			pageNumber: this.dataPageNumber,
-			rect: this.rect,
-			isDelete: false,
-			comment: this.comment,
-			commentsChildren:[]
-		});
-		this.showPopup = false;
+  save() {
+    let areaInfo = {
+      rectangleId: this.element.id,
+      pageNumber: this.dataPageNumber,
+      rect: this.rect,
+      isDelete: false,
+      comment: this.comment,
+      commentsChildren: []
+    };
+    this.areaInfo.push(areaInfo);
+    this.showPopup = false;
     this.rect = { x1: 0, y1: 0, x2: 0, y2: 0, width: 0, height: 0 };
-		this.comment="";
-		
-	}
+    this.comment = "";
+    this.comentarioPadre.emit({
+      coordenadas: areaInfo.rect,
+      comentario: areaInfo.comment
+    });
+    // logica para agregar comentario
+  }
 
-	addComment(){
-		console.log("add comment");
+  addComment(posicionPadre: number) {
+    this.comentarioHijo.emit({
+      idComentarioPadre: this.comentariosPdf[posicionPadre].id,
+      comentario: this.areaInfo[posicionPadre].text
+    });
+    this.areaInfo[posicionPadre].text = "";
+  }
 
-		this.comment = "";
-		console.log(this.areaInfo[0].commentsChildren);
-	}
+  cancel(event) {
+    let rectId = this.element.getAttribute("id");
+    $("#" + rectId).remove();
+    this.showPopup = false;
+    this.rect = { x1: 0, y1: 0, x2: 0, y2: 0, width: 0, height: 0 };
+  }
 
-	cancel(event) {
-		let rectId = this.element.getAttribute('id');
-		$('#' + rectId).remove();
-		this.showPopup = false;
-		this.rect = { x1: 0, y1: 0, x2: 0, y2: 0, width: 0, height: 0 };
-	}
-
-	listRectangleId: string = '';
-	moveTo(list: AreaInfo) {
-		if (this.listRectangleId != '') {
-			if (document.getElementById(this.listRectangleId)) {
-				document.getElementById(this.listRectangleId).style.background = 'transparent';
-				document.getElementById(this.listRectangleId).style.opacity = '1';
-			}
-		}
-		if (this.listRectangleId !== list.rectangleId) {
-			document.getElementById(list.rectangleId).scrollIntoView({ block: 'start', behavior: 'smooth' });
-			document.getElementById(list.rectangleId).style.background = 'red';
-			document.getElementById(list.rectangleId).style.opacity = '0.4';
-			this.listRectangleId = list.rectangleId;
-		}
-	}
+  listRectangleId: string = "";
+  moveTo(list: AreaInfo) {
+    if (this.listRectangleId != "") {
+      if (document.getElementById(this.listRectangleId)) {
+        document.getElementById(this.listRectangleId).style.background =
+          "transparent";
+        document.getElementById(this.listRectangleId).style.opacity = "1";
+      }
+    }
+    if (this.listRectangleId !== list.rectangleId) {
+      document
+        .getElementById(list.rectangleId)
+        .scrollIntoView({ block: "start", behavior: "smooth" });
+      document.getElementById(list.rectangleId).style.background = "red";
+      document.getElementById(list.rectangleId).style.opacity = "0.4";
+      this.listRectangleId = list.rectangleId;
+    }
+  }
 }
 
 interface Position {
-	x: number;
-	y: number;
+  x: number;
+  y: number;
 }
 
 interface Rectangle {
-	x1: number;
-	y1: number;
-	x2: number;
-	y2: number;
-	width: number;
-	height: number;
+  x1: number;
+  y1: number;
+  x2: number;
+  y2: number;
+  width: number;
+  height: number;
 }
 
 interface AreaInfo {
-	rectangleId: string;
-	pageNumber: number;
-	rect: Rectangle;
-	isDelete?: boolean;
-	comment: string;
-	commentsChildren:ComentarioHijoPdfModel[]
+  rectangleId: string;
+  pageNumber: number;
+  rect: Rectangle;
+  isDelete?: boolean;
+  comment: string;
+  commentsChildren: ComentarioHijoPdfModel[];
+  text?: string;
 }
