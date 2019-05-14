@@ -3,7 +3,7 @@ import {environment} from '../../../environments/environment';
 import {HttpClient, HttpParams, HttpHeaders} from '@angular/common/http';
 import {Observable, of} from 'rxjs';
 import { AutenticacionService } from '../autenticacion/autenticacion.service';
-import {DatosUsuario} from "../../models/datos-usuario";
+import {DatosUsuario} from '../../models/datos-usuario';
 
 @Injectable({
   providedIn: 'root'
@@ -16,11 +16,11 @@ export class CommentsVersionVideoService {
 
   annotations: any[];
   recursoVideo: any[];
-  constructor(private httpClient: HttpClient, private autenticacionService: AutenticacionService) { 
-    
+  constructor(private httpClient: HttpClient, private autenticacionService: AutenticacionService) {
+
   }
 
-  
+
   // Metodo que invoca al servicio que obitiene los comentarios del video
   getCommentsVersionVideo(idRecurso: number): Observable<Array<any>> {
     const tokenSisred = this.autenticacionService.obtenerToken();
@@ -29,7 +29,7 @@ export class CommentsVersionVideoService {
       'Content-Type': 'application/json',
       Authorization: 'Token ' + tokenSisred
     });
-    
+
     this.annotations = [];
     this.httpClient.get(this.API_URL + idRecurso, { headers }).subscribe((data: any) => {
       for (const entry of data) {
@@ -71,13 +71,13 @@ export class CommentsVersionVideoService {
   cerrarComentarioVideo(idRecurso: any, idComentarioMultimedia: any, comentarioCierre: string) {
     const userData: DatosUsuario = this.autenticacionService.obtenerDatosUsuario();
     const body = {
-      'id_recurso': idRecurso,
-      'id_multimedia': idComentarioMultimedia,
-      'id_usuario': userData.idConectate,
-      'contenido': comentarioCierre,
-      'cerrado': true,
-      'resuelto': true, //TODO Pendiente
-      'es_cierre': true
+      id_recurso: idRecurso,
+      id_multimedia: idComentarioMultimedia,
+      id_usuario: userData.idConectate,
+      contenido: comentarioCierre,
+      cerrado: true,
+      resuelto: true, // TODO Pendiente
+      es_cierre: true
     };
     this.httpClient.post(this.API_URL + 'cierre', body).subscribe((data: any) => {
 

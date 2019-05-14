@@ -93,7 +93,7 @@ export class ComentariosVersionVideoComponent implements OnInit, AfterViewInit {
       annotationsObjects: this.annotations,
       bindArrowKeys: true,
       meta: {
-        user_id: userData.idConectate, //TODO es el único ID que se tiene
+        user_id: userData.idConectate, // TODO es el único ID que se tiene
         user_name: userData.email
       },
       showControls: true,
@@ -153,13 +153,13 @@ export class ComentariosVersionVideoComponent implements OnInit, AfterViewInit {
 
   // Metodo para cerrar un comentario
   cerrarCommentario(): void {
-    console.log( "Cerrar comentario: " +this.idComentarioCerrar );
-    console.log( "Contenido comentario cierre: " +this.contenidoComentarioCerrar );
+    console.log( 'Cerrar comentario: ' + this.idComentarioCerrar );
+    console.log( 'Contenido comentario cierre: ' + this.contenidoComentarioCerrar );
     this.commentsVersionVideoService.cerrarComentarioVideo(this.idRecurso, this.idComentarioCerrar, this.contenidoComentarioCerrar);
     setTimeout(() => {
                 this.consultarComentarios();
             }, 2500);
-      this.cdRef.detectChanges();
+    this.cdRef.detectChanges();
   }
 
   public onChangeComentario( { editor }: ChangeEvent ) {
