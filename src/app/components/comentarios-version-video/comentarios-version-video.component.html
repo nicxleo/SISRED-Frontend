@@ -33,7 +33,7 @@
                   </div>
                   <div class="panel-body">
                     <ul class="media-list" *ngFor="let multi of annotations">
-                      <li class="media" *ngFor="let comment of multi.comments">
+                      <li class="media" *ngFor="let comment of multi.comments| slice:0:1; let i=index">
                         <a class="pull-left">
                           <img src="http://dehradunfinder.in/en/images/reviewer-image.png" alt=""
                                class="img-circle">
@@ -43,14 +43,32 @@
                                      <small class="text-muted">{{comment.meta.datetime}}</small>
                                   </span>
                           <strong class="text-success">{{comment.meta.user_name}}</strong>
-                          <p>{{comment.body}}</p>
+                          <p [innerHTML]="comment.body">{{comment.body}}</p>
+
                           <p>
                             <small class="text-muted">Segundo inicial: {{multi.range.start}} - Segundo final: {{multi.range.end}}</small>
                             <span class="text-muted pull-right">
-                               <button type="button" (click)="cerrarCommentarioModal(comment.id)" class="btn btn-primary">Cerrar</button>
+                               <img class="icon-comment-done" *ngIf="comment.cerrado" src="https://images.vexels.com/media/users/3/157931/isolated/preview/604a0cadf94914c7ee6c6e552e9b4487-icono-de-c--rculo-de-marca-de-verificaci--n-curvo-by-vexels.png">
+                               <button type="button" *ngIf="!comment.cerrado" (click)="cerrarCommentarioModal(multi.id)" class="btn btn-primary">Cerrar</button>
                             </span>
                           </p>
+                        <div class="internalComments" *ngIf="multi.comments.length > 1">
+                          <li class="" *ngFor="let comment of multi.comments| slice:1; let i=index">
+                           <div class="">
 
+
+                             <span class="text-muted pull-right">
+                                     <small class="text-muted">{{comment.meta.datetime}}</small>
+                                  </span>
+                              <strong class="text-success">{{comment.meta.user_name}}</strong>
+                              <p [innerHTML]="comment.body">{{comment.body}}</p>
+                              <p>
+                                <small class="text-muted"><strong>Comentario Cierre:</strong> {{comment.cerrado==true?"SI":"NO"}} - <strong>Resuelto:</strong> {{comment.resuelto==true?"SI":"NO"}}</small>
+                              </p>
+
+                           </div>
+                         </li>
+                    </div>
                         </div>
                       </li>
                     </ul>
@@ -82,10 +100,17 @@
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
       <div class="modal-body">
+        <form name="myForm" ng-controller="ComentariosVersionVideoComponent">
+          <div>
+            <label class="radio-inline"><input [(ngModel)]="comentarioResuelto" [value]="RESUELTO" type="radio" name="comentarioResuelto" checked>Resuelto</label>
+            <label class="radio-inline"><input [(ngModel)]="comentarioResuelto" [value]="SIN_RESOLVER" type="radio" name="comentarioResuelto">Sin Resolver</label>
+          </div>
+        </form>
+        <br>
         <ckeditor [editor]="Editor" (change)="onChangeComentario($event)"></ckeditor>
       </div>
       <div class="modal-footer text-center">
-        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="cerrarCommentario()">Cerrar</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="cerrarCommentario()">Cerrar Comentario</button>
         <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="closeModal()">Cancelar</button>
       </div>
     </div>

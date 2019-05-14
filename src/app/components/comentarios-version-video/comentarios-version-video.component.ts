@@ -35,6 +35,7 @@ export class ComentariosVersionVideoComponent implements OnInit, AfterViewInit {
   mensaje: string;
   idComentarioCerrar: number;
   contenidoComentarioCerrar: string;
+  comentarioResuelto: string;
 
   @ViewChild('modalComentario') modal: ElementRef;
   constructor(
