@@ -33,7 +33,7 @@ export class ComentariosVersionVideoComponent implements OnInit, AfterViewInit {
   respuestaVideo: any;
   heading: string;
   mensaje: string;
-  idComentarioCerrar: string;
+  idComentarioCerrar: number;
   contenidoComentarioCerrar: string;
 
   @ViewChild('modalComentario') modal: ElementRef;
@@ -135,7 +135,7 @@ export class ComentariosVersionVideoComponent implements OnInit, AfterViewInit {
 
 
   // Metodo para cerrar un comentario
-  cerrarCommentarioModal(idComentario: string): void {
+  cerrarCommentarioModal(idComentario: any): void {
     this.idComentarioCerrar = idComentario;
     this.heading = 'Cerrar Comentario';
      /*this.body = '¿Desea cambiar de fase a ' + this.fases[this.detalle.fase.idConectate].nombre + '?';
@@ -154,7 +154,11 @@ export class ComentariosVersionVideoComponent implements OnInit, AfterViewInit {
   cerrarCommentario(): void {
     console.log( "Cerrar comentario: " +this.idComentarioCerrar );
     console.log( "Contenido comentario cierre: " +this.contenidoComentarioCerrar );
-    this.commentsVersionVideoService.cerrarComentarioVideo(this.idComentarioCerrar, this.contenidoComentarioCerrar);
+    this.commentsVersionVideoService.cerrarComentarioVideo(this.idRecurso, this.idComentarioCerrar, this.contenidoComentarioCerrar);
+    setTimeout(() => {
+                this.consultarComentarios();
+            }, 2500);
+      this.cdRef.detectChanges();
   }
 
   public onChangeComentario( { editor }: ChangeEvent ) {

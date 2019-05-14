@@ -3,6 +3,7 @@ import {environment} from '../../../environments/environment';
 import {HttpClient, HttpParams, HttpHeaders} from '@angular/common/http';
 import {Observable, of} from 'rxjs';
 import { AutenticacionService } from '../autenticacion/autenticacion.service';
+import {DatosUsuario} from "../../models/datos-usuario";
 
 @Injectable({
   providedIn: 'root'
@@ -66,8 +67,12 @@ export class CommentsVersionVideoService {
   }
 
   // Metodo que invoca al servicio que cierra comentario
-  cerrarComentarioVideo(idComentario: string, comentarioCierre: string) {
+  cerrarComentarioVideo(idRecurso: any, idComentarioMultimedia: any, comentarioCierre: string) {
+    const userData: DatosUsuario = this.autenticacionService.obtenerDatosUsuario();
+    const body = {'id_recurso':idRecurso, 'id_multimedia':idComentarioMultimedia, 'id_usuario':userData.idConectate, 'contenido':comentarioCierre};
+    this.httpClient.post(this.API_URL + '/cierre', body).subscribe((data: any) => {
 
+    });
   }
 
 }
