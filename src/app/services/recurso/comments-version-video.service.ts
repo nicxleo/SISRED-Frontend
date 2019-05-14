@@ -35,6 +35,7 @@ export class CommentsVersionVideoService {
       for (const entry of data) {
           this.annotations.push(entry);
       }
+      console.log(this.annotations);
     });
     return of(this.annotations);
   }
@@ -70,7 +71,7 @@ export class CommentsVersionVideoService {
   cerrarComentarioVideo(idRecurso: any, idComentarioMultimedia: any, comentarioCierre: string) {
     const userData: DatosUsuario = this.autenticacionService.obtenerDatosUsuario();
     const body = {'id_recurso':idRecurso, 'id_multimedia':idComentarioMultimedia, 'id_usuario':userData.idConectate, 'contenido':comentarioCierre};
-    this.httpClient.post(this.API_URL + '/cierre', body).subscribe((data: any) => {
+    this.httpClient.post(this.API_URL + 'cierre', body).subscribe((data: any) => {
 
     });
   }
