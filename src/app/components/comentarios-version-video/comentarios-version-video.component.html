@@ -49,14 +49,14 @@
                             <small class="text-muted">Segundo inicial: {{multi.range.start}} - Segundo
                               final: {{multi.range.end}}</small>
                             <span class="text-muted pull-right">
-                               <img class="icon-comment-done" *ngIf="comment.cerrado"
+                               <img class="icon-comment-done" *ngIf="comment.cerrado" title="Comentario Cerrado" data-toggle="tooltip" data-placement="top"
                                     src="https://images.vexels.com/media/users/3/157931/isolated/preview/604a0cadf94914c7ee6c6e552e9b4487-icono-de-c--rculo-de-marca-de-verificaci--n-curvo-by-vexels.png">
-                               <button type="button" *ngIf="!comment.cerrado" (click)="cerrarCommentarioModal(multi.id)"
+                               <button type="button" *ngIf="!comment.cerrado" (click)="cerrarCommentarioModal(multi.id)" title="Cerrar Comentario" data-toggle="tooltip" data-placement="top"
                                        class="btn btn-primary">Cerrar</button>
                             </span>
                           </p>
-                          <div class="internalComments">
-                            <ul *ngIf="multi.comments.length > 1" class="internalCommentsUl">
+                          <div class="internalComments" *ngIf="multi.comments.length > 1">
+                            <ul  class="internalCommentsUl">
                               <li class="" *ngFor="let comment of multi.comments| slice:1; let i=index">
                                 <div class="">
                                 <span class="text-muted pull-right">
@@ -82,9 +82,26 @@
             </div>
           </div>
         </div>
+
+        <div class="row bootstrap snippets">
+            <div class="col-md-8 col-md-offset-2 col-sm-12">
+                <div class="">
+                  <div class="">
+                    <div class="col-lg-6">
+                      <p class="text-primary text-right"><strong>Comentarios Abiertos:</strong> 0</p>
+                    </div>
+                    <div class="col-lg-6">
+                      <p class="text-primary"><strong>Comentarios Cerrados:</strong> 0</p>
+                    </div>
+                  </div>
+                </div>
+            </div>
+        </div>
+
         <div class="float-right">
           <button type="button" (click)="goBack()" class="btn btn-info">Volver</button>
         </div>
+
       </div>
     </div>
     <!-- /.row -->
@@ -106,9 +123,9 @@
       <div class="modal-body">
         <form name="myForm" ng-controller="ComentariosVersionVideoComponent">
           <div>
-            <label class="radio-inline"><input [(ngModel)]="comentarioResuelto" [value]="RESUELTO" type="radio"
+            <label class="radio-inline"><input [(ngModel)]="comentarioResuelto" value="RESUELTO" type="radio"
                                                name="comentarioResuelto" checked>Resuelto</label>
-            <label class="radio-inline"><input [(ngModel)]="comentarioResuelto" [value]="SIN_RESOLVER" type="radio"
+            <label class="radio-inline"><input [(ngModel)]="comentarioResuelto" value="SIN_RESOLVER" type="radio"
                                                name="comentarioResuelto">Sin Resolver</label>
           </div>
         </form>
@@ -124,3 +141,19 @@
     </div>
   </div>
 </div>
+
+  <script>
+    $( document ).ready(function() {
+
+        setTimeout(
+          $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+          }), 2000);
+
+        $(function () {
+          $('[data-toggle="tooltip"]').tooltip()
+        })
+
+    });
+
+  </script>
