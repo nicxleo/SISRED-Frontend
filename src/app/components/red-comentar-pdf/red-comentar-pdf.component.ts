@@ -26,12 +26,14 @@ export class RedComentarPdfComponent implements OnInit {
       this.comentarRestClientService
         .getComentariosByIdRed(params.get("id"))
         .subscribe(data => {
+          console.log(data);
           this.comentariosPdf = data;
         });
     });
   }
 
   guardarComentarioPadre($event): void {
+    console.log("Comentario padre");
     this.comentarRestClientService
       .postComentariosByIdRed($event, Number(this.idRed))
       .subscribe(response => {

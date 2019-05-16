@@ -37,6 +37,7 @@ export class ComentarRestClientService {
   }
 
   postComentariosByIdRed(comentario: any, idRed: number): Observable<any> {
+    console.log("console.log.postComentariosByIdRed")
     let request = {
       contenido: comentario.comentario,
       version: Number(idRed),
