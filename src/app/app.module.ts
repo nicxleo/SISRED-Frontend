@@ -40,6 +40,7 @@ import { BuscarRecursoComponent } from './components/buscar-recurso/buscar-recur
 import { HabilitarUsuarioComponent } from './components/HabilitarUsuario/Habilitar-Usuario.component';
 import { HabilitarUsuarioClientService } from './services/HabilitarUsuario/habilita-usuario-client.service';
 import { VersionRedRevisionComponent } from './components/version-red-revision/version-red-revision.component';
+import { DashboardProyectosConectateComponent } from './components/dashboard-proyectos-conectate/dashboard-proyectos-conectate.component';
 
 
 @NgModule({
@@ -72,7 +73,8 @@ import { VersionRedRevisionComponent } from './components/version-red-revision/v
     HabilitarUsuarioComponent,        
     HabilitarUsuarioComponent,
     TabPanesComponent,
-    BuscarRecursoComponent
+    BuscarRecursoComponent,
+    DashboardProyectosConectateComponent
   ],
   imports: [
     AppRoutingModule,

@@ -24,8 +24,14 @@ import { LoginComponent } from './components/login/login.component';
 import { AutenticacionGuard } from './guards/autenticacion/autenticacion.guard';
 import { NoAutenticadoGuard } from './guards/no-autenticado/no-autenticado.guard';
 import { BuscarRecursoComponent } from './components/buscar-recurso/buscar-recurso.component';
+import { DashboardProyectosConectateComponent } from './components/dashboard-proyectos-conectate/dashboard-proyectos-conectate.component';
 
 const routes: Routes = [
+  {
+    path: 'dashboardProyectos',
+    component: DashboardProyectosConectateComponent,
+    canActivate: [AutenticacionGuard]
+  },
   {
     path: 'red/version/:idVersion/archivo/:idRecurso/comentar',
     component: ComentarImagenComponent,
@@ -36,38 +42,43 @@ const routes: Routes = [
     component: BuscarRedComponent,
     canActivate: [AutenticacionGuard]
   },
-  { path: 'test', 
+  {
+    path: 'test',
     component: RedAsignadosComponent,
     canActivate: [NoAutenticadoGuard]
   },
-  { path: 'red/:idRed/proyecto/agregar', 
+  {
+    path: 'red/:idRed/proyecto/agregar',
     component: AddRedComponent,
-    canActivate: [AutenticacionGuard] 
+    canActivate: [AutenticacionGuard]
   },
-  { path: 'red/:idRed/detalle', 
+  {
+    path: 'red/:idRed/detalle',
     component: DetalleREDComponent,
-    canActivate: [AutenticacionGuard]  
+    canActivate: [AutenticacionGuard]
   },
-  { path: 'reds/:idUsuario', 
+  {
+    path: 'reds/:idUsuario',
     component: RedAsignadosComponent,
-    canActivate: [AutenticacionGuard]  
+    canActivate: [AutenticacionGuard]
   },
-  { path: 'asignaciones', 
+  {
+    path: 'asignaciones',
     component: RedsPorPersonaComponent,
-    canActivate: [AutenticacionGuard]  
+    canActivate: [AutenticacionGuard]
   },
-  { path: 'red/version/:idVersion/recurso/:idRecurso/comentarios', 
+  {
+    path: 'red/version/:idVersion/recurso/:idRecurso/comentarios',
     component: ComentariosVersionVideoComponent,
-    canActivate: [AutenticacionGuard] 
+    canActivate: [AutenticacionGuard]
   },
-  { path: 'habilitarusuario', 
+  {
+    path: 'habilitarusuario',
     component: HabilitarUsuarioComponent,
-    canActivate: [AutenticacionGuard] 
+    canActivate: [AutenticacionGuard]
   },
-        
-  { path: '', component: LoginComponent, 
-    canActivate: [NoAutenticadoGuard] 
-  },
+
+  { path: '', component: LoginComponent, canActivate: [NoAutenticadoGuard] },
 
   {
     path: 'red/:idRed/version/:version',
@@ -92,7 +103,7 @@ const routes: Routes = [
   {
     path: 'red/:id/recursos/:idrecurso',
     component: RedRecursosDetalleComponent
-  }, 
+  },
   {
     path: 'red/:idRed/recursos/agregar',
     component: AgregarRecursoComponent,
@@ -132,9 +143,10 @@ const routes: Routes = [
     component: RedCrearVersionComponent,
     canActivate: [AutenticacionGuard]
   },
-  { path: '**', 
-    component: NotFoundComponent, 
-    canActivate: [AutenticacionGuard] 
+  {
+    path: '**',
+    component: NotFoundComponent,
+    canActivate: [AutenticacionGuard]
   }
 ];
 
