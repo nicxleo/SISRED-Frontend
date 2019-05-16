@@ -22,7 +22,21 @@
           <form role="form" [formGroup]="buscarRecursoForm">
             <div class="box">
                 <div class="box-header with-border">
-                  <h3 class="box-title">Complete los filtros de búsqueda</h3>
+                  <h3 class="box-title">Filtro de búsqueda general</h3>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+
+                  <div class="form-group">
+                    <label for="texto">Texto</label>
+                    <input type="text" class="form-control" placeholder="Recurso" formControlName="texto">
+                  </div>
+                </div>
+                <!-- /.box-body -->
+              </div>
+            <div class="box">
+                <div class="box-header with-border">
+                  <h3 class="box-title">Filtros de búsqueda avanzada</h3>
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">

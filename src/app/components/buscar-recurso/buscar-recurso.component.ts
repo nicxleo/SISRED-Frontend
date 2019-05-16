@@ -27,10 +27,11 @@ export class BuscarRecursoComponent implements OnInit {
   ngOnInit() {
     setup();
     this.buscarRecursoForm = new FormGroup({
+      texto: new FormControl(),
       nombre: new FormControl(),
       fechaDesde: new FormControl(),
       fechaHasta: new FormControl(),
-      tag: new FormControl(),
+      tag: new FormControl()
     });
   }
 
@@ -54,7 +55,7 @@ export class BuscarRecursoComponent implements OnInit {
     });
     this.cargando = true;
     this.spinner.show()
-    this.buscarRecursoService.buscarRecursos(this.buscarRecursoForm.get('nombre').value, this.formatFecha(this.buscarRecursoForm.get('fechaDesde').value),
+    this.buscarRecursoService.buscarRecursos(this.buscarRecursoForm.get('texto').value, this.buscarRecursoForm.get('nombre').value, this.formatFecha(this.buscarRecursoForm.get('fechaDesde').value),
       this.formatFecha(this.buscarRecursoForm.get('fechaHasta').value), this.buscarRecursoForm.get('tag').value)
       .then(recursos => {
         console.log(recursos);

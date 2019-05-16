@@ -15,15 +15,16 @@ export class BuscarRecursoService {
     private autenticacionService: AutenticacionService
   ) { }
 
-  buscarRecursos(name, fechaInicio, fechaCierre, texto): Promise<Recurso[]> {
+  buscarRecursos(texto, name, fechaInicio, fechaCierre, tag): Promise<Recurso[]> {
 
     const tokenSisred = this.autenticacionService.obtenerToken();
     let params = new HttpParams();
 
+    params = texto === null ? params : params.append('texto', texto)
     params = name === null ? params : params.append('name', name)
     params = fechaInicio === null ? params : params.append('fdesde', fechaInicio)
     params = fechaCierre === null ? params : params.append('fhasta', fechaCierre)
-    params = texto === null ? params : params.append('text', texto)
+    params = tag === null ? params : params.append('tag', tag)
 
     let options = {
       headers: new HttpHeaders({
