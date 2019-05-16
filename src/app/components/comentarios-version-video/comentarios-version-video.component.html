@@ -121,7 +121,7 @@
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
       <div class="modal-body">
-        <form name="myForm" ng-controller="ComentariosVersionVideoComponent">
+        <form name="myForm" id="myForm" #myForm="ngForm"  ng-controller="ComentariosVersionVideoComponent">
           <div>
             <label class="radio-inline"><input [(ngModel)]="comentarioResuelto" value="RESUELTO" type="radio"
                                                name="comentarioResuelto" checked>Resuelto</label>
@@ -136,7 +136,7 @@
         <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="cerrarCommentario()">Cerrar
           Comentario
         </button>
-        <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="closeModal()">Cancelar</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
       </div>
     </div>
   </div>

@@ -8,6 +8,7 @@ import {Location} from '@angular/common';
 import {AutenticacionService} from '../../services/autenticacion/autenticacion.service';
 import {DatosUsuario} from '../../models/datos-usuario';
 import { ChangeEvent } from '@ckeditor/ckeditor5-angular/ckeditor.component';
+import { NgForm } from '@angular/forms';
 
 declare let $: any;
 declare let videojs: any;
@@ -38,6 +39,7 @@ export class ComentariosVersionVideoComponent implements OnInit, AfterViewInit {
   comentarioResuelto: string;
 
   @ViewChild('modalComentario') modal: ElementRef;
+  @ViewChild('myForm') private formDirective: NgForm;
   constructor(
     private activatedRoute: ActivatedRoute,
     private commentsVersionVideoService: CommentsVersionVideoService,
@@ -71,8 +73,6 @@ export class ComentariosVersionVideoComponent implements OnInit, AfterViewInit {
   iniciarPlugin(): void {
     const plugin = this.player.annotationComments(this.pluginOptions);
     plugin.on('onStateChanged', (event) => {
-      console.log('Persistiendo Comentarios->');
-      console.log(event.detail);
       this.commentsVersionVideoService.addVideoComments(this.idVersion, this.idRecurso, event.detail);
       setTimeout(() => {
                 this.consultarComentarios();
@@ -135,20 +135,13 @@ export class ComentariosVersionVideoComponent implements OnInit, AfterViewInit {
   }
 
 
-  // Metodo para cerrar un comentario
+  // Metodo para abrir el modal de cerrar un comentario
   cerrarCommentarioModal(idComentario: any): void {
+    this.formDirective.resetForm();
+    //this.Editor.setData('');
     this.idComentarioCerrar = idComentario;
     this.heading = 'Cerrar Comentario';
-     /*this.body = '¿Desea cambiar de fase a ' + this.fases[this.detalle.fase.idConectate].nombre + '?';
-    this.mensajeAdvertencia = this.seleccionarTexto(this.detalle.fase.idConectate.toString());*/
     $(this.modal.nativeElement).modal('show');
-  }
-
-  // Metodo para cerrar el modal
-  closeModal() {
-    this.mensaje = null;
-    location.reload();
-    console.log('message');
   }
 
   // Metodo para cerrar un comentario
@@ -165,6 +158,7 @@ export class ComentariosVersionVideoComponent implements OnInit, AfterViewInit {
 
   public onChangeComentario( { editor }: ChangeEvent ) {
         this.contenidoComentarioCerrar = editor.getData();
+
   }
 
 
