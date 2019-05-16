@@ -68,7 +68,7 @@ export class CommentsVersionVideoService {
   }
 
   // Metodo que invoca al servicio que cierra comentario
-  cerrarComentarioVideo(idRecurso: any, idComentarioMultimedia: any, comentarioCierre: string) {
+  cerrarComentarioVideo(idRecurso: any, idComentarioMultimedia: any, comentarioCierre: string, estaResuelto: boolean) {
     const userData: DatosUsuario = this.autenticacionService.obtenerDatosUsuario();
     const body = {
       id_recurso: idRecurso,
@@ -76,7 +76,7 @@ export class CommentsVersionVideoService {
       id_usuario: userData.idConectate,
       contenido: comentarioCierre,
       cerrado: true,
-      resuelto: true, // TODO Pendiente
+      resuelto: estaResuelto,
       es_cierre: true
     };
     this.httpClient.post(this.API_URL + 'cierre', body).subscribe((data: any) => {

@@ -86,12 +86,12 @@
         <div class="row bootstrap snippets">
             <div class="col-md-8 col-md-offset-2 col-sm-12">
                 <div class="">
-                  <div class="">
+                  <div class="" *ngFor="let multi of annotations| slice:0:1; let i=index">
                     <div class="col-lg-6">
-                      <p class="text-primary text-right"><strong>Comentarios Abiertos:</strong> 0</p>
+                      <p class="text-primary text-right"><strong>Comentarios Abiertos:</strong> {{multi.abiertos}}</p>
                     </div>
                     <div class="col-lg-6">
-                      <p class="text-primary"><strong>Comentarios Cerrados:</strong> 0</p>
+                      <p class="text-primary"><strong>Comentarios Cerrados:</strong> {{multi.cerrados}}</p>
                     </div>
                   </div>
                 </div>

@@ -155,7 +155,8 @@ export class ComentariosVersionVideoComponent implements OnInit, AfterViewInit {
   cerrarCommentario(): void {
     console.log( 'Cerrar comentario: ' + this.idComentarioCerrar );
     console.log( 'Contenido comentario cierre: ' + this.contenidoComentarioCerrar );
-    this.commentsVersionVideoService.cerrarComentarioVideo(this.idRecurso, this.idComentarioCerrar, this.contenidoComentarioCerrar);
+    const estaResuelto = (this.comentarioResuelto === 'RESUELTO') ? true : false;
+    this.commentsVersionVideoService.cerrarComentarioVideo(this.idRecurso, this.idComentarioCerrar, this.contenidoComentarioCerrar, estaResuelto);
     setTimeout(() => {
                 this.consultarComentarios();
             }, 2500);
