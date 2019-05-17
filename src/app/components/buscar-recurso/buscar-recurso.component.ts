@@ -20,6 +20,7 @@ export class BuscarRecursoComponent implements OnInit {
   pagina: number = 1;
   paginaSize: number = 5;
   cargando: boolean = false;
+  mostrarFiltros: boolean = false;
 
 
   constructor(private buscarRecursoService: BuscarRecursoService, private spinner: NgxSpinnerService) { }
@@ -86,6 +87,14 @@ export class BuscarRecursoComponent implements OnInit {
       if(this.recursosSinRepetir.filter(r => r.id === recurso.id).length === 0) {
         this.recursosSinRepetir.push(recurso);
       }
+    }
+  }
+  
+  activarFiltros() {
+    if (this.mostrarFiltros) {
+      this.mostrarFiltros = false;
+    } else {
+      this.mostrarFiltros = true;
     }
   }
 
