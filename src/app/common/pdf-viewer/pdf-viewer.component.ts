@@ -6,17 +6,15 @@ import {
   OnInit,
   Output,
   ViewChild
-
 } from "@angular/core";
 import * as $ from "jquery";
 import * as Popper from "popper.js/dist/umd/popper.js";
 import { ComentarioHijoPdfModel } from "src/app/services/comentario/comentario-pdf-hijo.model";
 import { ComentarioPdfModel } from "src/app/services/comentario/comentario-pdf.model";
-import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import * as ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import * as moment from "../../../assets/AdminLTE/bower_components/moment/moment";
 import _date = moment.unitOfTime._date;
-import {ComentarioMultimedia} from "../../services/comentario/comentario-multimedia.model";
-
+import { ComentarioMultimedia } from "../../services/comentario/comentario-multimedia.model";
 
 @Component({
   selector: "app-pdf-viewer",
@@ -43,22 +41,24 @@ export class PdfViewerComponent implements OnInit {
   public Editor = ClassicEditor;
   public textComentarioHijo: string;
   public seleccionado: ComentarioPdfModel;
-  myRadio: boolean;
-  public  MensajeModal: string;
+  myRadio: string;
+  public MensajeModal: string;
+  public loadData = false;
 
-  public comentario: string="";
+  public comentario: string = "";
   areaInfo: AreaInfo[] = [];
 
   @ViewChild("pdfContainer") private pdfContainer: ElementRef;
 
   ngOnInit() {
+    this.loadData = false;
     var x = 1;
     setTimeout(() => {
       this.comentariosPdf.forEach(data => {
         console.log(data);
         this.areaInfo.push({
           rectangleId: "rectangle-" + x,
-          pageNumber: 1,
+          pageNumber: x,
           rect: {
             x1: Number(data.coordenadas.x1),
             y1: Number(data.coordenadas.y1),
@@ -70,17 +70,19 @@ export class PdfViewerComponent implements OnInit {
           comment: data.contenido,
           commentsChildren: data.comentariosHijos,
           isDelete: false,
-          fechaCreacion: data.fechaCreacion,
-          cerrado: data.cerrado,
-          resuelto: data.resuelto,
-          esCierre: data.esCierre,
-          UsuarioComentario: data.UsuarioComentario,
-          version: data.version,
-          coordenadas: data.coordenadas
+          text: ""
+          //fechaCreacion: data.fechaCreacion,
+          //cerrado: data.cerrado,
+          //resuelto: data.resuelto,
+          //esCierre: data.esCierre,
+          //UsuarioComentario: data.UsuarioComentario,
+          //version: data.version,
+          //coordenadas: data.coordenadas
         });
         console.log(this.areaInfo);
         x++;
         this.rutaArchivo = this.comentariosPdf[0].rutaArchivo;
+        this.loadData = true;
       });
     }, 2000);
   }
@@ -244,15 +246,13 @@ export class PdfViewerComponent implements OnInit {
       isDelete: false,
       comment: this.comment,
       commentsChildren: [],
-      text:"",
+      text: "",
       escierre: false,
-      resuelto: false ,
+      resuelto: false,
       cerrado: false,
-      UsuarioComentario: '',
+      UsuarioComentario: "",
       fechaCreacion: new Date()
     };
-
-
 
     this.areaInfo.push(areaInfo);
     this.showPopup = false;
@@ -291,13 +291,15 @@ export class PdfViewerComponent implements OnInit {
 
   listRectangleId: string = "";
   moveTo(list: AreaInfo) {
-    this.seleccionado= new ComentarioPdfModel();
+    this.seleccionado = new ComentarioPdfModel();
+    /*
     this.seleccionado.fechaCreacion = list.fechaCreacion;
     this.seleccionado.esCierre = list.esCierre;
     this.seleccionado.resuelto = list.resuelto;
     this.seleccionado.cerrado = list.cerrado;
     this.seleccionado.version = list.version;
-    this.seleccionado.coordenadas= list.coordenadas;
+    this.seleccionado.coordenadas = list.coordenadas;
+    */
 
     if (this.listRectangleId != "") {
       if (document.getElementById(this.listRectangleId)) {
@@ -316,25 +318,24 @@ export class PdfViewerComponent implements OnInit {
     }
   }
 
-   seleccionarComentario(comentario: ComentarioPdfModel) {
+  seleccionarComentario(comentario: ComentarioPdfModel) {
     this.seleccionado = comentario;
   }
 
-  onComentarioChange(comentario){
+  onComentarioChange(comentario) {
     this.comentario = comentario.editor.getData();
   }
 
-  CerrarComentario(){
-
-    if (this.myRadio == "true"){
+  CerrarComentario() {
+    if (this.myRadio == "resuelto") {
       this.seleccionado.resuelto = true;
     }
-  this.CerrarComentario_Aceptar.emit({seleccionado: this.seleccionado, comentario:this.comentario});
-  this.MensajeModal="Operacion realizada con exito";
-
-}
-
-
+    this.CerrarComentario_Aceptar.emit({
+      seleccionado: this.seleccionado,
+      comentario: this.comentario
+    });
+    this.MensajeModal = "Operacion realizada con exito";
+  }
 }
 
 interface Position {
@@ -356,14 +357,7 @@ interface AreaInfo {
   pageNumber: number;
   rect: Rectangle;
   isDelete?: boolean;
-  comment: string;
-  commentsChildren: ComentarioHijoPdfModel[];
+  comment?: string;
+  commentsChildren?: ComentarioHijoPdfModel[];
   text?: string;
-  cerrado: boolean;
-  resuelto: boolean;
-  esCierre: boolean;
-  UsuarioComentario:string;
-  fechaCreacion: Date;
-  version: string;
-  coordenadas: ComentarioMultimedia;
 }

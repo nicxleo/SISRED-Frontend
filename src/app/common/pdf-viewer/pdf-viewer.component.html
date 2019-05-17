@@ -1,45 +1,50 @@
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Cerrar comentario</button>
 <div class="container-pdf">
-    <div class="col-sm-4">
-        <div class="list">
-            <div class="box list-row" *ngFor="let list of areaInfo; let i = index" (click)="moveTo(list); $event.stopPropagation();">
-              <div class="box-header row col-sm-11">
-                <div class="col-sm-6 info text-bold">{{list.UsuarioComentario}}</div>
-                <div class="col-sm-6 info right">{{list.fechaCreacion | date : 'dd MMM yyyy HH:mm:ss'}}</div>
-              </div>
-              <div>
-                <div class="row col-sm-11" [innerHTML]="list.comment"></div><p>
-                <div class="col-sm-12">
-                     <ckeditor [editor]="Editor"  [(ngModel)]="list.text">Ingresar comentario</ckeditor>
-                      <br>
-                      <button *ngIf="list.cerrado==false" type="button" class="btn btn-primary" (click)="addComment(i)">Comentar</button>
-                </div>
-                <br>
-                <div class="row col-sm-1"></div>
-                <div class="row col-sm-11 border-sisred-blue" *ngFor="let comment of list.commentsChildren; let i = index" [innerHTML]="comment.contenido"></div>
-              </div>
-              <div class="box-footer margin">
-                <div class="col-sm-6 left bottom">
-                  <button *ngIf="list.cerrado==true" type="button" class="btn btn-primary btn-sm btn-block " [className]="list.resuelto ? 'Resuelto' : 'SinResolver'" >{{List.resuelto ? "Cerrado resuelto" : "Cerrado sin resolver" }}</button>
-                </div>
-                <div class="col-sm-6 right bottom">
-                  <button *ngIf="list.cerrado==false" type="button" class="btn btn-primary btn-sm btn-block" data-toggle="modal" data-target="#myModal">Cerrar comentario</button>
-                </div>
-              </div>
-            </div>
+  <div class="col-sm-4">
+    <div class="list">
+      <div class="box list-row" *ngFor="let list of areaInfo; let i = index"
+        (click)="moveTo(list); $event.stopPropagation();">
+        <div class="box-header row col-sm-11">
+          <div class="col-sm-6 info text-bold">{{list.UsuarioComentario}}</div>
+          <div class="col-sm-6 info right">{{list.fechaCreacion | date : 'dd MMM yyyy HH:mm:ss'}}</div>
         </div>
-
+        <div>
+          <div class="row col-sm-11" [innerHTML]="list.comment"></div>
+          <p>
+            <div class="col-sm-12">
+              <ckeditor [editor]="Editor" [(ngModel)]="list.text">Ingresar comentario</ckeditor>
+              <br>
+              <button type="button" [disabled]="!list.text" class="btn btn-primary" (click)="addComment(i)">Comentar</button>
+              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Cerrar comentario</button>
+            </div>
+            <br>
+            <div class="row col-sm-1"></div>
+            <div class="row col-sm-11 border-sisred-blue" *ngFor="let comment of list.commentsChildren; let i = index"
+              [innerHTML]="comment.contenido"></div>
+        </div>
+        <div class="box-footer margin">
+          <div class="col-sm-6 left bottom">
+            <button *ngIf="list.cerrado==true" type="button" class="btn btn-primary btn-sm btn-block "
+              [className]="list.resuelto ? 'Resuelto' : 'SinResolver'">{{List.resuelto ? "Cerrado resuelto" : "Cerrado sin resolver" }}</button>
+          </div>
+          <div class="col-sm-6 right bottom">
+          </div>
+        </div>
+      </div>
     </div>
 
-    <div #pdfContainer class="col-sm-8" (mousemove)="mouseEvent($event)"
-        (mousedown)="mouseEvent($event)" (mouseup)="mouseEvent($event)">
-        <pdf-viewer src="http://localhost:4200/assets/Java2.pdf" [stick-to-page]="true" [render-text]="true"
-            (page-rendered)="pageRendered($event)" style="display: block;">
-        </pdf-viewer>
-    </div>
+  </div>
+
+  <div #pdfContainer class="container-pdf__right-side" (mousemove)="mouseEvent($event)" (mousedown)="mouseEvent($event)"
+    (mouseup)="mouseEvent($event)">
+    <pdf-viewer *ngIf="loadData" src="http://localhost:4200/assets/Java2.pdf" [stick-to-page]="false"
+      [render-text]="true" (page-rendered)="pageRendered($event)" style="display: block;">
+    </pdf-viewer>
+  </div>
 </div>
 
 <div class="js-popper popper" [style.display]="getStyle()">
-    <pre>
+  <pre>
                 <div class="icons">
 
                 <input id="name" type="text" [(ngModel)]="comment" />
@@ -61,11 +66,13 @@
         </div>
         <div class="modal-body">
           <ckeditor [editor]="Editor" (change)="onComentarioChange($event)"></ckeditor>
-          <input type="radio" id="Radresuelto" [(ngModel)]="myRadio" name="cerrar" value="true"> resuelto
-          <input type="radio" id="RadSinResolver" [(ngModel)]="myRadio" name="cerrar" value="false"> sin resolver<br>
+          <input type="radio" id="Radresuelto" [(ngModel)]="myRadio" name="cerrar" value="resuelto"> resuelto
+          <input type="radio" id="RadSinResolver" [(ngModel)]="myRadio" name="cerrar" value="noResuelto"> sin
+          resolver<br>
         </div>
         <div class="modal-footer">
-          <button type="button" (click)="CerrarComentario()" class="btn btn-primary" data-dismiss="modal" data-toggle="modal" data-target="#myModalPass">Aceptar</button>
+          <button type="button" (click)="CerrarComentario()" class="btn btn-primary" data-dismiss="modal"
+            data-toggle="modal" data-target="#myModalPass">Aceptar</button>
           <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
         </div>
       </div>
@@ -75,24 +82,24 @@
 
 </div>
 <div class="container">
-    <!-- Modal -->
-    <div class="modal fade" id="myModalPass" role="dialog">
-      <div class="modal-dialog">
+  <!-- Modal -->
+  <div class="modal fade" id="myModalPass" role="dialog">
+    <div class="modal-dialog">
 
-        <!-- Modal content-->
-        <div class="modal-content">
-          <div class="modal-header color-back">
-            <button type="button" class="close" data-dismiss="modal">&times;</button>
-          </div>
-          <div class="modal-body">
-            <p>{{MensajeModal}}</p>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-          </div>
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header color-back">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
         </div>
-
+        <div class="modal-body">
+          <p>{{MensajeModal}}</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+        </div>
       </div>
-    </div>
 
+    </div>
   </div>
+
+</div>
