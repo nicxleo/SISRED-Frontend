@@ -14,4 +14,6 @@ export class ComentarioPdfModel {
   comentariosHijos: ComentarioHijoPdfModel[];
   cerrado: boolean;
   resuelto: boolean;
+  esCierre: boolean;
+  UsuarioComentario:string;
 }

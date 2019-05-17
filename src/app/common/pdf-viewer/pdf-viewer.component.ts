@@ -6,11 +6,17 @@ import {
   OnInit,
   Output,
   ViewChild
+
 } from "@angular/core";
 import * as $ from "jquery";
 import * as Popper from "popper.js/dist/umd/popper.js";
 import { ComentarioHijoPdfModel } from "src/app/services/comentario/comentario-pdf-hijo.model";
 import { ComentarioPdfModel } from "src/app/services/comentario/comentario-pdf.model";
+import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import * as moment from "../../../assets/AdminLTE/bower_components/moment/moment";
+import _date = moment.unitOfTime._date;
+import {ComentarioMultimedia} from "../../services/comentario/comentario-multimedia.model";
+
 
 @Component({
   selector: "app-pdf-viewer",
@@ -25,12 +31,22 @@ export class PdfViewerComponent implements OnInit {
   comentarioPadre = new EventEmitter<Object>();
 
   @Output()
+  CerrarComentario_Aceptar = new EventEmitter<Object>();
+
+  @Output()
   comentarioHijo = new EventEmitter<Object>();
 
+  @Input()
+  Mensaje: string;
+
   public rutaArchivo: string;
-
+  public Editor = ClassicEditor;
   public textComentarioHijo: string;
+  public seleccionado: ComentarioPdfModel;
+  myRadio: boolean;
+  public  MensajeModal: string;
 
+  public comentario: string="";
   areaInfo: AreaInfo[] = [];
 
   @ViewChild("pdfContainer") private pdfContainer: ElementRef;
@@ -53,7 +69,14 @@ export class PdfViewerComponent implements OnInit {
           },
           comment: data.contenido,
           commentsChildren: data.comentariosHijos,
-          isDelete: false
+          isDelete: false,
+          fechaCreacion: data.fechaCreacion,
+          cerrado: data.cerrado,
+          resuelto: data.resuelto,
+          esCierre: data.esCierre,
+          UsuarioComentario: data.UsuarioComentario,
+          version: data.version,
+          coordenadas: data.coordenadas
         });
         console.log(this.areaInfo);
         x++;
@@ -220,8 +243,17 @@ export class PdfViewerComponent implements OnInit {
       rect: this.rect,
       isDelete: false,
       comment: this.comment,
-      commentsChildren: []
+      commentsChildren: [],
+      text:"",
+      escierre: false,
+      resuelto: false ,
+      cerrado: false,
+      UsuarioComentario: '',
+      fechaCreacion: new Date()
     };
+
+
+
     this.areaInfo.push(areaInfo);
     this.showPopup = false;
     this.rect = { x1: 0, y1: 0, x2: 0, y2: 0, width: 0, height: 0 };
@@ -259,6 +291,14 @@ export class PdfViewerComponent implements OnInit {
 
   listRectangleId: string = "";
   moveTo(list: AreaInfo) {
+    this.seleccionado= new ComentarioPdfModel();
+    this.seleccionado.fechaCreacion = list.fechaCreacion;
+    this.seleccionado.esCierre = list.esCierre;
+    this.seleccionado.resuelto = list.resuelto;
+    this.seleccionado.cerrado = list.cerrado;
+    this.seleccionado.version = list.version;
+    this.seleccionado.coordenadas= list.coordenadas;
+
     if (this.listRectangleId != "") {
       if (document.getElementById(this.listRectangleId)) {
         document.getElementById(this.listRectangleId).style.background =
@@ -275,6 +315,26 @@ export class PdfViewerComponent implements OnInit {
       this.listRectangleId = list.rectangleId;
     }
   }
+
+   seleccionarComentario(comentario: ComentarioPdfModel) {
+    this.seleccionado = comentario;
+  }
+
+  onComentarioChange(comentario){
+    this.comentario = comentario.editor.getData();
+  }
+
+  CerrarComentario(){
+
+    if (this.myRadio == "true"){
+      this.seleccionado.resuelto = true;
+    }
+  this.CerrarComentario_Aceptar.emit({seleccionado: this.seleccionado, comentario:this.comentario});
+  this.MensajeModal="Operacion realizada con exito";
+
+}
+
+
 }
 
 interface Position {
@@ -299,4 +359,11 @@ interface AreaInfo {
   comment: string;
   commentsChildren: ComentarioHijoPdfModel[];
   text?: string;
+  cerrado: boolean;
+  resuelto: boolean;
+  esCierre: boolean;
+  UsuarioComentario:string;
+  fechaCreacion: Date;
+  version: string;
+  coordenadas: ComentarioMultimedia;
 }

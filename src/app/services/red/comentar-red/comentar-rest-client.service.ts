@@ -1,16 +1,22 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import {Http} from '@angular/http';
 import { Injectable } from "@angular/core";
 import { Observable, of } from "rxjs";
 import { map } from "rxjs/operators";
 import { environment } from "src/environments/environment";
 import { ComentarioHijoPdfModel } from "../../comentario/comentario-pdf-hijo.model";
 import { ComentarioPdfModel } from "../../comentario/comentario-pdf.model";
+import { AutenticacionService } from '../../autenticacion/autenticacion.service';
 
 @Injectable()
 export class ComentarRestClientService {
   API_URL = environment.apiUrl + "comentario-pdf/";
+  COMENTARIO_PDF_GET_URL = environment.apiUrl + 'comentario-pdf/{id_v}/';
+  COMENTARIO_PDF_PUT_URL = environment.apiUrl + 'comentario-cierre/base/{id_v}';
+  COMENTARIO_PDF_POST_URL = environment.apiUrl + 'comentario-cierre/';
+  private comentarios: Array<ComentarioPdfModel> = [];
 
-  constructor(private httpClient: HttpClient) {}
+  constructor(private http: Http, private httpClient: HttpClient, private autenticacionService: AutenticacionService) {}
 
   getComentariosByIdRed(idRed: string): Observable<ComentarioPdfModel[]> {
     let datas;
@@ -28,8 +34,10 @@ export class ComentarRestClientService {
           height: data.Height,
           rutaArchivo: data.VersionArchivo,
           comentariosHijos: this.getComentariosHijos(data.comentariosHijos),
+          esCierre: data.esCierre,
           cerrado: data.cerrado,
-          resuelto: data.resuelto
+          resuelto: data.resuelto,
+          UsuarioComentario: data.UsuarioComentario
         });
       });
     });
@@ -79,4 +87,30 @@ export class ComentarRestClientService {
 
     return comentariosHijosPdfModel;
   }
+  ComentarioPDF_put(coment: ComentarioPdfModel): Observable<any> {
+    debugger;
+    const url = this.COMENTARIO_PDF_PUT_URL.replace('{id_v}', coment.coordenadas.id.toString());
+    const tokenSisred = this.autenticacionService.obtenerToken();
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: 'Token ' + tokenSisred
+    });
+    return this.http.put(url, coment, headers).pipe(map(reponse => reponse));
+  }
+  ComentarioPDF_post(coment: ComentarioPdfModel, ComentarioCierre: string): Observable<any> {
+    const url = this.COMENTARIO_PDF_POST_URL;
+    const tokenSisred = this.autenticacionService.obtenerToken();
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: 'Token ' + tokenSisred
+    });
+    var  RequestRes={
+      "contenido": ComentarioCierre,
+      "version": coment.version,
+      "comentario_multimedia": coment.coordenadas.id,
+      "esCierre": true
+    };
+    return this.http.post(url, RequestRes, headers).pipe(map(reponse => reponse));
+  }
+
 }
