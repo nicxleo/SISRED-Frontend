@@ -271,7 +271,8 @@ export class PdfViewerComponent implements OnInit {
       fechaCreacion: new Date(),
       version: "",
       idUsuario: "1",
-      esCierre: false
+      esCierre: false,
+      UsuarioComentario:""
     });
     this.areaInfo[posicionPadre].text = "";
   }
