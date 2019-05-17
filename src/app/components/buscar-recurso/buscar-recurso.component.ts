@@ -20,7 +20,8 @@ export class BuscarRecursoComponent implements OnInit {
   pagina: number = 1;
   paginaSize: number = 5;
   cargando: boolean = false;
-  mostrarFiltros: boolean = false;
+  mostrarFiltroAvanzado: boolean = false;
+  mostrarFiltroGeneral: boolean = true;
 
 
   constructor(private buscarRecursoService: BuscarRecursoService, private spinner: NgxSpinnerService) { }
@@ -91,10 +92,17 @@ export class BuscarRecursoComponent implements OnInit {
   }
   
   activarFiltros() {
-    if (this.mostrarFiltros) {
-      this.mostrarFiltros = false;
+    if (this.mostrarFiltroAvanzado) {
+      this.mostrarFiltroAvanzado = false;
+      this.mostrarFiltroGeneral = true;
+      this.buscarRecursoForm.get('nombre').setValue('');
+      this.buscarRecursoForm.get('fechaDesde').setValue('');
+      this.buscarRecursoForm.get('fechaHasta').setValue('');
+      this.buscarRecursoForm.get('tag').setValue('');
     } else {
-      this.mostrarFiltros = true;
+      this.mostrarFiltroAvanzado = true;
+      this.mostrarFiltroGeneral = false;
+      this.buscarRecursoForm.get('texto').setValue('');
     }
   }
 

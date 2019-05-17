@@ -22,10 +22,10 @@
           <form role="form" [formGroup]="buscarRecursoForm">
             <div class="box">
                 <div class="box-header with-border">
-                  <h3 class="box-title">Filtro de búsqueda general</h3>
+                  <h3 class="box-title"><a [routerLink]="" (click)="activarFiltros()">Filtro de búsqueda general</a></h3>
                 </div>
                 <!-- /.box-header -->
-                <div class="box-body">
+                <div class="box-body" *ngIf="mostrarFiltroGeneral">
 
                   <div class="form-group">
                     <label for="texto">Texto</label>
@@ -39,7 +39,7 @@
                   <h3 class="box-title"><a [routerLink]="" (click)="activarFiltros()">Filtros de búsqueda avanzada</a></h3>
                 </div>
                 <!-- /.box-header -->
-                <div class="box-body" *ngIf="mostrarFiltros">
+                <div class="box-body" *ngIf="mostrarFiltroAvanzado">
 
                   <div class="form-group">
                     <label for="nombre">Nombre</label>
