@@ -12,6 +12,7 @@ export class DashboardProyectoConectateService {
     private autenticacionService: AutenticacionService
   ) {}
 
+  // Realiza la petición para obtener los proyectos
   obtenerMetricasProyectosConectate() {
     return new Promise((resolve, reject) => {
       const tokenSisred = this.autenticacionService.obtenerToken();

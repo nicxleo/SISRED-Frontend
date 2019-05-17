@@ -20,6 +20,7 @@ export class DashboardProyectosConectateComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    // Invoca al servicio que obtiene los proyectos conectate
     this.dashboardProyectosConectateService
       .obtenerMetricasProyectosConectate()
       .then((data: any) => {
