@@ -44,6 +44,7 @@ export class PdfViewerComponent implements OnInit {
   myRadio: string;
   public MensajeModal: string;
   public loadData = false;
+  public indiceCerrarComentario = 0;
 
   public comentario: string = "";
   areaInfo: AreaInfo[] = [];
@@ -290,17 +291,16 @@ export class PdfViewerComponent implements OnInit {
   }
 
   listRectangleId: string = "";
-  moveTo(list: AreaInfo) {
-    this.seleccionado = new ComentarioPdfModel();
-    /*
-    this.seleccionado.fechaCreacion = list.fechaCreacion;
-    this.seleccionado.esCierre = list.esCierre;
-    this.seleccionado.resuelto = list.resuelto;
-    this.seleccionado.cerrado = list.cerrado;
-    this.seleccionado.version = list.version;
-    this.seleccionado.coordenadas = list.coordenadas;
-    */
 
+  public seleccionarComentarioCerrado(i: number) {
+    this.indiceCerrarComentario = i;
+    this.seleccionado = this.comentariosPdf[i];
+    console.log("i");
+    console.log(i);
+    console.log("i");
+  }
+
+  moveTo(list: AreaInfo) {
     if (this.listRectangleId != "") {
       if (document.getElementById(this.listRectangleId)) {
         document.getElementById(this.listRectangleId).style.background =
