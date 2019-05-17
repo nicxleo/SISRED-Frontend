@@ -11,6 +11,10 @@ export class DashboardProyectosConectateComponent implements OnInit {
 
   public proyectos = [];
 
+  public pagina = 1;
+
+  public paginaSize = 10;
+
   constructor(
     private dashboardProyectosConectateService: DashboardProyectoConectateService
   ) {}
@@ -20,8 +24,6 @@ export class DashboardProyectosConectateComponent implements OnInit {
       .obtenerMetricasProyectosConectate()
       .then((data: any) => {
         this.proyectos = data;
-        console.log(this.proyectos);
-
         this.loading = false;
       })
       .catch(err => {
