@@ -20,6 +20,8 @@ export class BuscarRecursoComponent implements OnInit {
   pagina: number = 1;
   paginaSize: number = 5;
   cargando: boolean = false;
+  mostrarFiltroAvanzado: boolean = false;
+  mostrarFiltroGeneral: boolean = true;
 
 
   constructor(private buscarRecursoService: BuscarRecursoService, private spinner: NgxSpinnerService) { }
@@ -27,10 +29,11 @@ export class BuscarRecursoComponent implements OnInit {
   ngOnInit() {
     setup();
     this.buscarRecursoForm = new FormGroup({
+      texto: new FormControl(),
       nombre: new FormControl(),
       fechaDesde: new FormControl(),
       fechaHasta: new FormControl(),
-      tag: new FormControl(),
+      tag: new FormControl()
     });
   }
 
@@ -54,7 +57,7 @@ export class BuscarRecursoComponent implements OnInit {
     });
     this.cargando = true;
     this.spinner.show()
-    this.buscarRecursoService.buscarRecursos(this.buscarRecursoForm.get('nombre').value, this.formatFecha(this.buscarRecursoForm.get('fechaDesde').value),
+    this.buscarRecursoService.buscarRecursos(this.buscarRecursoForm.get('texto').value, this.buscarRecursoForm.get('nombre').value, this.formatFecha(this.buscarRecursoForm.get('fechaDesde').value),
       this.formatFecha(this.buscarRecursoForm.get('fechaHasta').value), this.buscarRecursoForm.get('tag').value)
       .then(recursos => {
         console.log(recursos);
@@ -85,6 +88,21 @@ export class BuscarRecursoComponent implements OnInit {
       if(this.recursosSinRepetir.filter(r => r.id === recurso.id).length === 0) {
         this.recursosSinRepetir.push(recurso);
       }
+    }
+  }
+  
+  activarFiltros() {
+    if (this.mostrarFiltroAvanzado) {
+      this.mostrarFiltroAvanzado = false;
+      this.mostrarFiltroGeneral = true;
+      this.buscarRecursoForm.get('nombre').setValue('');
+      this.buscarRecursoForm.get('fechaDesde').setValue('');
+      this.buscarRecursoForm.get('fechaHasta').setValue('');
+      this.buscarRecursoForm.get('tag').setValue('');
+    } else {
+      this.mostrarFiltroAvanzado = true;
+      this.mostrarFiltroGeneral = false;
+      this.buscarRecursoForm.get('texto').setValue('');
     }
   }
 
