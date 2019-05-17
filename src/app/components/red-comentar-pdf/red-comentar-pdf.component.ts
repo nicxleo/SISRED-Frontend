@@ -46,7 +46,6 @@ getComentarios() {
         .getComentariosByIdRed(params.get("id"))
         .subscribe(data => {
           console.log(data);
-          debugger;
           this.comentariosPdf = data;
         });
     });

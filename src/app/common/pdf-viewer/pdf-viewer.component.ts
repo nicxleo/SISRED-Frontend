@@ -72,13 +72,6 @@ export class PdfViewerComponent implements OnInit {
           commentsChildren: data.comentariosHijos,
           isDelete: false,
           text: ""
-          //fechaCreacion: data.fechaCreacion,
-          //cerrado: data.cerrado,
-          //resuelto: data.resuelto,
-          //esCierre: data.esCierre,
-          //UsuarioComentario: data.UsuarioComentario,
-          //version: data.version,
-          //coordenadas: data.coordenadas
         });
         console.log(this.areaInfo);
         x++;

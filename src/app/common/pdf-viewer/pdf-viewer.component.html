@@ -3,32 +3,37 @@
     <div class="list">
 
       <div class="box list-row" *ngFor="let list of areaInfo; let i = index">
-        <div class="box list-row" (click)="moveTo(list); $event.stopPropagation();">
-          ver comentario
-        </div>
-
+        <div class="col-sm-12" (click)="moveTo(list); $event.stopPropagation();">ver comentario</div>
         <div class="box-header row col-sm-11">
           <div class="col-sm-6 info text-bold">{{list.UsuarioComentario}}</div>
           <div class="col-sm-6 info right">{{list.fechaCreacion | date : 'dd MMM yyyy HH:mm:ss'}}</div>
         </div>
         <div>
-          <div class="row col-sm-11" [innerHTML]="list.comment"></div>
+          <div class="row col-sm-12 ContenidoPrincipal" [innerHTML]="list.comment"></div>
           <p>
             <div class="col-sm-12">
               <ckeditor [editor]="Editor" [(ngModel)]="list.text">Ingresar comentario</ckeditor>
               <br>
+          <div class="col-sm-8"></div>
+          <div class="col-sm-4">
               <button type="button" [disabled]="!list.text" class="btn btn-primary"
                 (click)="addComment(i)">Comentar</button>
-              <button type="button" (click)="seleccionarComentarioCerrado(i)" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Cerrar
-                comentario</button>
+            </div>
             </div>
             <br>
-            <div class="row col-sm-1"></div>
-            <div class="row col-sm-11 border-sisred-blue" *ngFor="let comment of list.commentsChildren; let i = index"
-              [innerHTML]="comment.contenido"></div>
+            <div class="row col-sm-12 center-block ComentariosHijos" *ngFor="let comment of list.commentsChildren; let i = index ">
+              <div class="col-sm-12 DateComment">{{comment.fechaCreacion | date:'yyyy-MM-dd HH:mm:ss' }}</div>
+              <div class="col-sm-12 ContenidoHijo" [innerHTML]="comment.contenido"></div>
+
+            </div>
+          <div class="col-sm-6 left bottom"></div>
+          <div class="col-sm-6 right">
+            <button type="button" (click)="seleccionarComentarioCerrado(i)" class=" btn btn-primary right" data-toggle="modal" data-target="#myModal">Cerrar comentario</button>
+          </div>
         </div>
         <div class="box-footer margin">
-          <div class="col-sm-6 left bottom">
+
+          <div class="col-sm-5 left bottom">
             <button *ngIf="list.cerrado==true" type="button" class="btn btn-primary btn-sm btn-block "
               [className]="list.resuelto ? 'Resuelto' : 'SinResolver'">{{List.resuelto ? "Cerrado resuelto" : "Cerrado sin resolver" }}</button>
           </div>

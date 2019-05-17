@@ -7,4 +7,5 @@ export class ComentarioHijoPdfModel {
   version: string;
   idUsuario: string;
   esCierre: boolean;
+  UsuarioComentario: string;
 }

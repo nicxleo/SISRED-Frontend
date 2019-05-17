@@ -102,3 +102,19 @@ background: #33FFC4;
 .SinResolver{
   background: #fece2f;
 }
+
+.ContenidoPrincipal {
+  margin: 2px 5px;
+}
+
+.ComentariosHijos {
+  margin: 2px 2px;
+  border-width: 5px;
+  border-color: gray;
+}
+.ContenidoHijo{
+  text-align: left;
+
+}
+.ComentariosHijos:hover {background: #f3fdff;}
+.DateComment{text-align: right;}
