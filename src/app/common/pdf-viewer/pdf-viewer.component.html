@@ -1,9 +1,12 @@
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Cerrar comentario</button>
 <div class="container-pdf">
   <div class="col-sm-4">
     <div class="list">
-      <div class="box list-row" *ngFor="let list of areaInfo; let i = index"
-        (click)="moveTo(list); $event.stopPropagation();">
+
+      <div class="box list-row" *ngFor="let list of areaInfo; let i = index">
+        <div class="box list-row" (click)="moveTo(list); $event.stopPropagation();">
+          ver comentario
+        </div>
+
         <div class="box-header row col-sm-11">
           <div class="col-sm-6 info text-bold">{{list.UsuarioComentario}}</div>
           <div class="col-sm-6 info right">{{list.fechaCreacion | date : 'dd MMM yyyy HH:mm:ss'}}</div>
@@ -14,8 +17,10 @@
             <div class="col-sm-12">
               <ckeditor [editor]="Editor" [(ngModel)]="list.text">Ingresar comentario</ckeditor>
               <br>
-              <button type="button" [disabled]="!list.text" class="btn btn-primary" (click)="addComment(i)">Comentar</button>
-              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Cerrar comentario</button>
+              <button type="button" [disabled]="!list.text" class="btn btn-primary"
+                (click)="addComment(i)">Comentar</button>
+              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Cerrar
+                comentario</button>
             </div>
             <br>
             <div class="row col-sm-1"></div>
