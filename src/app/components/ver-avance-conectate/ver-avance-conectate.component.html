@@ -18,25 +18,25 @@
                 TOTAL REDS
                 <br>
                 <img src="/assets/images/VerAvanceConectate/total.png" alt="" height="50" width="50">
-                <span class="badge contador">25</span>
+                <span class="badge contador">{{objAvance.totalReds}}</span>
               </div>
               <div class="col-md-3" style="text-align: center">
                 REDS EN ALERTA
                 <br>
                 <img src="/assets/images/VerAvanceConectate/alerta.png" alt="" height="50" width="50">
-                <span class="badge contador">30</span>
+                <span class="badge contador">{{objAvance.totalRedsAlerta}}</span>
               </div>
               <div class="col-md-3" style="text-align: center">
                 REDS NORMAL
                 <br>
                 <img src="/assets/images/VerAvanceConectate/normal.png" alt="" height="50" width="50">
-                <span class="badge contador">5</span>
+                <span class="badge contador">{{objAvance.totalRedsNormal}}</span>
               </div>
               <div class="col-md-3" style="text-align: center">
                 REDS CERRADOS
                 <br>
                 <img src="/assets/images/VerAvanceConectate/cerrrado.png" alt="" height="50" width="50">
-                <span class="badge contador">0</span>
+                <span class="badge contador">{{objAvance.totalRedsCerrado}}</span>
               </div>
             </div>
           </div>
@@ -45,8 +45,34 @@
       <div class="col-md-12">
         <div class="box box-danger">
           <div class="box">
+            <div class="box-header">
+              <img src="/assets/images/VerAvanceConectate/cuadro-alerta.png" alt="" height="40" width="40">
+              &nbsp;&nbsp;&nbsp;
+              <h3 class="box-title text-uppercase color-danger">Reds en Alerta</h3>
+            </div>
             <div class="box-body">
-
+              <table class="table table-bordered table-striped dataTable">
+                <thead>
+                <tr>
+                  <th class="center">id RED</th>
+                  <th class="center">Nombre</th>
+                  <th class="center">Fecha Inicio</th>
+                  <th class="center">Fecha Actual</th>
+                  <th class="center">Fecha de inicio</th>
+                  <th class="center">Fecha de última modificación</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let obj of objAvance.lstRedsAlerta">
+                  <td>{{obj.idRed}}</td>
+                  <td>{{obj.nombre}}</td>
+                  <td>{{obj.fechaInicio | date:'yyyy-MM-dd'}}</td>
+                  <td>{{date | date:'yyyy-MM-dd'}}</td>
+                  <td>{{obj.inicioFase | date:'yyyy-MM-dd'}}</td>
+                  <td>{{obj.ultimaModificacion | date:'yyyy-MM-dd'}}</td>
+                </tr>
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
@@ -54,8 +80,34 @@
       <div class="col-md-12">
         <div class="box box-warning">
           <div class="box">
+            <div class="box-header">
+              <img src="/assets/images/VerAvanceConectate/cuadro-normal.png" alt="" height="40" width="40">
+              &nbsp;&nbsp;&nbsp;
+              <h3 class="box-title text-uppercase color-warning">Reds Normales</h3>
+            </div>
             <div class="box-body">
-
+              <table class="table table-bordered table-striped dataTable">
+                <thead>
+                <tr>
+                  <th class="center">id RED</th>
+                  <th class="center">Nombre</th>
+                  <th class="center">Fecha Inicio</th>
+                  <th class="center">Fecha Actual</th>
+                  <th class="center">Fecha de inicio</th>
+                  <th class="center">Fecha de última modificación</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let obj of objAvance.lstRedsNormal">
+                  <td>{{obj.idRed}}</td>
+                  <td>{{obj.nombre}}</td>
+                  <td>{{obj.fechaInicio | date:'yyyy-MM-dd'}}</td>
+                  <td>{{date | date:'yyyy-MM-dd'}}</td>
+                  <td>{{obj.inicioFase | date:'yyyy-MM-dd'}}</td>
+                  <td>{{obj.ultimaModificacion | date:'yyyy-MM-dd'}}</td>
+                </tr>
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
@@ -63,12 +115,61 @@
       <div class="col-md-12">
         <div class="box box-success">
           <div class="box">
+            <div class="box-header">
+              <img src="/assets/images/VerAvanceConectate/cuadro-cerrado.png" alt="" height="40" width="40">
+              &nbsp;&nbsp;&nbsp;
+              <h3 class="box-title text-uppercase color-success">Reds Cerrados</h3>
+            </div>
             <div class="box-body">
-
+              <table class="table table-bordered table-striped dataTable">
+                <thead>
+                <tr>
+                  <th class="center">id RED</th>
+                  <th class="center">Nombre</th>
+                  <th class="center">Fecha Inicio</th>
+                  <th class="center">Asignados</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let obj of objAvance.lstRedsCerrado">
+                  <td>{{obj.idRed}}</td>
+                  <td>{{obj.nombre}}</td>
+                  <td>{{obj.fechaInicio | date:'yyyy-MM-dd'}}</td>
+                  <td>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#asignadosModal" (click)="getListaAsigandos(obj.idRed)">
+                      Asignados
+                    </button>
+                    <div id="asignados-{{obj.idRed}}" class="hidden">
+                      <table class="table table-bordered table-striped dataTable">
+                        <tr *ngFor="let asignados of obj.lstAsignados">
+                          <td>{{asignados.nombreCompleto}}</td>
+                        </tr>
+                      </table>
+                    </div>
+                  </td>
+                </tr>
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
       </div>
     </div>
   </section>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="asignadosModal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title"><b>Asignados</b></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div id="asignadosContent"></div>
+      </div>
+    </div>
+  </div>
 </div>

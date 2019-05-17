@@ -142,10 +142,10 @@ const routes: Routes = [
     canActivate: [AutenticacionGuard]
   },
   {
-    path: 'verAvanceConectate',
+    path: 'verAvanceConectate/:id',
     component: VerAvanceConectateComponent,
-    canActivate: [NoAutenticadoGuard]
-    // canActivate: [AutenticacionGuard]
+    // canActivate: [NoAutenticadoGuard]
+     canActivate: [AutenticacionGuard]
   },
   {
     path: '**',

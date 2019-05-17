@@ -8,3 +8,12 @@
   margin-left: -15px;
   background-color: #EF8E1C;
 }
+.color-danger{
+  color: #dd4b39;
+}
+.color-warning{
+  color: #f39c12;
+}
+.color-success{
+  color: #00a65a;
+}
