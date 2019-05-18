@@ -96,11 +96,29 @@
 }
 
 .Resuelto{
-background: #33FFC4;
+ background-color: #4CAF50;
+  border: none;
+  color: white;
+  padding: 15px 15px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 12px;
+  margin: 4px 2px;
+  cursor: pointer;
 }
 
 .SinResolver{
-  background: #fece2f;
+   background-color: #FFF033;
+  border: none;
+  color: black;
+  padding: 12px 12px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 10px;
+  margin: 4px 2px;
+  cursor: pointer;
 }
 
 .ContenidoPrincipal {
@@ -110,11 +128,12 @@ background: #33FFC4;
 .ComentariosHijos {
   margin: 2px 2px;
   border-width: 5px;
-  border-color: gray;
+  border: 1px solid #71CAE5;
 }
 .ContenidoHijo{
   text-align: left;
+  padding: 5px 5px;
 
 }
-.ComentariosHijos:hover {background: #f3fdff;}
+.ComentariosHijos:hover {background: #71CAE5  ;padding: 5px 5px; border-color: #71CAE5}
 .DateComment{text-align: right;}

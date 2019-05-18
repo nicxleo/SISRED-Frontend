@@ -25,6 +25,7 @@ export class ComentarRestClientService {
   getComentariosByIdRed(idRed: string): Observable<ComentarioPdfModel[]> {
     let datas;
     let comentariosPdf: ComentarioPdfModel[] = [];
+    debugger;
     this.httpClient.get(this.API_URL + idRed).subscribe((response: any) => {
       response.forEach(data => {
         comentariosPdf.push({
@@ -85,7 +86,8 @@ export class ComentarRestClientService {
         fechaCreacion: data.fecha_creacion,
         version: data.version,
         idUsuario: data.usuario,
-        esCierre: data.esCierre
+        esCierre: data.esCierre,
+        UsuarioComentario: data.UsuarioComentario
       });
     });
 

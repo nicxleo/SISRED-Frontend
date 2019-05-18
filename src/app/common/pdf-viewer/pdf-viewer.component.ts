@@ -41,6 +41,7 @@ export class PdfViewerComponent implements OnInit {
   public Editor = ClassicEditor;
   public textComentarioHijo: string;
   public seleccionado: ComentarioPdfModel;
+  public  coomentCierre: ComentarioPdfModel;
   myRadio: string;
   public MensajeModal: string;
   public loadData = false;
@@ -57,6 +58,7 @@ export class PdfViewerComponent implements OnInit {
     setTimeout(() => {
       this.comentariosPdf.forEach(data => {
         console.log(data);
+        debugger;
         this.areaInfo.push({
           rectangleId: "rectangle-" + x,
           pageNumber: x,
@@ -321,14 +323,24 @@ export class PdfViewerComponent implements OnInit {
   }
 
   CerrarComentario() {
+    this.coomentCierre = this.seleccionado;
+    this.seleccionado.cerrado=true;
     if (this.myRadio == "resuelto") {
-      this.seleccionado.resuelto = true;
+      this.coomentCierre.resuelto = true;
     }
+    this.coomentCierre.cerrado=true;
     this.CerrarComentario_Aceptar.emit({
-      seleccionado: this.seleccionado,
+      seleccionado: this.coomentCierre,
       comentario: this.comentario
     });
     this.MensajeModal = "Operacion realizada con exito";
+  }
+
+  public GetItemComentario(i: number) {
+    debugger;
+    this.indiceCerrarComentario = i;
+    return this.comentariosPdf[i];
+
   }
 }
 

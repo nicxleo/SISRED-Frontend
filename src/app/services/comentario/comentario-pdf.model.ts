@@ -15,4 +15,5 @@ export class ComentarioPdfModel {
   cerrado: boolean;
   resuelto: boolean;
   esCierre: boolean;
+  UsuarioComentario: string;
 }
