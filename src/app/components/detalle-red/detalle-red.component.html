@@ -38,7 +38,7 @@
                 </div>
                 <div class="col col-md-3" *ngIf="detalle?.fase?.idConectate">
                   <select id="fases" [(ngModel)]="detalle.fase.idConectate" class="form-control input-sm" #faseSelect (change)="onOptionsSelected()">
-                    <option *ngFor="let fase_item of fases" [value]="fase_item.idConectate" [disabled]="habilitarOpcionCambiarFase(fase_item.idConectate)">
+                    <option *ngFor="let fase_item of fases" [value]="fase_item.idConectate" [ngStyle]="{'display': habilitarOpcionCambiarFase(fase_item.idConectate)? 'none' : 'block'}">
                       {{fase_item?.nombre}}
                     </option>
                   </select>
