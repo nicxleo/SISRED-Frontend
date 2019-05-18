@@ -249,6 +249,23 @@ export class PdfViewerComponent implements OnInit {
       UsuarioComentario: "",
       fechaCreacion: new Date()
     };
+    this.comentariosPdf.push(
+      {
+          id: "",
+          contenido: this.comment,
+          coordenadas: null,
+          fechaCreacion: areaInfo.fechaCreacion,
+          version: "",
+          idUsuario: "",
+          width: "",
+          height: "",
+          rutaArchivo: "",
+          comentariosHijos: null,
+          esCierre: false,
+          cerrado: false,
+          resuelto: false,
+          UsuarioComentario: ""
+      });
 
     this.areaInfo.push(areaInfo);
     this.showPopup = false;
@@ -333,13 +350,27 @@ export class PdfViewerComponent implements OnInit {
       seleccionado: this.coomentCierre,
       comentario: this.comentario
     });
+    this.addCommentCierre(this.indiceCerrarComentario,this.comentario)
     this.MensajeModal = "Operacion realizada con exito";
   }
 
-  public GetItemComentario(i: number) {
-    debugger;
+   public GetItemComentario(i: number) {
     this.indiceCerrarComentario = i;
     return this.comentariosPdf[i];
+
+  }
+
+  addCommentCierre(posicionPadre: number, Comment) {
+    this.areaInfo[posicionPadre].commentsChildren.push({
+      id: "",
+      contenido: Comment,
+      text: "",
+      fechaCreacion: new Date(),
+      version: "",
+      idUsuario: "1",
+      esCierre: false,
+      UsuarioComentario:"User actual"
+    });
 
   }
 }

@@ -83,6 +83,7 @@ getComentarios() {
             this.Mensaje="operación no pudo completarse con exito. favor comunicarse con el administrador";
         }
         );
+    this.getComentarios();
   }
 
 }
