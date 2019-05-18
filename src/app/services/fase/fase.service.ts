@@ -50,16 +50,21 @@ export class FaseService {
   }
 
   // Método que invoca el servicio para cambiar fase
-  cambiarFase(idRed, idFase) {
+  cambiarFase(idRed, idFase, comentario:string) {
     const tokenSisred = this.autenticacionService.obtenerToken();
 
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      Authorization: 'Token ' + tokenSisred
-    });
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: 'Token ' + tokenSisred
+      })
+    };
 
     return new Promise((resolve, reject) => {
-      this.httpClient.put(environment.apiUrl + 'red/' + idRed + '/cambiarfase/' + idFase + '/', headers, httpOptions).subscribe(data => resolve(data), error => {
+      const requestBody = {
+        comentario
+      };
+      this.httpClient.put(environment.apiUrl + 'red/' + idRed + '/cambiarfase/' + idFase + '/', requestBody, options).subscribe(data => resolve(data), error => {
         reject(error);
       });
     });

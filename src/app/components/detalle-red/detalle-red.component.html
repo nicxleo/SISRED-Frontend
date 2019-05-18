@@ -38,7 +38,7 @@
                 </div>
                 <div class="col col-md-3" *ngIf="detalle?.fase?.idConectate">
                   <select id="fases" [(ngModel)]="detalle.fase.idConectate" class="form-control input-sm" #faseSelect (change)="onOptionsSelected()">
-                    <option *ngFor="let fase_item of fases" [value]="fase_item.idConectate">
+                    <option *ngFor="let fase_item of fases" [value]="fase_item.idConectate" [ngStyle]="{'display': habilitarOpcionCambiarFase(fase_item.idConectate)? 'none' : 'block'}">
                       {{fase_item?.nombre}}
                     </option>
                   </select>
@@ -211,11 +211,15 @@
       </div>
       <div class="modal-body">
         <h4 class="text-center">{{body}}</h4>
-        <br>
         <p class="text-secondary text-center">{{mensajeAdvertencia}}</p>
+        <br/>
+        <div class="form-group">
+          <label for="comentario">Agregar comentario</label>
+          <input type="text" [(ngModel)]="comentario" id="comentario" class="form-control required" required />
+        </div>
       </div>
       <div class="modal-footer text-center">
-        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="cambiarFase()">Sí</button>
+        <button type="button" class="btn btn-primary" (click)="cambiarFase()">Sí</button>
         <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="closeModal()">No</button>
       </div>
     </div>
