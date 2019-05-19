@@ -264,7 +264,7 @@ export class PdfViewerComponent implements OnInit {
     debugger;
     let idComentario = localStorage.getItem("idComentario");
     let coord = new ComentarioMultimedia();
-    coord.id = localStorage.getItem("coordenadas");
+    coord.id = Number(localStorage.getItem("coordenadas"));
     coord.x1 = areaInfo.rect.x1;
     coord.y1 = areaInfo.rect.y1;
     coord.x2 = areaInfo.rect.x2;
