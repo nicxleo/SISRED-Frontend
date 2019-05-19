@@ -22,14 +22,21 @@
                   </div>
                   <!-- /.box-header -->
                   <div class="box-body">
-                    <dl>
-                      <dd><b>RED:</b> {{ version.nombreRed }}</dd>
-                      <dd><b>Número de versión:</b> {{ version.numero }}</dd>
-                      <dd><b>Número de recursos:</b> {{ version.recursos }}</dd>
-                    </dl>
-                    <div>
-                      <button type="submit" class="btn btn-info">Pasar RED listo para usuario final</button>
-                    </div>                    
+                    <div class="row text-center">
+                      <div class="col-md-3">
+                        <b>RED:</b> {{ version.nombreRed }}
+                      </div>
+                      <div class="col-md-3">
+                        <b>Número de versión:</b> {{ version.numero }}
+                      </div>
+                      <div class="col-md-3">
+                        <b>Número de recursos:</b> {{ version.recursos }}
+                      </div>
+                      <div class="col-md-3">
+                         <button type="submit" class="btn btn-info">Pasar RED listo para usuario final</button>
+                      </div>
+                    </div>
+
                   </div>
             </div>                             
           <!-- /.box-body -->
@@ -48,36 +55,23 @@
             </div>
             <div class="box-body">
               <table id="search_table_resources" class="table table-bordered table-striped">
-                <thead>
-                <tr>
-                  <th>Thumbnail</th>
-                  <th>Recurso</th>                  
-                </tr>
-                </thead>
                 <tbody>
                     <tr id="searchtableelements" *ngFor="let item of recursos">
-                        <td>
+                      <div class="row text-center">
+                        <div class="col-md-4">
                           <img src="{{item.thumbnail}}" width="300" height="200" *ngIf="item.tipo == tipoImagen">
                           <video id="player" width="300" height="200" src={{item.thumbnail}} allowfullscreen controls #media *ngIf="item.tipo == tipoVideo"></video>
-
-                        </td>
-                        <td>
-                          {{ item.nombre }}
-                          <div class="float-right">
+                        </div>
+                        <div class="col-md-3 my-auto">
+                           <b>Recurso: </b>{{ item.nombre }}
                             <button *ngIf="item.tipo == tipoVideo" class="btn btn-info"
                                     [routerLink]="['/red/version/' +idVersion + '/recurso/'+ item.id +'/comentarios']"
                                     routerLinkActive="router-link-active">Revisar recurso</button>
                             <button *ngIf="item.tipo != tipoVideo" class="btn btn-info" onClick="alert('En desarrollo')">Revisar recurso</button>
-                          </div>
-                        </td>
+                        </div>
+                      </div>
                     </tr>
                 </tbody>
-                <tfoot>
-                <tr>
-                  <th>Thumbnail</th>
-                  <th>Recurso</th>
-                </tr>
-                </tfoot>
               </table>
             </div>            
           </div>

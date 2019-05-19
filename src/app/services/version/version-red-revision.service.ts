@@ -42,8 +42,8 @@ export class VersionRedRevisionService {
       'Content-Type': 'application/json',
       Authorization: 'Token ' + tokenSisred
     });
-    
-    this.httpClient.get(this.API_URL_RECURSOS, { headers }).subscribe((data: Array<any>) => {
+    this.recursos = [];
+    this.httpClient.get(this.API_URL_RECURSOS, { headers, params }).subscribe((data: Array<any>) => {
       data.forEach(dataItem => {
         const recurso = new Recurso();
         recurso.id = dataItem['pk'];

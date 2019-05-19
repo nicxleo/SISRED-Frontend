@@ -34,6 +34,7 @@ export class VersionRedRevisionComponent implements OnInit  {
   ) { }
 
   ngOnInit() {
+    this.recursos.length = 0;
     setup();    
     this.idVersion = this.route.snapshot.params.version;
     this.getVersion();
@@ -47,9 +48,8 @@ export class VersionRedRevisionComponent implements OnInit  {
   }
   
   // Método que obtiene el listado de recursos de la versión
-  getRecursos(): void {    
-    this.recursos = [];    
-    this.versionService.getRecursos(this.idVersion).subscribe(recursos => (this.recursos = recursos), error=>console.log("error: "+error), ()=>setTimeout(function() { setupTable() }, 1000)); 
+  getRecursos(): void {
+    this.versionService.getRecursos(this.idVersion).subscribe(recursos => (this.recursos = recursos), error=>console.log("error: "+error), ()=>setTimeout(function() { setupTable() }, 1000));
   }
 
   // Metodo que regresa a la pantella anterior
