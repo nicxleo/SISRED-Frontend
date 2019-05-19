@@ -1,6 +1,7 @@
 import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { Recurso } from '../../services/version/ver-version-red/recurso.model';
 import { Comentario } from '../../services/comentario/comentario.model';
 import { ComentarImagenService } from '../../services/comentario/comentar-imagen.service';
@@ -38,7 +39,7 @@ export class ComentarImagenComponent implements OnInit {
 
   @ViewChild("myCanvas") myCanvas:ElementRef;
 
-  constructor(private route: ActivatedRoute, private comentarImagenService: ComentarImagenService) { }
+  constructor(private route: ActivatedRoute, private comentarImagenService: ComentarImagenService, private spinner: NgxSpinnerService) { }
 
   mdEvent(e) {
     //persist starting position
@@ -173,6 +174,7 @@ export class ComentarImagenComponent implements OnInit {
   }
 
   publicarComentario() {
+    this.spinner.show();
     if(this.seleccionado) {
       this.publicarComentarioAreaExistente();
     }
@@ -189,7 +191,9 @@ export class ComentarImagenComponent implements OnInit {
         this.getComentarios();
         this.mostrarCaja = false;
         this.seleccionado = undefined;
+        this.spinner.hide();
       }, err => {
+        this.spinner.hide();
         console.log(err);
         alert(err);
       });
@@ -203,7 +207,9 @@ export class ComentarImagenComponent implements OnInit {
         this.getComentarios();
         this.mostrarCaja = false;
         this.seleccionado = undefined;
+        this.spinner.hide();
       }, err => {
+        this.spinner.hide();
         console.log(err);
         alert(err);
       });
