@@ -5,8 +5,8 @@
       <div class="box list-row" *ngFor="let list of areaInfo; let i = index">
         <div class="col-sm-12" (click)="moveTo(list); $event.stopPropagation();">ver comentario</div>
         <div class="box-header row col-sm-11">
-          <div class="col-sm-6 info text-bold">{{GetItemComentario(i).UsuarioComentario}}</div>
-          <div class="col-sm-6 info right">{{GetItemComentario(i).fechaCreacion | date : 'dd MMM yyyy HH:mm:ss'}}</div>
+          <div class="col-sm-6 info text-bold">{{comentariosPdf[i].UsuarioComentario}}</div>
+          <div class="col-sm-6 info right">{{comentariosPdf[i].fechaCreacion | date : 'dd MMM yyyy HH:mm:ss'}}</div>
         </div>
         <div>
           <div class="row col-sm-12 ContenidoPrincipal" [innerHTML]="list.comment"></div>
@@ -21,7 +21,7 @@
             </div>
             </div>
             <br>
-            <div class="row col-sm-12 center-block ComentariosHijos" *ngFor="let comment of list.commentsChildren; let i = index ">
+            <div class="row col-sm-12 center-block ComentariosHijos" *ngFor="let comment of list.commentsChildren; let x = index ">
               <div class="col-sm-6 ContenidoHijo">{{comment.UsuarioComentario }}</div>
               <div class="col-sm-6 DateComment">{{comment.fechaCreacion | date:'yyyy-MM-dd HH:mm:ss' }}</div>
               <div class="col-sm-12 ContenidoHijo" [innerHTML]="comment.contenido"></div>
@@ -29,14 +29,14 @@
             </div>
           <div class="col-sm-6 left bottom"></div>
           <div class="col-sm-6 right">
-            <button type="button" *ngIf="GetItemComentario(i).cerrado==false" (click)="seleccionarComentarioCerrado(i)" class=" btn btn-primary right" data-toggle="modal" data-target="#myModal">Cerrar comentario</button>
+            <button type="button" *ngIf="comentariosPdf[i].cerrado==false" (click)="seleccionarComentarioCerrado(i)" class=" btn btn-primary right" data-toggle="modal" data-target="#myModal">Cerrar comentario</button>
           </div>
         </div>
         <div class="box-footer margin">
 
           <div class="col-sm-8 left bottom">
-            <button *ngIf="GetItemComentario(i).cerrado==true" type="button" class="btn btn-primary btn-sm btn-block "
-              [className]="GetItemComentario(i).resuelto ? 'Resuelto' : 'SinResolver'">{{GetItemComentario(i).resuelto ? "Cerrado resuelto" : "Cerrado sin resolver" }}</button>
+            <button *ngIf="comentariosPdf[i].cerrado==true" type="button" class="btn btn-primary btn-sm btn-block "
+              [className]="comentariosPdf[i].Resuelto ? 'Resuelto' : 'SinResolver'">{{comentariosPdf[i].resuelto ? "Cerrado resuelto" : "Cerrado sin resolver" }}</button>
           </div>
           <div class="col-sm-4 right bottom">
           </div>
