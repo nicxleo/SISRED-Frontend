@@ -41,12 +41,13 @@ export class PdfViewerComponent implements OnInit {
   public Editor = ClassicEditor;
   public textComentarioHijo: string;
   public seleccionado: ComentarioPdfModel;
-  public coomentCierre: ComentarioPdfModel;
+  public  coomentCierre: ComentarioPdfModel;
   myRadio: string;
   public MensajeModal: string;
   public loadData = false;
   public indiceCerrarComentario = 0;
-
+  public  CantidadAbiertos: number;
+  public  CantidadCerrados: number;
   public comentario: string = "";
   areaInfo: AreaInfo[] = [];
 
@@ -56,6 +57,8 @@ export class PdfViewerComponent implements OnInit {
     this.loadData = false;
     var x = 1;
     setTimeout(() => {
+      this.CantidadAbiertos=this.comentariosPdf.filter(x=> x.cerrado===false).length ;
+      this.CantidadCerrados=this.comentariosPdf.filter(x=> x.cerrado===true).length;
       this.comentariosPdf.forEach(data => {
         if (data.coordenadas.x1 != 0) {
           this.areaInfo.push({
@@ -249,8 +252,18 @@ export class PdfViewerComponent implements OnInit {
       UsuarioComentario: "",
       fechaCreacion: new Date()
     };
+    this.areaInfo.push(areaInfo);
+    this.showPopup = false;
+    this.rect = { x1: 0, y1: 0, x2: 0, y2: 0, width: 0, height: 0 };
+    this.comment = "";
+    this.comentarioPadre.emit({
+      coordenadas: areaInfo.rect,
+      comentario: areaInfo.comment
+    });
+    debugger;
+    let idComentario= localStorage.getItem("idComentario");
     this.comentariosPdf.push({
-      id: "",
+      id: idComentario,
       contenido: this.comment,
       coordenadas: null,
       fechaCreacion: areaInfo.fechaCreacion,
@@ -266,14 +279,6 @@ export class PdfViewerComponent implements OnInit {
       UsuarioComentario: ""
     });
 
-    this.areaInfo.push(areaInfo);
-    this.showPopup = false;
-    this.rect = { x1: 0, y1: 0, x2: 0, y2: 0, width: 0, height: 0 };
-    this.comment = "";
-    this.comentarioPadre.emit({
-      coordenadas: areaInfo.rect,
-      comentario: areaInfo.comment
-    });
     // logica para agregar comentario
   }
 
@@ -290,7 +295,7 @@ export class PdfViewerComponent implements OnInit {
       version: "",
       idUsuario: "1",
       esCierre: false,
-      UsuarioComentario: ""
+      UsuarioComentario:""
     });
     this.areaInfo[posicionPadre].text = "";
   }
@@ -344,18 +349,22 @@ export class PdfViewerComponent implements OnInit {
     if (this.myRadio == "resuelto") {
       this.coomentCierre.resuelto = true;
     }
-    this.coomentCierre.cerrado = true;
+    else {
+      this.coomentCierre.resuelto = false;
+    }
+    this.coomentCierre.cerrado=true;
     this.CerrarComentario_Aceptar.emit({
       seleccionado: this.coomentCierre,
       comentario: this.comentario
     });
-    this.addCommentCierre(this.indiceCerrarComentario, this.comentario);
+    this.addCommentCierre(this.indiceCerrarComentario,this.comentario)
     this.MensajeModal = "Operacion realizada con exito";
   }
 
-  public GetItemComentario(i: number) {
+   public GetItemComentario(i: number) {
     this.indiceCerrarComentario = i;
     return this.comentariosPdf[i];
+
   }
 
   addCommentCierre(posicionPadre: number, Comment) {
@@ -367,8 +376,9 @@ export class PdfViewerComponent implements OnInit {
       version: "",
       idUsuario: "1",
       esCierre: false,
-      UsuarioComentario: "User actual"
+      UsuarioComentario:"User actual"
     });
+
   }
 }
 

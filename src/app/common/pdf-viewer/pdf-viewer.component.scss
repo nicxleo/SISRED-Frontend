@@ -99,13 +99,15 @@
  background-color: #4CAF50;
   border: none;
   color: white;
-  padding: 15px 15px;
+  padding: 10px 10px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  font-size: 12px;
-  margin: 4px 2px;
+  font-size: 14px;
+  margin: 2px 2px;
   cursor: pointer;
+  width: 150px;
+  height: 32px;
 }
 
 .SinResolver{
@@ -116,9 +118,11 @@
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  font-size: 10px;
+  font-size: 14px;
   margin: 4px 2px;
   cursor: pointer;
+  width: 150px;
+  height: 32px;
 }
 
 .ContenidoPrincipal {

@@ -34,13 +34,17 @@
         </div>
         <div class="box-footer margin">
 
-          <div class="col-sm-6 left bottom">
+          <div class="col-sm-8 left bottom">
             <button *ngIf="GetItemComentario(i).cerrado==true" type="button" class="btn btn-primary btn-sm btn-block "
               [className]="GetItemComentario(i).resuelto ? 'Resuelto' : 'SinResolver'">{{GetItemComentario(i).resuelto ? "Cerrado resuelto" : "Cerrado sin resolver" }}</button>
           </div>
-          <div class="col-sm-6 right bottom">
+          <div class="col-sm-4 right bottom">
           </div>
         </div>
+      </div>
+      <div class="row col-sm-9 ">
+        <div>Comentarios abiertos: {{CantidadAbiertos}}</div>
+        <div>Comentarios cerrados: {{CantidadCerrados}}</div>
       </div>
     </div>
 
