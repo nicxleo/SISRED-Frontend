@@ -74,7 +74,7 @@ import { ComentariosVersionGenericoComponent } from './components/comentarios-ve
     HabilitarUsuarioComponent,        
     HabilitarUsuarioComponent,
     TabPanesComponent,
-    RedsAsignadosRevisionComponent
+    RedsAsignadosRevisionComponent,
     BuscarRecursoComponent,
     ComentariosVersionGenericoComponent
   ],
