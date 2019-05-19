@@ -19,6 +19,7 @@ import { ComentarImagenComponent } from './components/comentar-imagen/comentar-i
 import { RedCrearVersionComponent } from './components/red-crear-version/red-crear-version.component';
 import { BuscarRedComponent } from './components/buscar-red/buscar-red.component';
 import { ComentariosVersionVideoComponent } from './components/comentarios-version-video/comentarios-version-video.component';
+import { ComentariosVersionGenericoComponent } from './components/comentarios-version-generico/comentarios-version-generico.component';
 import { HabilitarUsuarioComponent } from './components/HabilitarUsuario/Habilitar-Usuario.component';
 import { LoginComponent } from './components/login/login.component';
 import { AutenticacionGuard } from './guards/autenticacion/autenticacion.guard';
@@ -59,6 +60,10 @@ const routes: Routes = [
   { path: 'red/version/:idVersion/recurso/:idRecurso/comentarios', 
     component: ComentariosVersionVideoComponent,
     canActivate: [AutenticacionGuard] 
+  },
+  { path: 'red/version/:idVersion/recurso/:idRecurso/comentariosGenerico', 
+  component: ComentariosVersionGenericoComponent,
+  canActivate: [AutenticacionGuard]
   },
   { path: 'habilitarusuario', 
     component: HabilitarUsuarioComponent,

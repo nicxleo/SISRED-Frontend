@@ -40,6 +40,7 @@ import { BuscarRecursoComponent } from './components/buscar-recurso/buscar-recur
 import { HabilitarUsuarioComponent } from './components/HabilitarUsuario/Habilitar-Usuario.component';
 import { HabilitarUsuarioClientService } from './services/HabilitarUsuario/habilita-usuario-client.service';
 import { VersionRedRevisionComponent } from './components/version-red-revision/version-red-revision.component';
+import { ComentariosVersionGenericoComponent } from './components/comentarios-version-generico/comentarios-version-generico.component';
 
 
 @NgModule({
@@ -72,7 +73,8 @@ import { VersionRedRevisionComponent } from './components/version-red-revision/v
     HabilitarUsuarioComponent,        
     HabilitarUsuarioComponent,
     TabPanesComponent,
-    BuscarRecursoComponent
+    BuscarRecursoComponent,
+    ComentariosVersionGenericoComponent
   ],
   imports: [
     AppRoutingModule,
