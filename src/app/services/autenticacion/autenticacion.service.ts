@@ -22,7 +22,7 @@ export class AutenticacionService {
   obtenerToken() {
     const token = localStorage.getItem('token');
     if (token === null) {
-      //this.borrarDatos();
+      this.borrarDatos();
     }
     return token;
   }
@@ -51,7 +51,7 @@ export class AutenticacionService {
         };
       } catch (err) {
         this.borrarDatos();
-        //window.location.reload();
+        window.location.reload();
       }
     }
     return datosUsuario;
@@ -149,7 +149,7 @@ export class AutenticacionService {
 
   // Elimina los datos de la sesión. Borrando el local storage
   borrarDatos() {
-    //localStorage.clear();
-    //window.location.reload();
+    localStorage.clear();
+    window.location.reload();
   }
 }
