@@ -40,7 +40,7 @@ import {HabilitarUsuarioComponent} from './components/HabilitarUsuario/Habilitar
 import {HabilitarUsuarioClientService} from './services/HabilitarUsuario/habilita-usuario-client.service';
 import {VersionRedRevisionComponent} from './components/version-red-revision/version-red-revision.component';
 import {VerAvanceConectateComponent} from './components/ver-avance-conectate/ver-avance-conectate.component';
-
+import {RedDescargarRedComponent} from './components/red-descargar-red/red-descargar-red.component';
 
 @NgModule({
   declarations: [
@@ -73,7 +73,8 @@ import {VerAvanceConectateComponent} from './components/ver-avance-conectate/ver
     HabilitarUsuarioComponent,
     TabPanesComponent,
     BuscarRecursoComponent,
-    VerAvanceConectateComponent
+    VerAvanceConectateComponent,
+    RedDescargarRedComponent
   ],
   imports: [
     AppRoutingModule,

@@ -14,7 +14,6 @@ declare function setup(): any;
 export class BuscarRedComponent implements OnInit {
 
   public buscarRedForm: FormGroup;
-  userId: number = 5;
   reds: Red[] = [];
   redsSinRepetir: Red[] = [];
   pagina: number = 1;
@@ -33,7 +32,7 @@ export class BuscarRedComponent implements OnInit {
 
   buscarRed() {
     this.spinner.show()
-    this.buscarRedsService.buscarReds(this.userId, this.formatFecha(this.buscarRedForm.get('fechaInicio').value), 
+    this.buscarRedsService.buscarReds(this.formatFecha(this.buscarRedForm.get('fechaInicio').value), 
       this.formatFecha(this.buscarRedForm.get('fechaCierre').value), this.buscarRedForm.get('palabra').value)
       .then(reds => {
         console.log(reds);

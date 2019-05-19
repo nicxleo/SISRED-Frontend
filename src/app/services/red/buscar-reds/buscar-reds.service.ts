@@ -12,7 +12,7 @@ export class BuscarRedsService {
 
   constructor(private httpClient: HttpClient, private autenticacionService: AutenticacionService) { }
 
-  buscarReds(idUsuario, fechaInicio, fechaCierre, texto): Promise<Red[]> {
+  buscarReds(fechaInicio, fechaCierre, texto): Promise<Red[]> {
 
     let params = new HttpParams();
 
@@ -24,13 +24,13 @@ export class BuscarRedsService {
     let options = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
-        Authorization: 'Token ' + tokenSisred
+        Authorization: tokenSisred
       }),
       params,
     };
 
     return new Promise((resolve, reject) => {
-      this.httpClient.get(`${environment.apiUrl}buscarReds/${idUsuario}/`, options).subscribe((data: Array<any>) => {
+      this.httpClient.get(`${environment.apiUrl}buscarReds/`, options).subscribe((data: Array<any>) => {
         let reds = [];
         data.forEach(item => {
           let red = new Red();
@@ -40,6 +40,7 @@ export class BuscarRedsService {
           red.fechaInicio = item.fecha_inicio;
           red.fechaCierre = item.fecha_cierre;
           red.tipo = item.tipo;
+          red.asignado = item.asignado;
           reds.push(red);
         });
         resolve(reds);

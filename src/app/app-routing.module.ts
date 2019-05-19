@@ -25,6 +25,7 @@ import {AutenticacionGuard} from './guards/autenticacion/autenticacion.guard';
 import {NoAutenticadoGuard} from './guards/no-autenticado/no-autenticado.guard';
 import {BuscarRecursoComponent} from './components/buscar-recurso/buscar-recurso.component';
 import {VerAvanceConectateComponent} from './components/ver-avance-conectate/ver-avance-conectate.component';
+import {RedDescargarRedComponent} from './components/red-descargar-red/red-descargar-red.component';
 
 const routes: Routes = [
   {
@@ -145,7 +146,12 @@ const routes: Routes = [
     path: 'verAvanceConectate/:id',
     component: VerAvanceConectateComponent,
     // canActivate: [NoAutenticadoGuard]
-     canActivate: [AutenticacionGuard]
+    canActivate: [AutenticacionGuard]
+  },
+  {
+    path: 'descargarred/:idRed',
+    component: RedDescargarRedComponent,
+    canActivate: [AutenticacionGuard]
   },
   {
     path: '**',

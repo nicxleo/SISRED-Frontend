@@ -1,0 +1,128 @@
+<!-- Content Wrapper. Contains page content -->
+<div class="marginH content-wrapper">
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <h1>
+      Descargar RED
+    </h1>
+    <ol class="breadcrumb">
+      <li><a href="/"><i class="fa fa-dashboard"></i> Home</a></li>
+      <li><a href="/red/{{idRed}}/detalle"><i class="fa fa-dashboard"></i> Detalle RED</a></li>
+      <li class="active">Descargar RED</li>
+    </ol>
+  </section>
+
+  <!-- Main content -->
+  <section class="content">
+    <div class="row">
+      <!-- left column -->
+      <div class="col-md-12">
+        <!-- general form elements -->
+        <div class="box box-primary">
+          <div class="box">
+            <div class="box-body">
+              <!-- box-header -->
+              <div class="box-header with-border">
+                <div class="row">
+                  <div class="col col-md-9">
+                    <h3 class="box-title">{{detalle.nameRed}}</h3>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col col-md-9">
+                    <a href="" routerLink="">
+                      <h3 class="box-title">{{detalle.nameProject}}</h3>
+                    </a>
+                  </div>
+                  <div class="col col-md-3">
+                    <h3 class="box-title">Estado: {{detalle.status}}</h3>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col col-md-9">
+                    <h3 class="box-title">{{detalle.url}}</h3>
+                  </div>
+                </div>
+              </div>
+              <!-- /.box-header -->
+              <!-- table Proyectos del RED -->
+              <table class="table table-hover table-bordered table-margin">
+                <thead>
+                  <tr>
+                    <td colspan="5">
+                      <h3 class="text-center">Proyectos del RED</h3>
+                    </td>
+                  </tr>
+                  <tr class="thead-light text-center">
+                    <th scope="col" width="20%">Nombre</th>
+                    <th scope="col" width="20%">Autor</th>
+                    <th scope="col" width="20%">Tipo archivo</th>
+                    <th scope="col" width="20%">Descripción</th>
+                    <th scope="col" width="20%">Descargar</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let proyecto of proyectos">
+                    <td>{{proyecto.name}}</td>
+                    <td>{{proyecto.autor}}</td>
+                    <td>{{proyecto.typeFile}}</td>
+                    <td>{{proyecto.description}}</td>
+                    <td>
+                      <button type="button" (click)="descargarProyectoRED(proyecto.id)" class="btn btn-primary"><i class="fas fa-download"></i>&nbsp;Descargar</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <!-- /.table Proyectos del RED -->
+              <!-- dynamic data table -->
+              <table class="table table-hover table-bordered table-margin">
+                <thead>
+                <tr>
+                  <td colspan="7">
+                    <h3 class="text-center">Recursos</h3>
+                  </td>
+                </tr>
+                <tr class="thead-light text-center">
+                  <th scope="col" width="20%">Nombre</th>
+                  <th scope="col" width="20%">Fecha Modificación</th>
+                  <th scope="col" width="20%">Tipo</th>
+                  <th scope="col" width="20%">Descripción</th>
+                  <th scope="col" width="20%">Descargar</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let recurso of recursosExistentes">
+                  <td>{{recurso.nombre}}</td>
+                  <td>{{recurso.fechaUltimaModificacion}}</td>
+                  <td>{{recurso.tipo}}</td>
+                  <td>{{recurso.descripcion}}</td>
+                  <button class="pull-right" type="button" (click)="descargarRecursoRed(recurso.id)" class="btn btn-primary"><i class="fas fa-arrow-down"></i>&nbsp;Descargar</button>
+                </tr>
+                </tbody>
+              </table>
+              <div class="pull-right" style="margin: 1em; margin-right: 0em;">
+                <button type="button" (click)="descargarRecursosTodo()" class="btn btn-primary"><i class="fas fa-arrow-circle-down"></i>&nbsp;Descargar Todos los Recursos</button>
+              </div>
+              <!-- /.dynamic data table -->
+              <!-- /footer -->
+              <div class="box-footer">
+                  <button type="button" (click)="goBack()" class="btn btn-default spaceDer m-2"><i class="fas fa-chevron-left"></i>&nbsp;Volver</button>
+                </div>
+              <!-- /.footer -->
+            </div>
+            <!-- /.box-body -->
+          </div>
+          <!-- /.box -->
+        </div>
+        <!-- /.box primary-->
+      </div>
+      <!--/.col (left) -->
+    </div>
+    <!-- /.row -->
+  </section>
+  <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+<ngx-spinner bdOpacity = 0.9bd Color = "rgba(34,31,31,0)" size = "medium" color = "#000000" type = "ball-spin" fullScreen = "true">
+  <p style="color: white"> Cargando... </p>
+</ngx-spinner>

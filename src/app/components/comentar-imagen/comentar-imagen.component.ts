@@ -91,9 +91,6 @@ export class ComentarImagenComponent implements OnInit {
     this.y2 = h + y;
     this.myCanvas.nativeElement.getContext("2d").setLineDash([0]);
     this.myCanvas.nativeElement.getContext("2d").strokeRect(x, y, w, h);
-
-    let ctx = CanvasRenderingContext2D = this.myCanvas.nativeElement.getContext("2d");
-
     this.mostrarCaja = true;
     this.drag = false;
     this.seleccionado = undefined;

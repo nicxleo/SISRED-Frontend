@@ -185,6 +185,7 @@
             <button type="button" (click)="goBack()" class="btn btn-default spaceDer m-2"><i class="fas fa-chevron-left"></i>&nbsp;Volver</button>
             <button type="button" class="btn btn-primary m-2" [routerLink]="['/red/' + idRed + '/relacionados']" routerLinkActive="router-link-active">Ver REDs relacionados</button>
             <button type="button" class="btn btn-dark m-2 text-white" [routerLink]="['/reds/' + idRed + '/avance']" routerLinkActive="router-link-active">Ver avance red</button>
+            <button type="button" class="btn btn-dropbox m-2" [routerLink]="['/descargarred/' + idRed]" routerLinkActive="router-link-active"><i class="fas fa-download"></i> Descargar RED</button>
           </div>
           <!-- /.box-footer -->
         </div>
