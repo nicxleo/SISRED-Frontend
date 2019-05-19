@@ -16,7 +16,7 @@
     <div class="row">
       <div class="col-md-12">
         <!-- Video -->
-        <div id="video_wrap">
+        <div id="video_wrap" *ngIf="respuestaVideo.length > 0">
           <div *ngFor="let pathVideo of respuestaVideo">
             <video id='my-video' class='video-js' controls preload='auto' width='720' height='405'
                    data-setup='{}'>
@@ -83,6 +83,21 @@
                         </div>
                       </li>
                     </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+		<div *ngIf="respuestaVideo.length < 1">
+          <div class="row bootstrap snippets">
+            <div class="col-md-8 col-md-offset-2 col-sm-12">
+              <div class="comment-wrapper">
+                <div class="panel panel-info">
+                  <div class="panel-heading"></div>
+                  <div class="panel-body">
+                    <p>No existe video para este recurso</p>
                   </div>
                 </div>
               </div>
