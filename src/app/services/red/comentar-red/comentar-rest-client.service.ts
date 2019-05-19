@@ -65,7 +65,7 @@ export class ComentarRestClientService {
           idUsuario: "",
           width: "",
           height: "",
-          rutaArchivo: "",
+          rutaArchivo: comentario.archivos,
           comentariosHijos: null,
           cerrado: false,
           resuelto: false,
