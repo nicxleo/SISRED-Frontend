@@ -39,6 +39,7 @@ export class ComentariosVersionVideoComponent implements OnInit, AfterViewInit {
   comentarioResuelto: string;
   roles: any[];
   esProductor: boolean = false;
+  editor1: any;
 
   @ViewChild('modalComentario') modal: ElementRef;
   @ViewChild('myForm') private formDirective: NgForm;
@@ -150,8 +151,8 @@ export class ComentariosVersionVideoComponent implements OnInit, AfterViewInit {
 
   // Metodo para abrir el modal de cerrar un comentario
   cerrarCommentarioModal(idComentario: any): void {
+    this.editor1.setData('');
     this.formDirective.resetForm();
-    //this.Editor.setData('');
     this.idComentarioCerrar = idComentario;
     this.heading = 'Cerrar Comentario';
     $(this.modal.nativeElement).modal('show');
@@ -167,12 +168,19 @@ export class ComentariosVersionVideoComponent implements OnInit, AfterViewInit {
                 this.consultarComentarios();
             }, 2500);
     this.cdRef.detectChanges();
+
   }
 
   public onChangeComentario( { editor }: ChangeEvent ) {
-        this.contenidoComentarioCerrar = editor.getData();
+    this.contenidoComentarioCerrar = editor.getData();
 
   }
+
+  public onReadyComentario( editor  ) {
+    this.editor1 = editor;
+  }
+
+
 
 
 }

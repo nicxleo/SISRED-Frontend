@@ -48,12 +48,19 @@
                           <p>
                             <small class="text-muted">Segundo inicial: {{multi.range.start}} - Segundo
                               final: {{multi.range.end}}</small>
-                            <span class="text-muted pull-right">
-                               <img class="icon-comment-done" *ngIf="comment.cerrado" title="Comentario Cerrado" data-toggle="tooltip" data-placement="top"
+                            <span class="text-muted pull-right" *ngIf="comment.cerrado === true">
+                              <img class="icon-comment-done"  title="Comentario Cerrado" data-toggle="tooltip" data-placement="top"
                                     src="https://images.vexels.com/media/users/3/157931/isolated/preview/604a0cadf94914c7ee6c6e552e9b4487-icono-de-c--rculo-de-marca-de-verificaci--n-curvo-by-vexels.png">
-                               <button type="button" *ngIf="!comment.cerrado" (click)="cerrarCommentarioModal(multi.id)" title="Cerrar Comentario" data-toggle="tooltip" data-placement="top"
+                             </span>
+                            <!--<span class="text-muted pull-right" *ngIf="comment.resuelto === true && comment.cerrado=== true">
+                              <img class="icon-comment-done" title="Comentario Cerrado" data-toggle="tooltip" data-placement="top"
+                                    src="https://images.vexels.com/media/users/3/152600/isolated/preview/1c6716b235863cb53f9b3dbd3aa36ab8-red-circle-question-mark-icon-by-vexels.png">
+                             </span>-->
+                            <span class="text-muted pull-right" *ngIf="!comment.cerrado">
+                              <button type="button" (click)="cerrarCommentarioModal(multi.id)" title="Cerrar Comentario" data-toggle="tooltip" data-placement="top"
                                        class="btn btn-primary">Cerrar</button>
                             </span>
+
                           </p>
                           <div class="internalComments" *ngIf="multi.comments.length > 1">
                             <ul  class="internalCommentsUl">
@@ -130,7 +137,7 @@
           </div>
         </form>
         <br>
-        <ckeditor [editor]="Editor" (change)="onChangeComentario($event)"></ckeditor>
+        <ckeditor [editor]="Editor" (ready)="onReadyComentario($event)" (change)="onChangeComentario($event)"></ckeditor>
       </div>
       <div class="modal-footer text-center">
         <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="cerrarCommentario()">Cerrar
@@ -155,5 +162,4 @@
         })
 
     });
-
   </script>
