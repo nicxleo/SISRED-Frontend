@@ -57,7 +57,7 @@ export class ComentariosVersionVideoComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     console.log('ngOnInit Comentarios');
     setup();
-    this.consultarRoles();
+    //this.consultarRoles();
     this.getUrlRecursoVideo();
   }
 
