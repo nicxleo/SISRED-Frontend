@@ -48,9 +48,11 @@ export class RedComentarPdfComponent implements OnInit {
   }
   guardarComentarioPadre($event): void {
     console.log("Comentario padre");
+
     this.comentarRestClientService
       .postComentariosByIdRed($event, Number(this.idRed))
       .subscribe(response => {
+        localStorage.setItem("idComentario", response.id);
         console.log(response);
       });
   }
