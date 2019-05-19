@@ -48,14 +48,14 @@
                           <p>
                             <small class="text-muted">Segundo inicial: {{multi.range.start}} - Segundo
                               final: {{multi.range.end}}</small>
-                            <span class="text-muted pull-right" *ngIf="comment.cerrado === true">
+                            <span class="text-muted pull-right" *ngIf="comment.resuelto === true && comment.cerrado === true">
                               <img class="icon-comment-done"  title="Comentario Cerrado" data-toggle="tooltip" data-placement="top"
                                     src="https://images.vexels.com/media/users/3/157931/isolated/preview/604a0cadf94914c7ee6c6e552e9b4487-icono-de-c--rculo-de-marca-de-verificaci--n-curvo-by-vexels.png">
                              </span>
-                            <!--<span class="text-muted pull-right" *ngIf="comment.resuelto === true && comment.cerrado=== true">
+                            <span class="text-muted pull-right" *ngIf="comment.resuelto === false && comment.cerrado=== true">
                               <img class="icon-comment-done" title="Comentario Cerrado" data-toggle="tooltip" data-placement="top"
                                     src="https://images.vexels.com/media/users/3/152600/isolated/preview/1c6716b235863cb53f9b3dbd3aa36ab8-red-circle-question-mark-icon-by-vexels.png">
-                             </span>-->
+                             </span>
                             <span class="text-muted pull-right" *ngIf="!comment.cerrado">
                               <button type="button" (click)="cerrarCommentarioModal(multi.id)" title="Cerrar Comentario" data-toggle="tooltip" data-placement="top"
                                        class="btn btn-primary">Cerrar</button>
