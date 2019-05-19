@@ -5,7 +5,7 @@
     overflow:auto;
 }
 
-.comment-wrapper .media-list .media img {
+.comment-wrapper .media-list .media img:not(.icon-comment-done) {
     width:64px;
     height:64px;
     border:2px solid #e5e7e8;
@@ -14,4 +14,22 @@
 .comment-wrapper .media-list .media {
     border-bottom:1px dashed #efefef;
     margin-bottom:25px;
+}
+
+.icon-comment-done{
+  width:40px;
+  height:40px;
+}
+
+.internalComments{
+    padding: 5px;
+    margin-top: 20px;
+    margin-bottom: 5px;
+    border-style: dotted;
+    border-width: 0px 0px 0px 2px;
+}
+
+.internalCommentsUl {
+  list-style-type: none;
+  padding-inline-start: 0px;
 }

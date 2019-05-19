@@ -16,7 +16,7 @@
     <div class="row">
       <div class="col-md-12">
         <!-- Video -->
-        <div id="video_wrap">
+        <div id="video_wrap" *ngIf="respuestaVideo.length > 0">
           <div *ngFor="let pathVideo of respuestaVideo">
             <video id='my-video' class='video-js' controls preload='auto' width='720' height='405'
                    data-setup='{}'>
@@ -33,7 +33,7 @@
                   </div>
                   <div class="panel-body">
                     <ul class="media-list" *ngFor="let multi of annotations">
-                      <li class="media" *ngFor="let comment of multi.comments">
+                      <li class="media" *ngFor="let comment of multi.comments| slice:0:1; let i=index">
                         <a class="pull-left">
                           <img src="http://dehradunfinder.in/en/images/reviewer-image.png" alt=""
                                class="img-circle">
@@ -43,12 +43,43 @@
                                      <small class="text-muted">{{comment.meta.datetime}}</small>
                                   </span>
                           <strong class="text-success">{{comment.meta.user_name}}</strong>
-                          <p>{{comment.body}}</p>
+                          <p [innerHTML]="comment.body">{{comment.body}}</p>
+
                           <p>
                             <small class="text-muted">Segundo inicial: {{multi.range.start}} - Segundo
                               final: {{multi.range.end}}</small>
-                          </p>
+                            <span class="text-muted pull-right" *ngIf="comment.cerrado === true">
+                              <img class="icon-comment-done"  title="Comentario Cerrado" data-toggle="tooltip" data-placement="top"
+                                    src="https://images.vexels.com/media/users/3/157931/isolated/preview/604a0cadf94914c7ee6c6e552e9b4487-icono-de-c--rculo-de-marca-de-verificaci--n-curvo-by-vexels.png">
+                             </span>
+                            <!--<span class="text-muted pull-right" *ngIf="comment.resuelto === true && comment.cerrado=== true">
+                              <img class="icon-comment-done" title="Comentario Cerrado" data-toggle="tooltip" data-placement="top"
+                                    src="https://images.vexels.com/media/users/3/152600/isolated/preview/1c6716b235863cb53f9b3dbd3aa36ab8-red-circle-question-mark-icon-by-vexels.png">
+                             </span>-->
+                            <span class="text-muted pull-right" *ngIf="!comment.cerrado">
+                              <button type="button" (click)="cerrarCommentarioModal(multi.id)" title="Cerrar Comentario" data-toggle="tooltip" data-placement="top"
+                                       class="btn btn-primary">Cerrar</button>
+                            </span>
 
+                          </p>
+                          <div class="internalComments" *ngIf="multi.comments.length > 1">
+                            <ul  class="internalCommentsUl">
+                              <li class="" *ngFor="let comment of multi.comments| slice:1; let i=index">
+                                <div class="">
+                                <span class="text-muted pull-right">
+                                  <small class="text-muted">{{comment.meta.datetime}}</small>
+                                </span>
+                                  <strong class="text-success">{{comment.meta.user_name}}</strong>
+                                  <p [innerHTML]="comment.body">{{comment.body}}</p>
+                                  <p>
+                                    <small class="text-muted"><strong>Comentario
+                                      Cierre:</strong> {{comment.cerrado == true ? "SI" : "NO"}} -
+                                      <strong>Resuelto:</strong> {{comment.resuelto == true ? "SI" : "NO"}}</small>
+                                  </p>
+                                </div>
+                              </li>
+                            </ul>
+                          </div>
                         </div>
                       </li>
                     </ul>
@@ -58,9 +89,41 @@
             </div>
           </div>
         </div>
+
+		<div *ngIf="respuestaVideo.length < 1">
+          <div class="row bootstrap snippets">
+            <div class="col-md-8 col-md-offset-2 col-sm-12">
+              <div class="comment-wrapper">
+                <div class="panel panel-info">
+                  <div class="panel-heading"></div>
+                  <div class="panel-body">
+                    <p>No existe video para este recurso</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row bootstrap snippets">
+            <div class="col-md-8 col-md-offset-2 col-sm-12">
+                <div class="">
+                  <div class="" *ngFor="let multi of annotations| slice:0:1; let i=index">
+                    <div class="col-lg-6">
+                      <p class="text-primary text-right"><strong>Comentarios Abiertos:</strong> {{multi.abiertos}}</p>
+                    </div>
+                    <div class="col-lg-6">
+                      <p class="text-primary"><strong>Comentarios Cerrados:</strong> {{multi.cerrados}}</p>
+                    </div>
+                  </div>
+                </div>
+            </div>
+        </div>
+
         <div class="float-right">
           <button type="button" (click)="goBack()" class="btn btn-info">Volver</button>
         </div>
+
       </div>
     </div>
     <!-- /.row -->
@@ -68,3 +131,50 @@
   <!-- /.content -->
 </div>
 <!-- /.content-wrapper -->
+
+
+<!-- The Modal -->
+<div class="modal" id="myModal" #modalComentario>
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h4 class="modal-title">{{heading}}</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form name="myForm" id="myForm" #myForm="ngForm"  ng-controller="ComentariosVersionVideoComponent">
+          <div>
+            <label class="radio-inline"><input [(ngModel)]="comentarioResuelto" value="RESUELTO" type="radio"
+                                               name="comentarioResuelto" checked>Resuelto</label>
+            <label class="radio-inline"><input [(ngModel)]="comentarioResuelto" value="SIN_RESOLVER" type="radio"
+                                               name="comentarioResuelto">Sin Resolver</label>
+          </div>
+        </form>
+        <br>
+        <ckeditor [editor]="Editor" (ready)="onReadyComentario($event)" (change)="onChangeComentario($event)"></ckeditor>
+      </div>
+      <div class="modal-footer text-center">
+        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="cerrarCommentario()">Cerrar
+          Comentario
+        </button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <script>
+    $( document ).ready(function() {
+
+        setTimeout(
+          $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+          }), 2000);
+
+        $(function () {
+          $('[data-toggle="tooltip"]').tooltip()
+        })
+
+    });
+  </script>
