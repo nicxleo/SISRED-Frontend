@@ -52,7 +52,7 @@
 
   <div #pdfContainer class="container-pdf__right-side" (mousemove)="mouseEvent($event)" (mousedown)="mouseEvent($event)"
     (mouseup)="mouseEvent($event)">
-    <pdf-viewer *ngIf="loadData" src="http://localhost:4200/assets/Java2.pdf" [stick-to-page]="false"
+    <pdf-viewer *ngIf="loadData" [src]="rutaArchivo" [stick-to-page]="false"
       [render-text]="true" (page-rendered)="pageRendered($event)" style="display: block;">
     </pdf-viewer>
   </div>
