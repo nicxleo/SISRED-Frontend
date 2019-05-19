@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'https://sisred-e4-back-pruebas.herokuapp.com/api/'
+  apiUrl: 'https://sisred-e4-backend-produccion.herokuapp.com/api/'
 };
 
 /*
