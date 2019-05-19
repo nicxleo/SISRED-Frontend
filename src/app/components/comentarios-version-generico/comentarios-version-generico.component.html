@@ -1,0 +1,64 @@
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1>
+        Agregar Comentarios a Archivo Generico
+      </h1>
+      <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="active">Agregar Comentarios a Archivo Generico</li>
+      </ol>
+    </section>
+    <!-- Main content -->
+    <section class="content">
+      <div class="row">
+        <div class="col-md-12">
+          <!-- Video -->
+          <div id="video_wrap">
+              <form role="form" [formGroup]="addCommentsForm">
+                  <div class="box">
+                      <div class="box-header with-border">
+                        <h2 class="box-title">Ingrese el comentario</h2>
+                      </div>                      
+                      <div class="box-body text-center">
+                        <ckeditor [editor]="Editor" data="Ingresa tu comentario!" formControlName="contenido"></ckeditor>
+                        <br>
+                        <button type="submit" class="btn btn-info" (click)="agregarComentario()">Agregar</button>
+                      </div>
+                  </div>              
+                </form>
+            <!-- Lista comentarios -->
+            <div class="bootstrap snippets">
+                <div class="comment-wrapper">
+                  <div class="panel panel-info">
+                    <div class="panel-heading">
+                      Listado de Comentarios
+                    </div>
+                    <div class="panel-body">
+                      <ul class="media-list">
+                        <li class="media" *ngFor="let comentario of comentarios">
+                          <a class="pull-left">
+                            <img src="http://dehradunfinder.in/en/images/reviewer-image.png" alt="" class="img-circle">
+                          </a>
+                          <div class="media-body">
+                            <span class="text-muted pull-right">
+                              <small class="text-muted">{{comentario.fecha}}</small>
+                            </span>
+                            <strong class="text-success">{{comentario.usuario}}</strong>
+                            <p [innerHTML]="comentario.contenido">{{comentario.contenido}}</p>
+                          </div>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              
+            </div>
+          </div>
+          <div class="float-right">
+            <button type="button" (click)="goBack()" class="btn btn-info">Volver</button>
+          </div>
+        </div>
+      </div>
+    </section>
+</div>

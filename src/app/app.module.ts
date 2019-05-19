@@ -41,6 +41,7 @@ import { HabilitarUsuarioComponent } from './components/HabilitarUsuario/Habilit
 import { HabilitarUsuarioClientService } from './services/HabilitarUsuario/habilita-usuario-client.service';
 import { VersionRedRevisionComponent } from './components/version-red-revision/version-red-revision.component';
 import { RedsAsignadosRevisionComponent } from './components/reds-asignados-revision/reds-asignados-revision.component';
+import { ComentariosVersionGenericoComponent } from './components/comentarios-version-generico/comentarios-version-generico.component';
 
 
 @NgModule({
@@ -73,8 +74,9 @@ import { RedsAsignadosRevisionComponent } from './components/reds-asignados-revi
     HabilitarUsuarioComponent,        
     HabilitarUsuarioComponent,
     TabPanesComponent,
-    BuscarRecursoComponent,
     RedsAsignadosRevisionComponent
+    BuscarRecursoComponent,
+    ComentariosVersionGenericoComponent
   ],
   imports: [
     AppRoutingModule,
