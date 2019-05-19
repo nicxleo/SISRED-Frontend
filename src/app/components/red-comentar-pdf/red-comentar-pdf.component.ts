@@ -56,7 +56,9 @@ getComentarios() {
     this.comentarRestClientService
       .postComentariosByIdRed($event, Number(this.idRed))
       .subscribe(response => {
+        debugger;
         localStorage.setItem("idComentario", response.id);
+        localStorage.setItem("coordenadas", response.comentarioMultimedia.id);
         console.log(response);
       });
   }

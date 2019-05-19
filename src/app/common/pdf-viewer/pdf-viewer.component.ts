@@ -79,6 +79,7 @@ export class PdfViewerComponent implements OnInit {
           });
         }
         console.log(this.areaInfo);
+        debugger;
         x++;
         this.rutaArchivo = this.comentariosPdf[0].rutaArchivo;
         this.loadData = true;
@@ -262,10 +263,16 @@ export class PdfViewerComponent implements OnInit {
     });
     debugger;
     let idComentario = localStorage.getItem("idComentario");
+    let coord = new ComentarioMultimedia();
+    coord.id = localStorage.getItem("coordenadas");
+    coord.x1 = areaInfo.rect.x1;
+    coord.y1 = areaInfo.rect.y1;
+    coord.x2 = areaInfo.rect.x2;
+    coord.y2 = areaInfo.rect.y2;
     this.comentariosPdf.push({
       id: idComentario,
       contenido: this.comment,
-      coordenadas: null,
+      coordenadas: coord,
       fechaCreacion: areaInfo.fechaCreacion,
       version: "",
       idUsuario: "",
@@ -278,7 +285,7 @@ export class PdfViewerComponent implements OnInit {
       resuelto: false,
       UsuarioComentario: ""
     });
-    debugger;
+
     this.calcularTotales();
     // logica para agregar comentario
   }
