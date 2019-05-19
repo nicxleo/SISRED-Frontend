@@ -5,7 +5,7 @@ import { map } from 'rxjs/operators';
 import { UrlConstant } from 'src/app/constants/url-constant';
 import { environment } from 'src/environments/environment';
 import { HttpHeaders } from '@angular/common/http';
-import { AutenticacionService } from '../autenticacion/autenticacion.service';
+import { AutenticacionService } from '../../autenticacion/autenticacion.service';
 
 @Injectable({
   providedIn: 'root'

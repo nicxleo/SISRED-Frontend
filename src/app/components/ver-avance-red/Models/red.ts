@@ -5,5 +5,5 @@ export class RED {
     nombre: string;
     proyecto: string;
     uhmodificacion: string;
-    fase: Fase;
+    fases: Fase;
 }

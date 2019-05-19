@@ -1,6 +1,6 @@
 export class Fase {
-    name: string;
-    fechaInicio: Date;
-    fechaFin: Date;
+    fase: string;
+    fechaInicio: string;
+    fechaFinal: string;
     comentario: string;
 }

@@ -7,58 +7,61 @@
     </h1>
     <ol class="breadcrumb">
       <li><a href="#"><i class="fa fa-dashboard"></i>Home</a></li>
-      <li><a href="#">Avance de un proyecto Conecta-Té</a></li>
+      <li><a href="#">Avance proyecto Conecta-Té</a></li>
       <li class="active">Avance del RED</li>
     </ol>
   </section>
 
   <!-- Main content -->
   <section class="content">
+
     <div class="row">
-      <div class="box box-primary">
-        <div class="box-header with-border">  
-            <a class="box-title" href="#">{{ red?.nombre }}</a>
-          <div class="box-tools pull-right">
-            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-            </button>
+      <div class="col-md-12">
+        <div class="box box-primary">
+          <div class="box-header with-border">  
+              <a class="box-title" href="#">{{ red?.nombre }}</a>
+            <div class="box-tools pull-right">
+              <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+              </button>
+            </div>
           </div>
-        </div>
-        <!-- /.box-header -->
-        <div class="box-body">
-          <div class="row invoice-info">
-            <div class="col-md-6">
-              Id del RED: {{ red?.id }}
+          <!-- /.box-header -->
+          <div class="box-body">
+            <div class="row invoice-info">
+              <div class="col-md-6">
+                <strong>Id del RED:</strong>&nbsp; {{ red?.id }}
+              </div>
+              <!-- /.col -->
+              <div class="col-md-6">
+              <strong>Proyecto:</strong>&nbsp; {{ red?.proyecto }}
+              </div>
+              <!-- /.col -->
             </div>
-            <!-- /.col -->
-            <div class="col-md-6">
-              Proyecto: {{ red?.proyecto }}
+            <!-- /.row invoice-info -->
+            <div class="row">
+              <div class="col-md-6">
+              <strong>Nombre del RED:</strong>&nbsp; {{ red?.nombre }}
+              </div>
+              <!-- /.col -->
+              <div class="col-md-6">
+              <strong>U.H. Modificación:</strong>&nbsp; {{ red?.uhmodificacion }}
+              </div>
+              <!-- /.col -->
             </div>
-            <!-- /.col -->
+            <!-- /.row-->              
           </div>
-          <!-- /.row invoice-info -->
-          <div class="row">
-            <div class="col-md-6">
-              Nombre del RED: {{ red?.name }}
-            </div>
-            <!-- /.col -->
-            <div class="col-md-6">
-              U.H. Modificación: {{ red?.uhmodificacion }}
-            </div>
-            <!-- /.col -->
+          <!-- ./box-body -->
+          <div class="box-footer">            
           </div>
-          <!-- /.row-->              
+          <!-- /.box-footer -->
         </div>
-        <!-- ./box-body -->
-        <div class="box-footer">            
-        </div>
-        <!-- /.box-footer -->
       </div>
     </div>
     <!-- /.row -->
 
     <div class="row">
       <div class="col-xs-12">
-        <div class="box">
+        <div class="box box-info">
           <div class="box-header">
             <h3 class="box-title">Historico de fases</h3>
           </div>
@@ -72,8 +75,8 @@
                 <th>Comentario</th>
               </tr>
               <tr *ngFor="let fase of fases">
-                <td>{{ fase.nombre }}</td>
-                <td>{{ fase.fechaInicial }}</td>
+                <td>{{ fase.fase }}</td>
+                <td>{{ fase.fechaInicio }}</td>
                 <td>{{ fase.fechaFinal }}</td>
                 <td>{{ fase.comentario }}</td>
               </tr>
@@ -88,7 +91,7 @@
 
     <div class="row">
         <div class="col-xs-12">
-          <div class="box">
+          <div class="box box-success">
             <div class="box-header">
               <h3 class="box-title">Historico de asignados</h3>
             </div>
@@ -98,10 +101,6 @@
                 <tr>
                   <th>Nombre</th>
                   <th>Rol</th>
-                </tr>
-                <tr *ngFor="let asignado of asignados">
-                  <td>{{ asignado.nombre }}</td>
-                  <td>{{ asignado.rol }}</td>
                 </tr>
               </table>
             </div>
