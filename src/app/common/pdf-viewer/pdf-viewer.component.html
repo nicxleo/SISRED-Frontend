@@ -36,7 +36,7 @@
 
           <div class="col-sm-8 left bottom">
             <button *ngIf="comentariosPdf[i].cerrado==true" type="button" class="btn btn-primary btn-sm btn-block "
-              [className]="comentariosPdf[i].Resuelto ? 'Resuelto' : 'SinResolver'">{{comentariosPdf[i].resuelto ? "Cerrado resuelto" : "Cerrado sin resolver" }}</button>
+              [className]="comentariosPdf[i].resuelto==true ? 'Resuelto' : 'SinResolver'">{{comentariosPdf[i].resuelto ? "Cerrado resuelto" : "Cerrado sin resolver" }}</button>
           </div>
           <div class="col-sm-4 right bottom">
           </div>
@@ -81,13 +81,13 @@
         </div>
         <div class="modal-body">
           <ckeditor [editor]="Editor" (change)="onComentarioChange($event)"></ckeditor>
-          <input type="radio" id="Radresuelto" [(ngModel)]="myRadio" name="cerrar" value="resuelto"> resuelto
+          <input type="radio" id="Radresuelto" checked [(ngModel)]="myRadio" name="cerrar" value="resuelto"> resuelto
           <input type="radio" id="RadSinResolver" [(ngModel)]="myRadio" name="cerrar" value="noResuelto"> sin
           resolver<br>
         </div>
         <div class="modal-footer">
           <button type="button" (click)="CerrarComentario()" class="btn btn-primary" data-dismiss="modal"
-            data-toggle="modal" data-target="#myModalPass">Aceptar</button>
+            data-toggle="modal" [disabled]="!this.comentario" data-target="#myModalPass">Aceptar</button>
           <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
         </div>
       </div>
@@ -100,10 +100,10 @@
   <!-- Modal -->
   <div class="modal fade" id="myModalPass" role="dialog">
     <div class="modal-dialog">
-
       <!-- Modal content-->
       <div class="modal-content">
         <div class="modal-header color-back">
+          <h4>Cerrar comentario</h4>
           <button type="button" class="close" data-dismiss="modal">&times;</button>
         </div>
         <div class="modal-body">

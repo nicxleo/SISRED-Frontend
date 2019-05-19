@@ -75,9 +75,11 @@ getComentarios() {
       .ComentarioPDF_put(Obj.seleccionado)
       .subscribe(
         response => {
+          debugger;
           this.Mensaje = "operación realizada con exito.";
         },
         error => {
+          debugger;
           console.log(error);
           this.Mensaje =
             "operación no pudo completarse con exito. favor comunicarse con el administrador";
@@ -87,15 +89,16 @@ getComentarios() {
       .ComentarioPDF_post(Obj.seleccionado, Obj.comentario)
       .subscribe(
         response => {
+          debugger;
           this.Mensaje = "operación realizada con exito.";
         },
         error => {
+          debugger;
           console.log(error);
           this.Mensaje =
             "operación no pudo completarse con exito. favor comunicarse con el administrador";
         }
       );
-    this.getComentarios();
   }
 
 }

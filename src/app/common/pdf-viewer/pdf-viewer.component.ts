@@ -57,12 +57,8 @@ export class PdfViewerComponent implements OnInit {
     this.loadData = false;
     var x = 1;
     setTimeout(() => {
-      this.CantidadAbiertos = this.comentariosPdf.filter(
-        x => x.cerrado === false
-      ).length;
-      this.CantidadCerrados = this.comentariosPdf.filter(
-        x => x.cerrado === true
-      ).length;
+      debugger;
+      this.calcularTotales();
       this.comentariosPdf.forEach(data => {
         if (data.coordenadas.x1 != 0) {
           this.areaInfo.push({
@@ -282,7 +278,8 @@ export class PdfViewerComponent implements OnInit {
       resuelto: false,
       UsuarioComentario: ""
     });
-
+    debugger;
+    this.calcularTotales();
     // logica para agregar comentario
   }
 
@@ -346,8 +343,17 @@ export class PdfViewerComponent implements OnInit {
   onComentarioChange(comentario) {
     this.comentario = comentario.editor.getData();
   }
-
+   calcularTotales(){
+    debugger;
+    this.CantidadAbiertos = this.comentariosPdf.filter(
+        x => x.cerrado === false && x.coordenadas.id != 0
+      ).length;
+      this.CantidadCerrados = this.comentariosPdf.filter(
+        x => x.cerrado === true && x.coordenadas.id != 0
+      ).length;
+   }
   CerrarComentario() {
+    debugger;
     this.coomentCierre = this.seleccionado;
     this.seleccionado.cerrado = true;
     if (this.myRadio == "resuelto") {
@@ -368,6 +374,7 @@ export class PdfViewerComponent implements OnInit {
     });
     this.addCommentCierre(this.indiceCerrarComentario, this.comentario);
     this.MensajeModal = "Operacion realizada con exito";
+    this.calcularTotales();
   }
 
   public getItemComentario(i: number) {
