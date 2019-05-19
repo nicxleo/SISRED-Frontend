@@ -16,12 +16,17 @@ declare function setup(): any;
 })
 export class HabilitarUsuarioComponent implements OnInit {
   public showInputText = false;
+  public UsuarioHabilitado = false;
+  public UsuarioEncontrado = false;
   public HabilitarForm: FormGroup;
   public  usermodel: UserHabilitarModel;
 
   constructor(
     private habilitarUsuarioClientService: HabilitarUsuarioClientService
   ) {
+      this.UsuarioHabilitado=false;
+      this.UsuarioEncontrado=true;
+      this.showInputText=false;
   }
 public  User_Habilitar(): void {
     this.showInputText = false;
@@ -36,20 +41,31 @@ public  User_Habilitar(): void {
       );
 }
   public User_Buscar(): void {
-
+  this.UsuarioHabilitado=false;
+  this.UsuarioEncontrado=true;
+  this.showInputText=false;
     const UsuarioId = this.HabilitarForm.get('usuario').value;
     this.habilitarUsuarioClientService.User_Buscar(UsuarioId).subscribe(response => {
         this.usermodel=response[0];
+        this.UsuarioEncontrado=true;
         if ( this.usermodel.estado=="1" ){
-          this.showInputText = true;
+          if (this.usermodel.estado_sisred!="1") {
+            this.showInputText = true;
+            this.UsuarioHabilitado=false;
+          }
+          else {
+            this.showInputText = false;
+            this.UsuarioHabilitado=true;
+          }
         }
-        else
-          this.showInputText = false  ;
+        else {
+          this.showInputText = false;
+        }
 
       },
         error => {
       console.log(error);
-      alert('Usuario no encontrado');
+      this.UsuarioEncontrado=false;
       this.showInputText =false;
       this.usermodel={ "username": "",
                         "email": "",
