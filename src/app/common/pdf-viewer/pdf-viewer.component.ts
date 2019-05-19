@@ -41,7 +41,7 @@ export class PdfViewerComponent implements OnInit {
   public Editor = ClassicEditor;
   public textComentarioHijo: string;
   public seleccionado: ComentarioPdfModel;
-  public  coomentCierre: ComentarioPdfModel;
+  public coomentCierre: ComentarioPdfModel;
   myRadio: string;
   public MensajeModal: string;
   public loadData = false;
@@ -57,24 +57,24 @@ export class PdfViewerComponent implements OnInit {
     var x = 1;
     setTimeout(() => {
       this.comentariosPdf.forEach(data => {
-        console.log(data);
-        debugger;
-        this.areaInfo.push({
-          rectangleId: "rectangle-" + x,
-          pageNumber: x,
-          rect: {
-            x1: Number(data.coordenadas.x1),
-            y1: Number(data.coordenadas.y1),
-            x2: Number(data.coordenadas.x2),
-            y2: Number(data.coordenadas.y2),
-            width: Number(data.width),
-            height: Number(data.height)
-          },
-          comment: data.contenido,
-          commentsChildren: data.comentariosHijos,
-          isDelete: false,
-          text: ""
-        });
+        if (data.coordenadas.x1 != 0) {
+          this.areaInfo.push({
+            rectangleId: "rectangle-" + x,
+            pageNumber: x,
+            rect: {
+              x1: Number(data.coordenadas.x1),
+              y1: Number(data.coordenadas.y1),
+              x2: Number(data.coordenadas.x2),
+              y2: Number(data.coordenadas.y2),
+              width: Number(data.width),
+              height: Number(data.height)
+            },
+            comment: data.contenido,
+            commentsChildren: data.comentariosHijos,
+            isDelete: false,
+            text: ""
+          });
+        }
         console.log(this.areaInfo);
         x++;
         this.rutaArchivo = this.comentariosPdf[0].rutaArchivo;
@@ -249,23 +249,22 @@ export class PdfViewerComponent implements OnInit {
       UsuarioComentario: "",
       fechaCreacion: new Date()
     };
-    this.comentariosPdf.push(
-      {
-          id: "",
-          contenido: this.comment,
-          coordenadas: null,
-          fechaCreacion: areaInfo.fechaCreacion,
-          version: "",
-          idUsuario: "",
-          width: "",
-          height: "",
-          rutaArchivo: "",
-          comentariosHijos: null,
-          esCierre: false,
-          cerrado: false,
-          resuelto: false,
-          UsuarioComentario: ""
-      });
+    this.comentariosPdf.push({
+      id: "",
+      contenido: this.comment,
+      coordenadas: null,
+      fechaCreacion: areaInfo.fechaCreacion,
+      version: "",
+      idUsuario: "",
+      width: "",
+      height: "",
+      rutaArchivo: "",
+      comentariosHijos: null,
+      esCierre: false,
+      cerrado: false,
+      resuelto: false,
+      UsuarioComentario: ""
+    });
 
     this.areaInfo.push(areaInfo);
     this.showPopup = false;
@@ -291,7 +290,7 @@ export class PdfViewerComponent implements OnInit {
       version: "",
       idUsuario: "1",
       esCierre: false,
-      UsuarioComentario:""
+      UsuarioComentario: ""
     });
     this.areaInfo[posicionPadre].text = "";
   }
@@ -341,23 +340,22 @@ export class PdfViewerComponent implements OnInit {
 
   CerrarComentario() {
     this.coomentCierre = this.seleccionado;
-    this.seleccionado.cerrado=true;
+    this.seleccionado.cerrado = true;
     if (this.myRadio == "resuelto") {
       this.coomentCierre.resuelto = true;
     }
-    this.coomentCierre.cerrado=true;
+    this.coomentCierre.cerrado = true;
     this.CerrarComentario_Aceptar.emit({
       seleccionado: this.coomentCierre,
       comentario: this.comentario
     });
-    this.addCommentCierre(this.indiceCerrarComentario,this.comentario)
+    this.addCommentCierre(this.indiceCerrarComentario, this.comentario);
     this.MensajeModal = "Operacion realizada con exito";
   }
 
-   public GetItemComentario(i: number) {
+  public GetItemComentario(i: number) {
     this.indiceCerrarComentario = i;
     return this.comentariosPdf[i];
-
   }
 
   addCommentCierre(posicionPadre: number, Comment) {
@@ -369,9 +367,8 @@ export class PdfViewerComponent implements OnInit {
       version: "",
       idUsuario: "1",
       esCierre: false,
-      UsuarioComentario:"User actual"
+      UsuarioComentario: "User actual"
     });
-
   }
 }
 

@@ -7,6 +7,7 @@ import { environment } from "src/environments/environment";
 import { AutenticacionService } from "../../autenticacion/autenticacion.service";
 import { ComentarioHijoPdfModel } from "../../comentario/comentario-pdf-hijo.model";
 import { ComentarioPdfModel } from "../../comentario/comentario-pdf.model";
+import { PdfSinComentario } from "../../comentario/sin-comentario-pdf.model";
 
 @Injectable()
 export class ComentarRestClientService {
@@ -26,24 +27,52 @@ export class ComentarRestClientService {
     let datas;
     let comentariosPdf: ComentarioPdfModel[] = [];
     this.httpClient.get(this.API_URL + idRed).subscribe((response: any) => {
-      response.forEach(data => {
-        comentariosPdf.push({
-          id: data.id,
-          contenido: data.contenido,
-          coordenadas: data.comentarioMultimedia,
-          fechaCreacion: data.fecha_creacion,
-          version: data.version,
-          idUsuario: data.usuario,
-          width: data.Width,
-          height: data.Height,
-          rutaArchivo: data.VersionArchivo,
-          comentariosHijos: this.getComentariosHijos(data.comentariosHijos),
-          esCierre: data.esCierre,
-          cerrado: data.cerrado,
-          resuelto: data.resuelto,
-          UsuarioComentario: data.UsuarioComentario
+      console.log(response);
+      if (Array.isArray(response)) {
+        response.forEach(data => {
+          comentariosPdf.push({
+            id: data.id,
+            contenido: data.contenido,
+            coordenadas: data.comentarioMultimedia,
+            fechaCreacion: data.fecha_creacion,
+            version: data.version,
+            idUsuario: data.usuario,
+            width: data.Width,
+            height: data.Height,
+            rutaArchivo: data.VersionArchivo,
+            comentariosHijos: this.getComentariosHijos(data.comentariosHijos),
+            esCierre: data.esCierre,
+            cerrado: data.cerrado,
+            resuelto: data.resuelto,
+            UsuarioComentario: data.UsuarioComentario
+          });
         });
-      });
+      } else {
+        let comentario: PdfSinComentario;
+        comentario = response;
+        comentariosPdf.push({
+          id: comentario.id,
+          contenido: "",
+          coordenadas: {
+            x1: 0,
+            x2: 0,
+            y1: 0,
+            y2: 0,
+            id: 0
+          },
+          fechaCreacion: comentario.fecha_creacion,
+          version: "",
+          idUsuario: "",
+          width: "",
+          height: "",
+          rutaArchivo: "",
+          comentariosHijos: null,
+          cerrado: false,
+          resuelto: false,
+          esCierre: false,
+          UsuarioComentario: comentario.creado_por
+        });
+      }
     });
     return of(comentariosPdf);
   }
