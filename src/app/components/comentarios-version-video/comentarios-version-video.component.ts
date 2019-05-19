@@ -37,6 +37,8 @@ export class ComentariosVersionVideoComponent implements OnInit, AfterViewInit {
   idComentarioCerrar: number;
   contenidoComentarioCerrar: string;
   comentarioResuelto: string;
+  roles: any[];
+  esProductor: boolean = false;
 
   @ViewChild('modalComentario') modal: ElementRef;
   @ViewChild('myForm') private formDirective: NgForm;
@@ -54,7 +56,18 @@ export class ComentariosVersionVideoComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     console.log('ngOnInit Comentarios');
     setup();
+    this.consultarRoles();
     this.getUrlRecursoVideo();
+  }
+
+  consultarRoles() {
+    this.commentsVersionVideoService.getRolAsignadoRedPorRecurso(this.idRecurso).subscribe(
+      esProductor => (this.esProductor = esProductor)
+    );
+  }
+
+  procesarRoles(roles) {
+    this.roles = roles;
   }
 
   ngAfterViewInit() {

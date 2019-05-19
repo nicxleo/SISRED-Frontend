@@ -16,6 +16,9 @@ export class CommentsVersionVideoService {
 
   annotations: any[];
   recursoVideo: any[];
+  roles: any[];
+  esProductor: boolean;
+
   constructor(private httpClient: HttpClient, private autenticacionService: AutenticacionService) {
 
   }
@@ -84,4 +87,26 @@ export class CommentsVersionVideoService {
     });
   }
 
+  getRolAsignadoRedPorRecurso(idRecurso: number): Observable<boolean> {
+      this.roles = [];
+      const datosUsuario = this.autenticacionService.obtenerDatosUsuario();
+      this.httpClient
+        .get(environment.apiUrl + 'getRolAsignadoREDPorRecurso/' + idRecurso + '/' + datosUsuario.idConectate)
+        .subscribe(
+          (data: any) => {
+            for (const dataItem of data) {
+              this.roles.push(dataItem);
+              this.esProductor = dataItem["rol"]["nombre"]==="Productor";
+              if (this.esProductor) {
+                break;
+              }
+
+            }
+          },
+          err => {
+            console.log(err);
+          }
+        );
+      return of(this.esProductor);
+  }
 }
