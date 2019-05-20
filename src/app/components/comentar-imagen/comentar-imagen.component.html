@@ -38,7 +38,7 @@
                 <div *ngFor="let coment of comentarios.reverse()" (click)="seleccionarComentario(coment)" class="box comentario" [class.selected]="coment===seleccionado">
                   <div class="box-header with-border row">
                     <div class="col-sm-6 info text-bold">{{coment.usuario}}</div>
-                    <div class="col-sm-6 info right">{{coment.fechaCreacion}}</div>
+                    <div class="col-sm-6 info right">{{coment.fechaCreacion.substring(0,10) + ' ' + coment.fechaCreacion.substring(11,16)}}</div>
                   </div>
                   <div class="box-body" [innerHTML]="coment.contenido"></div>
                 </div>
