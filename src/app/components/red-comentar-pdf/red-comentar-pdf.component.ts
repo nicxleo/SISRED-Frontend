@@ -83,7 +83,7 @@ getComentarios() {
   //Autor: Cristian Sepulveda
   //Fecha: 2019-05-15
   //Descripcion: Cerrar comentarios.
-  CerrarComentario_Aceptar(Obj: any, comentario: string) {
+  CerrarComentario_Aceptar(Obj: any) {
     Obj.seleccionado.cerrado = true;
     this.comentarRestClientService
       .ComentarioPDF_put(Obj.seleccionado)
