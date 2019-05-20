@@ -52,12 +52,13 @@ export class PdfViewerComponent implements OnInit {
   areaInfo: AreaInfo[] = [];
 
   @ViewChild("pdfContainer") private pdfContainer: ElementRef;
-
+//Autor: Cristian Sepulveda
+  //Fecha: 2019-05-15
+  //Init del componente.
   ngOnInit() {
     this.loadData = false;
     var x = 1;
     setTimeout(() => {
-      debugger;
       this.calcularTotales();
       this.comentariosPdf.forEach(data => {
         if (data.coordenadas.x1 != 0) {
@@ -78,8 +79,6 @@ export class PdfViewerComponent implements OnInit {
             text: ""
           });
         }
-        console.log(this.areaInfo);
-        debugger;
         x++;
         this.rutaArchivo = this.comentariosPdf[0].rutaArchivo;
         this.loadData = true;
@@ -106,6 +105,9 @@ export class PdfViewerComponent implements OnInit {
 
   constructor() {}
 
+  //Autor: Cristian Sepulveda
+  //Fecha: 2019-05-15
+  //Descripcion: Evento del Mouse para dibujar el área de entrada de texto
   mouseEvent(event) {
     if (!this.showPopup) {
       if (event.type === "mousemove") {
@@ -189,9 +191,10 @@ export class PdfViewerComponent implements OnInit {
     }
   }
 
+  //Autor: Cristian Sepulveda
+  //Fecha: 2019-05-15
+  //Descripcion: Render de la pagina.
   pageRendereds(e) {
-    console.log("(page-rendered)", e.source.div);
-    console.log(e.composedPath[0].page);
   }
   // added new div when pages rendered
   indexOfPage: number = 1;
@@ -237,7 +240,9 @@ export class PdfViewerComponent implements OnInit {
       return "none";
     }
   }
-
+//Autor: Cristian Sepulveda
+  //Fecha: 2019-05-15
+  //Descripcion: Guardar comentario padre. una vez se presione el boton agregar.
   save() {
     let areaInfo = {
       rectangleId: this.element.id,
@@ -261,7 +266,6 @@ export class PdfViewerComponent implements OnInit {
       coordenadas: areaInfo.rect,
       comentario: areaInfo.comment
     });
-    debugger;
     let idComentario = localStorage.getItem("idComentario");
     let coord = new ComentarioMultimedia();
     coord.id = Number(localStorage.getItem("coordenadas"));
@@ -290,6 +294,9 @@ export class PdfViewerComponent implements OnInit {
     // logica para agregar comentario
   }
 
+  //Autor: Cristian Sepulveda
+  //Fecha: 2019-05-15
+  //Descripcion: Agregar un comentario hijo.
   addComment(posicionPadre: number) {
     this.comentarioHijo.emit({
       idComentarioPadre: this.comentariosPdf[posicionPadre].coordenadas.id,
@@ -308,6 +315,9 @@ export class PdfViewerComponent implements OnInit {
     this.areaInfo[posicionPadre].text = "";
   }
 
+  //Autor: Cristian Sepulveda
+  //Fecha: 2019-05-15
+  //Descripcion: Evento del cancelar sobre el rectangulo que permite agregar comentarios padres
   cancel(event) {
     let rectId = this.element.getAttribute("id");
     $("#" + rectId).remove();
@@ -317,14 +327,16 @@ export class PdfViewerComponent implements OnInit {
 
   listRectangleId: string = "";
 
+  //Autor: Francisco Perneth
+  //Fecha: 2019-05-15
+  //Descripcion: Evento Click sobre elemento de la lista, permite almacenar el comentario seleccionado
   public seleccionarComentarioCerrado(i: number) {
     this.indiceCerrarComentario = i;
     this.seleccionado = this.comentariosPdf[i];
-    console.log("i");
-    console.log(i);
-    console.log("i");
   }
-
+//Autor: Cristian Sepulveda
+  //Fecha: 2019-05-15
+  //Descripcion: Permite ubicar un comentario dentro del pdf. este evento se lanza en el boton ver comentario.
   moveTo(list: AreaInfo) {
     if (this.listRectangleId != "") {
       if (document.getElementById(this.listRectangleId)) {
@@ -351,7 +363,6 @@ export class PdfViewerComponent implements OnInit {
     this.comentario = comentario.editor.getData();
   }
    calcularTotales(){
-    debugger;
     this.CantidadAbiertos = this.comentariosPdf.filter(
         x => x.cerrado === false && x.coordenadas.id != 0
       ).length;
@@ -360,7 +371,6 @@ export class PdfViewerComponent implements OnInit {
       ).length;
    }
   CerrarComentario() {
-    debugger;
     this.coomentCierre = this.seleccionado;
     this.seleccionado.cerrado = true;
     if (this.myRadio == "resuelto") {
@@ -373,8 +383,9 @@ export class PdfViewerComponent implements OnInit {
     this.coomentCierre.coordenadas = this.comentariosPdf[
       this.indiceCerrarComentario
     ].coordenadas;
-    console.log(this.coomentCierre);
-    console.log("coomentario cierre");
+    this.comentariosPdf[
+      this.indiceCerrarComentario
+    ].cerrado=true;
     this.CerrarComentario_Aceptar.emit({
       seleccionado: this.coomentCierre,
       comentario: this.comentario
@@ -385,7 +396,6 @@ export class PdfViewerComponent implements OnInit {
   }
 
   public getItemComentario(i: number) {
-    console.log(this.comentariosPdf[i]);
     return this.comentariosPdf[i];
   }
 

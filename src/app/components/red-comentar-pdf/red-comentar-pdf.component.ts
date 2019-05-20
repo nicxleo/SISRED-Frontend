@@ -39,6 +39,9 @@ export class RedComentarPdfComponent implements OnInit {
     this.Mensaje = "";
     this.getComentarios();
   }
+  //Autor: Cristian Sepulveda
+  //Fecha: 2019-05-15
+  //Descripcion: Obtener comentarios. consumo de servicios que devuelven lista de comentarios.
 getComentarios() {
     this.route.paramMap.subscribe(params => {
       this.idRed = params.get("id");
@@ -50,6 +53,10 @@ getComentarios() {
         });
     });
   }
+
+  //Autor: Cristian Sepulveda
+  //Fecha: 2019-05-15
+  //Descripcion: Guardar un comentario padre.
   guardarComentarioPadre($event): void {
     console.log("Comentario padre");
 
@@ -62,7 +69,9 @@ getComentarios() {
         console.log(response);
       });
   }
-
+//Autor: Cristian Sepulveda
+  //Fecha: 2019-05-15
+  //Descripcion: Guardar un comentario HIjo.
   guardarComentarioHijo($event): void {
     this.comentarRestClientService
       .postComentarioHijoByIdRed($event, this.idRed)
@@ -71,6 +80,9 @@ getComentarios() {
       });
   }
 
+  //Autor: Cristian Sepulveda
+  //Fecha: 2019-05-15
+  //Descripcion: Cerrar comentarios.
   CerrarComentario_Aceptar(Obj: any, comentario: string) {
     Obj.seleccionado.cerrado = true;
     this.comentarRestClientService
