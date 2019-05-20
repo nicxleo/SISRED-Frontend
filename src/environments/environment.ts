@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'https://equipo3sprint3-backend.herokuapp.com/api/'
+  apiUrl: 'https://equipo2sprint3-backend.herokuapp.com/api/'
 };
 
 /*
